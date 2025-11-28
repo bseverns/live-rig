@@ -77,6 +77,6 @@ flowchart TB
 ## Notes
 
 - [ ] Add specific connector types (TRS, TS, RCA, etc.) to each edge label.
-- [ ] Decide which mixer channels get which instruments for a “standard live show” layout.
-- [ ] Mark any gear that stays home for a minimal rig.
-- [ ] Clarify if Horizon always comes *after* the Mac, or only before the interface.
+- [ ] Follow mixer tape marks for live input sorts.
+- [ ] Mark any gear that stays home for a minimal rig with a *+*.
+- [ ] Horizon always comes *after* the final mix before the interface.
