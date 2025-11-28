@@ -27,7 +27,7 @@
 - [x] E2S
 - [x] SQ-64
 - [x] Volca Modular
-- [x] AE Rack (Beginner 16 + EF + Volca IF + Grunge + breadboard)
+- [x] AE Rack (Beginner 16 + EF + Volca IF + Grunge + breadboard) – MIDI on Ch 16
 - [ ] Kastle Drum
 - [ ] Kastle 2
 - [x] Microgranny 2
@@ -50,7 +50,7 @@
 
 - [x] Mac laptop
 - [x] Interface: Focusrite 2i2 (or similar)
-- [x] VIS_CTRL (MIDI controller keyboard / knob box)
+- [x] Edirol PCM-30 (MIDI controller keyboard / knob box)
 - [x] SCApps in use:
   - [x] InputAmp
   - [x] VidMix
@@ -69,7 +69,7 @@
   DrumKid clock → SQ-64 → Volca/AE, E2S as sample/sequencer, Microgranny for texture stabs, small pedalboard, Horizon on main, one SCApps rig (FrameBuffer+Interstream) fed by the full mix.
 
 - **What I’m actually bringing tonight:**  
-  The minimal rig + LineLight, frZone running on the Mac, extra radios and cassette for texture, plus VIS_CTRL as visual macro controller.
+  The minimal rig + LineLight, frZone running on the Mac, extra radios and cassette for texture, plus Edirol PCM-30 as visual macro controller.
 
 ---
 
@@ -90,7 +90,7 @@ DrumKid sends clock → SQ-64 (DIN). Mac visuals are “loosely reactive” via 
   - [ ] Horizon
 
 - **Visual MIDI (for SCApps):**
-  - Source device: VIS_CTRL via USB  
+  - Source device: Edirol PCM-30 via USB  
   - Channel / CCs reserved:
     - Ch 10, CC 21: “Visual glitch macro”
     - Ch 10, CC 22: “Video feedback macro”
@@ -158,8 +158,8 @@ Running two light rigs:
   - frZone Band 0 (low) → FrameBuffer feedback
   - frZone Band 2 (mid) → Maelstrom depth
   - frZone Band 4 (high) → Interstream mosh intensity
-  - VIS_CTRL CC 21 → VidMix crossfade & glitch macro
-  - VIS_CTRL CC 22 → “global feedback macro” (FrameBuffer)
+  - Edirol PCM-30 CC 21 → VidMix crossfade & glitch macro
+  - Edirol PCM-30 CC 22 → “global feedback macro” (FrameBuffer)
 
 ---
 
@@ -189,8 +189,8 @@ Running two light rigs:
   - FrameBuffer + Interstream rig.  
   - High band frZone mapping → glitch blooms on snare / noise.  
 - Notable gestures / cues:  
-  - At mid-point, slam VIS_CTRL macro CC 21 up for “crash bloom” burst, then pull back.  
-  - Use VIS_CTRL CC 22 to thicken trails around the burst.  
+  - At mid-point, slam Edirol PCM-30 macro CC 21 up for “crash bloom” burst, then pull back.  
+  - Use Edirol PCM-30 CC 22 to thicken trails around the burst.  
   - Kill almost everything to a simple Volca line, gradually fade glitches back down.
 
 ---
