@@ -70,3 +70,51 @@ flowchart TB
 - [ ] Decide which devices actually need clock vs. just note/CC.
 - [ ] Define a “visual MIDI” channel for SCApps (SQ64 track, Lo-Fi Sampler events, etc.).
 - [ ] List your virtual MIDI bus names (IAC / loopMIDI / etc.).
+
+
+## MIDI Channel Plan – Basement Noise Night
+
+```mermaid
+flowchart LR
+  %% System realtime is separate from channels
+  DAW["DAW / Host"] -->|"Clock / Start / Stop (realtime)"| DrumKid["DrumKid"]
+
+  %% Sequencer driving instruments
+  subgraph Ch16["Channel 16 – AE Rack"]
+    SQ64["SQ-64 Sequencer"] -->|"notes / gates (Ch 16)"| AERack["AE Rack"]
+  end
+
+  %% Visual mission control
+  subgraph Ch10["Channel 10 – Visual Macros"]
+    Edirol["Edirol PCM-30 (faders/knobs)"] -->|"CC 1–8, 21–28"| SCAppsMIDI["TD/Max bridge → SCApps"]
+  end
+
+  %% Analysis lane
+  subgraph Ch15["Channel 15 – Analysis (frZone)"]
+    frZone["frZone (audio analysis)"] -->|"CC 20,22,23,24"| SCAppsCC["SCApps params"]
+  end
+```
+
+### ASCII Summary (Channels)
+
+```text
+System realtime (no channel):
+  DAW  --->  DrumKid          [MIDI Clock, Start, Stop]
+            (then DrumKid clock fans out to SQ-64 if desired)
+
+Channel 10 – Visual Macros:
+  Edirol PCM-30 faders/knobs  --->  TD/Max bridge  --->  SCApps params
+    CC 1–8   = big moves (xFade, FB feedback, mosh, tunnel, etc.)
+    CC 21–28 = fine shape (fine glitch, fine FB, warp, hue, etc.)
+
+Channel 15 – Analysis (frZone):
+  frZone audio analysis       --->  CC 20,22,23,24  --->  SCApps params
+    CC 20 = FB feedback bias (low band)
+    CC 22 = Maelstrom depth bias (mid band)
+    CC 23 = ReTrace density bias (upper mid band)
+    CC 24 = Interstream mosh bias (high band)
+
+Channel 16 – AE Rack:
+  SQ-64 track (Ch 16)         --->  AE Rack voices (notes/gates)
+```
+
