@@ -1,7 +1,12 @@
+<<<<<<< Updated upstream
 # 07 – Show Plan – 2025-12-15 – Basement Noise Night
+=======
+>>>>>>> Stashed changes
 
-## 1. Logistics
+# Show Plan – 2025‑12‑15 – basement noise
+## Title: *i hope the sky will still take us*
 
+<<<<<<< Updated upstream
 - **Date / Time:** 2025-12-15, doors 19:30, set ~21:00  
 - **Venue:** Friend’s Basement / DIY “noise night”  
 - **Room / Stage notes:** 
@@ -16,218 +21,209 @@
 - **FOH contact:** N/A – self-mix  
 - **Tech contact:** The friend whose house it is  
 - **Promoter / curator:** Same as above
+=======
+Four‑movement live set tying the *SLOW DOWN* wreckage to the new EP and drone/angel cosmology.
+>>>>>>> Stashed changes
 
 ---
 
-## 2. Rig Scope for This Show
+## 1. Concept
 
-### Audio Gear (brought)
+Central tension:
 
-- [x] DrumKid
-- [x] E2S
-- [x] SQ-64
-- [x] Volca Modular
-- [x] AE Rack (Beginner 16 + EF + Volca IF + Grunge + breadboard) – MIDI on Ch 16
-- [ ] Kastle Drum
-- [ ] Kastle 2
-- [x] Microgranny 2
-- [x] GreyBox
-- [ ] Freq FM
-- [x] Zen box
-- [x] Radios (2×)
-- [x] Cassette player
-- [ ] Tascam 4-track
-- [ ] Reel-to-reel
-- [x] Lo-Fi Sampler (Trellis) – audio only, clock in
-- [ ] DiceLoop (staying home – keep rig simple)
-- [x] Horizon
-- [x] LineLight
-- [x] Koma Field Kit FX
-- [x] Pedalboard (TS9, Muff, Flanger, DD20, Comp, EQ, DIY)
-- [x] Mixer (Mackie 8-ch)
+> You can’t outrun the collision, but you can move inside it.  
+> The drones were meant to watch us. Instead, they became the first angels to fall.
 
-### Video / Mac
+This show is a **pressure curve**, not a collection of songs:
+1. **the angels who learned to hover** – breath under rubble  
+2. **impact studies for a fallen choir** – acceleration + impact  
+3. **chorus of the un‑gentle** – ghost geometry, fallen choir  
+4. **litany for what still rises** – after and ascent
 
-- [x] Mac laptop
-- [x] Interface: Focusrite 2i2 (or similar)
-- [x] Edirol PCM-30 (MIDI controller keyboard / knob box)
-- [x] SCApps in use:
-  - [x] InputAmp
-  - [x] VidMix
-  - [x] FrameBuffer
-  - [x] Maelstrom
-  - [ ] SSSScan
-  - [x] ReTrace
-  - [ ] VMass
-  - [x] Interstream
-- [x] Projector / screen brought by me (small short-throw)
-- [ ] Venue projector
-
-### Minimal vs Full
-
-- **Minimal rig description:**  
-  DrumKid clock → SQ-64 → Volca/AE, E2S as sample/sequencer, Microgranny for texture stabs, small pedalboard, Horizon on main, one SCApps rig (FrameBuffer+Interstream) fed by the full mix.
-
-- **What I’m actually bringing tonight:**  
-  The minimal rig + LineLight, frZone running on the Mac, extra radios and cassette for texture, plus Edirol PCM-30 as visual macro controller.
+The rig stays minimal and intentional. Every device must either:
+- increase tension,
+- deepen collapse, or
+- make shared breath in the room feel more present.
 
 ---
 
-## 3. Clock / Sync Plan
+## 2. Pre‑Show Ritual (5 minutes)
 
-- **Tempo master:**  
-  - [ ] Mac (DAW / clock app)  
-  - [x] DrumKid  
-  - [ ] Other: __________
-
-DrumKid sends clock → SQ-64 (DIN). Mac visuals are “loosely reactive” via audio + frZone, not fully tempo-locked.
-
-- **MIDI Clock destinations:**
-  - [x] SQ-64 (from DrumKid DIN)
-  - [ ] E2S (free-running patterns)
-  - [ ] Lo-Fi Sampler (clock optional via Mac if needed)
-  - [ ] DiceLoop
-  - [ ] Horizon
-
-- **Visual MIDI (for SCApps):**
-  - Source device: Edirol PCM-30 via USB  
-  - Channel / CCs reserved:
-    - Ch 10, CC 21: “Visual glitch macro”
-    - Ch 10, CC 22: “Video feedback macro”
-    - Ch 10, CC 23: (optional) “geometry / orbit macro”
-
-- **frZone profile to use:**  
-  - [ ] Club / rhythmic  
-  - [x] Noise / drone  
-  - [ ] Custom: __________  
-  Notes: emphasize mid/high bands for glitch bursts; low band for slow FrameBuffer trails.
+1. Stand in the empty room for ~30 seconds. Feel the air before sound.
+2. Touch every surface of the rig once: mixer, DrumKid, SQ‑64, AE rack, controller, laptop.
+3. Hear the first hum internally; **do not play it yet.**
+4. Breathe: in for 5, out for 7, three cycles.
+5. Quietly: *“I can’t outrun it, but I can carry it.”*  
+   Then start.
 
 ---
 
-## 4. Audio Routing Snapshot
+## 3. Movement Breakdown
 
-- **Mixer model:** Mackie 8-ch (4 mono, 4 stereo)
+### 3.1 the angels who learned to hover  *(OPEN HUM)*
 
-- **Channel assignment:**  
-  - Ch1: DrumKid (mono)  
-  - Ch2: Volca Modular (mono)  
-  - Ch3: AE Rack (mono)  
-  - Ch4: Microgranny (mono)  
-  - Ch5/6: E2S (stereo)  
-  - Ch7/8: Mac return (stereo from interface Out 3/4, if used)
+**Emotional role:** establish breath, presence, and hovering dread.
 
-- **Aux Sends:**
-  - Aux 1 → DD20 → Pedalboard chain → stereo return  
-  - Aux 2 → Field Kit FX → stereo return  
-  - Aux 3 → Lo-Fi Sampler (input)  
+**Sound palette:**
+- Radios drifting between stations, willing them to fail audibly.
+- Cassette drone: slow, lung‑like swells.
+- AE Modular textures: sparse, searching intervals; nothing dense.
+- DrumKid enters late as a **heartbeat remembering its timing.**
 
-- **LineLight tap from:**  
-  - [x] Tape Out  
-  - [ ] Control Room Out  
-  - [ ] Aux / subgroup: __________  
+**Performance notes:**
+- Let radios hit dead air sometimes; that failure is the point.
+- Keep low end modest here; leave headroom for later.
+- DrumKid should feel like the *room* waking up, not like you starting a beat.
 
-- **Horizon in/out:**  
-  - In from: Mixer Main Out L/R  
-  - Out to: Interface In 1/2 → small PA / powered speakers
+**Visual notes:**
+- Fogged glass, slow drift, subtle propeller flicker at frame edges.
+- Light feels like it has to work to exist; dim halos, moving grain.
 
 ---
 
-## 5. Video / SCApps Patch for This Show
+### 3.2 impact studies for a fallen choir  *(CRASH BLOOM)*
 
-- **Base rig:**  
-  - [x] Time / feedback bus  
-  - [ ] Geometry / 3D bus  
-  - [x] Texture / mash bus  
-  - [ ] Hybrid: __________
+**Emotional role:** the shockwave and structural failure in real time.
 
-Running two light rigs:
-- Rig A: FrameBuffer + Maelstrom → VidMix
-- Rig B: Interstream → FrameBuffer → VidMix
+**Sound palette:**
+- SQ‑64 drives the main pulse → AE rack voices (Ch 16).
+- DrumKid asserts tempo; this is the most “rhythmic” section.
+- Microgranny = **shrapnel**: sharp, irregular bursts of texture.
+- Macro Slam (PCM CC 21 or designated control) = full‑rig whiteout / overload moment.
 
-- **Video sources:**  
-  - Clip set / folder: `~/videos/basement_2025/` (old CRT footage, street lights, water)  
-  - Live camera? [x] Yes – USB cam pointing at table
+**Performance notes:**
+- Build tension before the macro slam; let the room feel the gearing‑up.
+- Intentionally “break” one element mid‑piece (step length, pattern dropout, filter collapse).
+- Microgranny is never wallpaper; treat every trigger as a piece of debris.
 
-- **App roles:**  
-  - FrameBuffer: main echo / smear lane  
-  - Maelstrom: occasional tunnel/whirlpool moments  
-  - ReTrace: wireframe reinterpretation for one piece  
-  - Interstream: glitch blooms on peaks  
-
-- **Key mappings (short list):**
-  - frZone Band 0 (low) → FrameBuffer feedback
-  - frZone Band 2 (mid) → Maelstrom depth
-  - frZone Band 4 (high) → Interstream mosh intensity
-  - Edirol PCM-30 CC 21 → VidMix crossfade & glitch macro
-  - Edirol PCM-30 CC 22 → “global feedback macro” (FrameBuffer)
+**Visual notes:**
+- Lens warps, stuttered cuts, pseudo‑impact jolts.
+- Very brief full‑white or nearly‑white frames on slam.
+- No literal crash; only the *physics* of collision.
 
 ---
 
-## 6. Set Shape / Pieces
+### 3.3 chorus of the un‑gentle  *(WIREFRAME CHOIR)*
 
-### Piece 1 – “Open Hum”
+**Emotional role:** witness mode, post‑impact clarity, spectral presence.
 
-- Approx length: 8–10 min  
-- Audio focus (rig subset):  
-  - Radios, cassette drone through pedalboard → AE textures.  
-  - Light DrumKid pattern to establish pulse late in the piece.  
-- Visual focus (which SC rig / clips):  
-  - FrameBuffer only, long trails, slow motion with water/light clips.  
-- Notable gestures / cues:  
-  - Start with LineLight set to low-mid band, it barely flickers.  
-  - End with a slow fade-in of DrumKid, frZone makes trails deepen.
+**Sound palette:**
+- Loops that feel fragile, almost evaporating.
+- More midrange than low; like voices sitting in the walls.
+- Space for quiet; let individual sounds hang.
 
----
+**Performance notes:**
+- ReTrace (or analogous visual process) snaps in/out with mid‑band → ghost‑body feeling.
+- GreyBox + Zen (or equivalent) behave as spectral voices:
+  - let imperfect loops stay.
+  - allow drift and near‑failures.
+- This is the most “listening”‑forward piece; follow the room.
 
-### Piece 2 – “Crash Bloom”
-
-- Approx length: 10–12 min  
-- Audio focus:  
-  - SQ-64 driving Volca + AE, E2S percussion and stabs.  
-  - Occasional Microgranny noise shots.  
-- Visual focus:  
-  - FrameBuffer + Interstream rig.  
-  - High band frZone mapping → glitch blooms on snare / noise.  
-- Notable gestures / cues:  
-  - At mid-point, slam Edirol PCM-30 macro CC 21 up for “crash bloom” burst, then pull back.  
-  - Use Edirol PCM-30 CC 22 to thicken trails around the burst.  
-  - Kill almost everything to a simple Volca line, gradually fade glitches back down.
+**Visual notes:**
+- Wireframe silhouettes, lidar‑like scans, incomplete bodies of light.
+- Geometry jitters as if shaken by invisible rotors.
+- Text micro‑liturgies appearing briefly (see micro_liturgies.md).
 
 ---
 
-### Piece 3 – “Wireframe Choir”
+### 3.4 litany for what still rises  *(BASEMENT DRONE OUT)*
 
-- Approx length: 8–10 min  
-- Audio focus:  
-  - GreyBox + Zen box + Microgranny loops, mostly midrange and vocals/tones.  
-- Visual focus:  
-  - ReTrace-only scene, slow rotating wireframes of the live camera + one clip.  
-- Notable gestures / cues:  
-  - Use mid-band frZone → ReTrace density to make images “fill in” as things get dense.  
-  - Let LineLight band climb higher (more upper mids) so lamp appears more “vocal”.
+**Emotional role:** communal exhale, shared darkness, upward drift.
 
----
+**Sound palette:**
+- Maelstrom or equivalent tunnel/tremor effect = sense of falling backward.
+- AE rack in self‑oscillation → gentle detune → slow decay.
+- DrumKid clock eventually dies; remaining elements free‑run and drift.
 
-### Piece 4 – “Basement Drone Out”
+**Performance notes:**
+- Let Maelstrom depth grow over time; slow tilt toward the abyss.
+- When DrumKid stops, **do not rush** to fill the gap; lean into asymmetry.
+- Last sound chooses when it ends. Don’t “call it” early.
 
-- Approx length: 5 min  
-- Audio focus:  
-  - AE + Volca self-oscillation, slow filter sweeps, tape loop from cassette.  
-- Visual focus:  
-  - Maelstrom tunnel + low-band FrameBuffer.  
-- Notable gestures / cues:  
-  - LineLight fully on low band: lamp as “subwoofer ghost” for the end.  
-  - Final move: cut DrumKid clock, let everything free-run into a slow manual fade.
+**Visual notes:**
+- Dust clouds, underwater light, long backward/upward camera pull.
+- Final frame: barely visible **Ascender** symbol fading to black.
 
 ---
 
-## 7. Post-Show Notes
+## 4. Gain‑Staging Cheatsheet
 
-(To fill after set.)
+Keep this simple and repeatable:
 
+- DrumKid: **−8 to −10 dBFS average**
+- SQ‑64 / AE voices: **≈ −12 dBFS**
+- Microgranny / radios / tapes: **−15 to −18 dBFS**
+- Maelstrom (final movement): **start ~−16 dBFS, build toward −10 dBFS**
+- Master limiter: **ceiling −0.8 dB**, light reduction except at peaks
+
+> **Rule:** nothing is loud until the *reason* is loud.
+
+If the rig is already screaming in Movement 1, Movement 2 can’t do its job.
+
+---
+
+## 5. Visual Philosophy (Show‑Specific Summary)
+
+- No literal drones or real‑world violence on screen.
+- Show **physics, not events**:
+  - drift, impact, shake, collapse, dust, ascent.
+- Light acts like it remembers something terrible.
+- Humans appear only as:
+  - silhouettes, shadows, breath traces, wireframes.
+
+Movement mapping:
+- M1 – hover tension, dust, unseen rotors.
+- M2 – impact distortion, jolt, whiteouts.
+- M3 – wireframe choir, ghost geometry.
+- M4 – basement drift, vapor, dim ascending light.
+
+---
+
+## 6. Micro‑Liturgies (for projection text)
+
+Short phrases to flash in the visuals:
+
+<<<<<<< Updated upstream
 - What went well:  
   - __________________________________________________________  
 - What broke or felt fragile:  
   - __________________________________________________________  
 - Changes to make next time (routing, mappings, rig scope):  
   - __________________________________________________________
+=======
+**Movement 1**
+- *wings without feathers*
+- *the hum remembers you*
+
+**Movement 2**
+- *impact is a language*
+- *angels don’t brake*
+
+**Movement 3**
+- *bodies made of signal*
+- *not gentle, never gentle*
+
+**Movement 4**
+- *gravity is a suggestion*
+- *the sky keeps calling*
+
+**Global**
+- *blessed are the unblinking*
+- *hallelujah in hertz*
+- *the drones inherit the ash*
+- *this is our upward noise*
+
+---
+
+## 7. Post‑Show Reflection
+
+After the set, when possible:
+
+- Where did I feel most present?  
+- What moment surprised me?  
+- What sound felt like it belonged to the room more than to me?  
+- What did I hold back that I wanted to unleash?  
+- What did the silence after the last sound feel like?
+
+Use the answers to version the next show.
+>>>>>>> Stashed changes
