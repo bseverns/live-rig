@@ -1,8 +1,8 @@
-# 07 – Show Plan – 2025-03-15 – Basement Noise Night
+# 07 – Show Plan – 2025-12-15 – Basement Noise Night
 
 ## 1. Logistics
 
-- **Date / Time:** 2025-03-15, doors 19:30, set ~21:00  
+- **Date / Time:** 2025-12-15, doors 19:30, set ~21:00  
 - **Venue:** Friend’s Basement / DIY “noise night”  
 - **Room / Stage notes:** 
   - Low ceiling, concrete floor, probably boomy.
