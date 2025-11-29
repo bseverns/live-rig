@@ -1,12 +1,6 @@
-<<<<<<< Updated upstream
-# 07 – Show Plan – 2025-12-15 – Basement Noise Night
-=======
->>>>>>> Stashed changes
-
 # Show Plan – 2025‑12‑15 – basement noise
 ## Title: *i hope the sky will still take us*
 
-<<<<<<< Updated upstream
 - **Date / Time:** 2025-12-15, doors 19:30, set ~21:00  
 - **Venue:** Friend’s Basement / DIY “noise night”  
 - **Room / Stage notes:** 
@@ -21,10 +15,8 @@
 - **FOH contact:** N/A – self-mix  
 - **Tech contact:** The friend whose house it is  
 - **Promoter / curator:** Same as above
-=======
-Four‑movement live set tying the *SLOW DOWN* wreckage to the new EP and drone/angel cosmology.
->>>>>>> Stashed changes
 
+Four‑movement live set tying the *SLOW DOWN* wreckage to the new EP and drone/angel cosmology.
 ---
 
 ## 1. Concept
@@ -183,14 +175,6 @@ Movement mapping:
 
 Short phrases to flash in the visuals:
 
-<<<<<<< Updated upstream
-- What went well:  
-  - __________________________________________________________  
-- What broke or felt fragile:  
-  - __________________________________________________________  
-- Changes to make next time (routing, mappings, rig scope):  
-  - __________________________________________________________
-=======
 **Movement 1**
 - *wings without feathers*
 - *the hum remembers you*
@@ -226,4 +210,3 @@ After the set, when possible:
 - What did the silence after the last sound feel like?
 
 Use the answers to version the next show.
->>>>>>> Stashed changes
