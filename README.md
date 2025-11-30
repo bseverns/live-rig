@@ -1,146 +1,207 @@
 # live-rig
 
-Working notes, diagrams, and planning docs for a hybrid audio–video live rig.
+Working notes, diagrams, and show sheets for a hybrid audio–video performance rig.
 
-This repo collects:
+This repo exists so that **future-you** can walk into a venue, open one page, and remember:
 
-- Signal-flow and MIDI diagrams (audio, MIDI, video, analysis).
-- Per-show planning sheets.
-- Mapping docs for visual controls and analysis (Edirol PCM-30, frZone, SCApps).
-- Scratch space for troubleshooting and post-show notes.
-
-The idea is that future-you can walk into a venue, open this repo, and know:
 - what plugs into what,
 - which device lives on which MIDI channel,
-- and how the visuals are being driven.
+- and how the visuals are being driven by hands and by sound.
+
+It’s not firmware. It’s the **field manual** for the whole ecosystem: audio, MIDI, analysis, and video endpoints.
 
 ---
 
-## Files
+## Quick start (show-night sanity check)
 
-- `01_audio-routing.md` – mixer, pedals, FX loop, Horizon, LineLight, etc.
-- `02_video-signal.md` – SCApps chains, cameras, projectors.
-- `03_midi-clock-video.md` – clock topology + MIDI channel plan + mermaid diagram.
-- `04_frZone-mapping.md` – band splits → CCs → visual parameters.
-- `05_linelight-notes.md` – how the lamp taps the audio and what it’s “saying”.
-- `06_show-templates.md` – generic show / mapping templates.
-- `07_show-2025-03-15-basement-noise.md` – specific basement show plan.
-- `08_midi-mapping-2025-03-15-basement-noise.md` – matching MIDI/OSC mapping for that show.
-- `notes/` – scratch questions, routing experiments, post-show notes, etc.
+If you’re standing in a basement / club / warehouse right now, start here.
 
-(Names may drift over time; this is the intended structure.)
+1. **Clock (REAPER → DrumKid)**  
+   - In REAPER:  
+     - Enable the DrumKid MIDI output in *Preferences → Audio → MIDI Devices*.  
+     - Right-click it → **Enable output** + **Send clock/SPP**.  
+   - Use DrumKid to fan clock to SQ-64 or other devices if needed.
 
----
+2. **Audio (mixer → Horizon → PA)**  
+   - Patch sources and devices according to `02_audio-mixer-fx.md`.  
+   - Confirm **main mix → Horizon → interface / PA**.  
+   - Send a **post-fader bus** (e.g. Bus 1) to **frZone** (and LineLight, if it shares that feed).
 
-## MIDI Channel Cheatsheet
+3. **Video (SCapps chain up)**  
+   - Launch the appropriate SCapps chain from `05_scapps-rigs.md`  
+     (Frame Buffer, Maelstrom, SC Video Mixer, etc.).  
+   - Confirm capture/camera → SCapps is working (or that your bridge app is feeding them).
 
-Snapshot for the current “basement noise night” ecosystem.  
-Use this as the quick reference when patching at a venue.
+4. **Control (Edirol + frZone)**  
+   - Move each **Edirol** fader/knob on the **video-control channel** and watch the bridge / SCapps respond.  
+   - Play audio and confirm **frZone** shows activity and is issuing CC on its analysis channel.
 
-System realtime (no channel):
+5. **Safety**  
+   - Verify you have a reliable **blackout / safe scene** you can trigger instantly.  
+   - After the set, jot any weirdness in `notes/` so it can feed back into the docs.
 
-    DAW → DrumKid  [Clock, Start, Stop]
-    (DrumKid can then fan clock out to SQ-64 or other gear as desired.)
-
-### Device → Channel Summary
-
-| Device              | Role                        | MIDI Channel | How it’s used now                                        |
-|---------------------|-----------------------------|-------------:|----------------------------------------------------------|
-| DrumKid             | Clock master (this show)    | —            | Listens to system realtime (clock/start/stop only).     |
-| SQ-64               | Main sequencer              | varies       | Sends notes/gates; AE Rack is on its track set to Ch 16 |
-| AE Rack             | Modular voices              | 16           | Receives note/gate patterns on Channel 16 from SQ-64    |
-| Edirol PCM-30       | Visual “mission control”    | 10           | Faders/knobs send CC 1–8 & 21–28 to TD/Max → SCApps     |
-| frZone              | Audio analysis → CC         | 15           | Sends CC 20, 22, 23, 24 (bands) to SCApps               |
-| Horizon             | Master FX / bus processor   | —            | Front-panel only (no MIDI yet; Ch 9 reserved for later) |
-| Lo-Fi Sampler       | Clocked audio texture       | —            | Audio only + MIDI clock in (no CC/note I/O yet)         |
-| LineLight           | Audio-reactive lamp         | —            | Follows audio; no MIDI                                  |
-| SCApps              | Video processing chain      | n/a          | Receive CCs/OSC from Edirol (Ch 10) + frZone (Ch 15)    |
-| Mac / DAW / bridge  | Hub / router                | n/a          | Sends clock to DrumKid, aggregates MIDI for visuals     |
+Once those five are green, you can start pushing things into the red.
 
 ---
 
-## Channel Roles (At A Glance)
+## Mental model
+
+Three lanes, one rig:
+
+- **Audio lane**  
+  Sources → mixer → Horizon / other FX → PA / recording.  
+  frZone and LineLight tap a post-fader bus here to “listen” to the mix.
+
+- **Control lane**  
+  REAPER sends clock to DrumKid.  
+  SQ-64 and AE rack handle voices.  
+  Edirol sends visual macros.  
+  frZone sends analysis CCs.
+
+- **Video lane**  
+  Capture / camera feed flows into a chain of **Signal Culture modular video apps** (“SCapps”).  
+  These are **video endpoints**:
+  - They receive video (capture / Syphon)  
+  - They receive control (MIDI/OSC) from Edirol and frZone  
+  - They do *not* own the global logic; they just react beautifully.
+
+This repo describes how those three lanes weave together for different shows and projects.
+
+---
+
+## File map (what lives where)
+
+These are the files currently in the repo and their jobs:
+
+- `01_system-overview.md`  
+  Big-picture map of the rig: audio, MIDI, and video lanes, plus where SCapps sit.
+
+- `02_audio-mixer-fx.md`  
+  Mixer channel layout, FX loop, how Horizon sits on the master bus, and how frZone / LineLight tap the audio.
+
+- `03_midi-clock-video.md`  
+  Clock topology and MIDI routing, including which device runs clock (REAPER → DrumKid), and how Edirol / frZone feed the video lane.
+
+- `04_scapps-overview.md`  
+  Overview of the SCapps in use (Frame Buffer, Maelstrom, SC Video Mixer, etc.):  
+  what each app does, what it expects for video in, and what MIDI/OSC it listens to.
+
+- `05_scapps-rigs.md`  
+  “Whole-world” video setups: which SCapps are chained together for a given set or EP, and how Edirol’s controls are mapped for each rig.
+
+- `06_frzone-linelight.md`  
+  How frZone and LineLight listen to the audio bus, what CCs frZone emits, and how those CCs bias SCapps parameters.
+
+- `07_show-2025-12-15-basement-noise.md`  
+  A specific basement show plan: cabling, minimal rig choices, and one-off routing notes.
+
+- `08_midi-mapping-2025-03-15-basement-noise.md`  
+  MIDI / OSC mapping sheet for that set: which controls go where for that particular performance.
+
+- `ep-i-hope-the-sky-will-still-take-us/`  
+  EP-specific notes, mappings, and rig snapshots connected to *i hope the sky will still take us*.
+
+- `notes/`  
+  Scratch questions, experiments, troubleshooting logs, and post-show notes that should eventually feed back into the main docs.
+
+---
+
+## MIDI channel grammar
+
+This is the **default** mental model for channels. Per-show files can override, but treat this as home base.
 
 ### System realtime (no channel)
 
-- DAW → DrumKid: clock, start, stop  
-- DrumKid can optionally pass clock along to SQ-64 or other devices.
+- **REAPER → DrumKid**: clock, start, stop  
+- DrumKid may forward clock to SQ-64 and other devices.
 
-### Channel 10 – Visual Macros
+### Device → channel summary
 
-- Source: **Edirol PCM-30 faders/knobs/buttons**
-- Destination: TD/Max bridge → SCApps parameters
+| Device         | Role                             | MIDI Ch | How it’s used now                                            |
+|----------------|----------------------------------|:-------:|---------------------------------------------------------------|
+| DrumKid        | Clock target + drums             |   —     | Listens to realtime clock; drives drum audio; can fan clock. |
+| SQ-64          | Main sequencer                   | varies  | Sends notes/gates; AE rack on its track set to Ch 16.        |
+| AE Rack        | Modular voices                   |   16    | Receives note/gate patterns from SQ-64.                      |
+| Edirol PCM-30  | Visual “mission control”         |   10    | Faders/knobs/buttons send CC/notes to bridge → SCapps.       |
+| frZone         | Audio analysis → CC              |   15    | Emits CCs (bands) for SCapps to use as modulation.           |
+| Horizon        | Master FX / bus processor        |   —     | Front-panel for now; Ch 9 mentally reserved for future MIDI. |
+| Lo-Fi Sampler  | Clocked audio texture            |   —     | Audio + clock in; no CC/note I/O yet.                        |
+| LineLight      | Audio-reactive lamp              |   —     | Follows an audio bus; no MIDI.                               |
+| SCapps         | Video processing chain (endpoint)|   n/a   | Receive video + CC/OSC from Edirol (Ch 10) & frZone (Ch 15). |
+| REAPER (DAW)   | Hub / router                     |   n/a   | Sends clock to DrumKid, routes audio and MIDI.               |
 
-Conceptual use:
+### Channel 10 – Visual macros (Edirol)
 
-- Faders (CC 1–8): “big moves”
-  - VidMix crossfade (clean ↔ fully processed)
-  - FrameBuffer feedback
-  - Interstream mosh / glitch amount
-  - Maelstrom depth / tunnel feel
-  - ReTrace density / line count
-  - Global visual contrast / gain
-  - Per-show special
-  - Master blackout / safe level
+- **Source**: Edirol PCM-30 (faders, knobs, buttons)  
+- **Destination**: bridge (TD/Max/etc.) → SCapps
 
-- Knobs (CC 21–28): “fine shape”
-  - Fine glitch / micro-mosh
-  - Fine feedback / pre-feedback
-  - Tunnel warp / twist / rotation
-  - Wireframe looseness / jitter
-  - Texture detail (future SSSScan/VMass/etc.)
-  - Blend between frZone (analysis) and manual control
-  - Global hue / color shift
-  - Per-show special
+Conceptually:
 
-- Buttons (e.g. notes 60–62):
-  - Crash/glitch scene select
-  - Clean/soft scene select
-  - Blackout
+- Faders: **big moves** (clean ↔ processed, feedback amount, tunnel depth, etc.)
+- Knobs: **fine shape** (micro-glitch, warp, hue, bias between analysis and manual control)
+- Buttons: **hard switches** (harsh scene, soft scene, blackout)
 
-### Channel 15 – Analysis Lane (frZone)
+The exact CC/Note map for each show lives in `03_midi-clock-video.md` and `05_scapps-rigs.md`.
 
-- Source: **frZone** (listens to audio mix)
-- Destination: SCApps
+### Channel 15 – Analysis lane (frZone)
 
-Suggested mapping:
+- **Source**: frZone, listening to a post-fader bus from the mixer.  
+- **Destination**: SCapps.
 
-- CC 20 = low band → FrameBuffer feedback bias  
-- CC 22 = mid band → Maelstrom depth bias  
-- CC 23 = upper-mid band → ReTrace density bias  
-- CC 24 = high band → Interstream mosh bias  
+Typical mapping:
 
-The Edirol’s macros then “ride on top” of these biases for performance gestures.
+- CC 20 = low band (bass energy)  
+- CC 22 = mid band  
+- CC 23 = upper-mid band  
+- CC 24 = high band
 
-### Channel 16 – AE Rack
+SCapps (via the bridge) treat these as gentle bias inputs; Edirol’s macros ride on top.
 
-- Source: SQ-64 track configured for Channel 16
-- Destination: AE Rack voices (notes/gates)
+### Channel 16 – AE rack voices
 
-This keeps the modular clearly separated from the visual control lanes.
+- **Source**: SQ-64 track configured for Ch 16  
+- **Destination**: AE rack voices
 
----
+Keeps the modular’s note lane clearly separated from the visual control lanes.
 
-## Expansion Notes
+### Channel 9 – Reserved for Horizon (future)
 
-- **Horizon automation**
-  - When you’re ready, standardize on **Channel 9** for any future Horizon CCs (scene select, tilt, width).
-  - This README and the other docs mentally reserve that channel for “master FX control.”
+- Planned for any future Horizon MIDI:
+  - scene select  
+  - tilt / width / fold  
+  - wet/dry
 
-- **Lo-Fi Sampler MIDI (future)**
-  - If/when the lo-fi firmware gets MIDI I/O:
-    - Outgoing: choose a dedicated channel (e.g., 11) for pad-triggered visual events.
-    - Incoming: keep it mostly clock-only or restrict to a few safe CCs to avoid conflicts.
-
-- **Alternate controllers**
-  - If the Edirol is ever swapped out, keep **Channel 10** as “visual mission control” and just revise the per-device mapping doc.
-  - The rest of the channel grammar (15 = analysis, 16 = AE, 9 reserved for Horizon) can remain stable.
+Keeping one channel mentally reserved now avoids future routing chaos.
 
 ---
 
-For other shows, you can either:
+## REAPER-specific notes
 
-- Keep this README as the “canonical” channel grammar and adapt only the show-specific files (`07_...`, `08_...`), or  
-- Fork a custom README variant per show if the channel layout needs to diverge.
+You don’t need a full how-to here, just a few anchors:
 
-Either way, this gives you a single-screen memory jog of what lives where in the current rig.
+- **MIDI Devices**  
+  - Enable DrumKid as an output and turn on **Send clock/SPP**.  
+  - Enable a virtual port (IAC / loopMIDI) for sending Edirol/analysis CCs into the bridge → SCapps.
+
+- **Audio buses**  
+  - Use a post-fader send from the master or a submix bus to feed frZone / LineLight.  
+  - If REAPER is feeding SCapps audio directly (for capture/feedback), document that routing in `02_audio-mixer-fx.md` or `04_scapps-overview.md`.
+
+If you change those assumptions later, update this block and the relevant per-file notes.
+
+---
+
+## How to grow this repo
+
+For each new show / project:
+
+1. Duplicate the latest `07_show-…` and `08_midi-mapping-…` files as a starting point.  
+2. Adjust only what really changes:
+   - which devices are on the table,
+   - which SCapps rig you’re running,
+   - any special cabling or safety constraints.
+3. After the show, drop quick notes in `notes/` and then:
+   - update `01_system-overview.md` if the rig itself has evolved, or  
+   - update `03_midi-clock-video.md` / `04_scapps-overview.md` if the logic has shifted.
+
+The goal isn’t to keep this perfectly pristine; it’s to give future-you a **single page of clarity** before you start plugging things in and turning them up.

@@ -1,123 +1,306 @@
-# 05 – SCApps Rig Templates
+# 05 – SCapps rigs
 
-Three standard SCApp “rigs” you can recall and adapt for shows.
+This document captures **concrete SCapps configurations** (“rigs”) for different contexts:
 
----
+- How apps are chained.
+- Which inputs/outputs they use.
+- Which **scenes** they rely on.
 
-## Rig 1 – Time / Feedback Bus
-
-```mermaid
-flowchart LR
-
-  VidBank["Video Bank"]
-  AudioIn["Audio In 1–2<br/>(post-Horizon)"]
-
-  InputAmp["InputAmp"]
-
-  FrameBuffer["FrameBuffer<br/>short/med/long echoes"]
-  Maelstrom["Maelstrom<br/>directional feedback"]
-  SSSScan["SSSScan<br/>slitscan smear"]
-
-  VidMix["VidMix<br/>4-ch mixer"]
-  Projector["Projector"]
-
-  VidBank --> InputAmp
-  InputAmp -->|"main feed"| FrameBuffer
-  InputAmp -->|"secondary"| Maelstrom
-  FrameBuffer --> SSSScan
-  Maelstrom --> VidMix
-  SSSScan --> VidMix
-  VidMix --> Projector
-
-  AudioIn --> FrameBuffer
-  AudioIn --> Maelstrom
-  AudioIn --> SSSScan
-```
-
-### Notes
-
-- [ ] Choose 2–3 clips to rotate through in VidBank for this rig.
-- [ ] Decide which audio features (kick, snare, overall RMS) modulate which parameters.
-- [ ] Map 3–4 MIDI controls:
-  - [ ] Global delay/feedback feel
-  - [ ] Amount of Maelstrom vs SSSScan in VidMix
-  - [ ] One big “wipe/reset” gesture
+It’s where the abstract ideas from `04_scapps-overview.md` and `09_scene-system.md` get nailed into specific setups.
 
 ---
 
-## Rig 2 – Geometry / 3D Bus
+## Common building blocks
 
-```mermaid
-flowchart LR
+Across rigs, we reuse a small set of “chains”:
 
-  VidBank["Video Bank"]
-  AudioIn["Audio In 1–2"]
+- **Chain A – Tunnel / echo world**
 
-  InputAmp["InputAmp"]
+  ```text
+  Camera / source
+      → Frame Buffer
+      → Maelstrom
+      → (optional Interstream)
+      → SC Video Mixer Input 1
+  ```
 
-  ReTrace["Re:Trace<br/>points/lines/polys"]
-  VMass["VMass<br/>video on 3D forms"]
+- **Chain B – Line / mass world**
 
-  VidMix["VidMix"]
-  Projector["Projector"]
+  ```text
+  Camera / source
+      → ReTrace
+      → VMass
+      → (optional Interstream)
+      → SC Video Mixer Input 2
+  ```
 
-  VidBank --> InputAmp
-  InputAmp -->|"base feed"| ReTrace
-  ReTrace -->|"geo output"| VMass
-  VMass --> VidMix
-  VidBank -->|"unprocessed alt feed"| VidMix
+- **Chain C – Clean**
 
-  VidMix --> Projector
+  ```text
+  Camera / source
+      → (minimal correction / color)
+      → SC Video Mixer Input 3
+  ```
 
-  AudioIn --> ReTrace
-  AudioIn --> VMass
-```
+- **Chain D – Black / utility**
 
-### Notes
+  ```text
+  Black / text / safety frame
+      → SC Video Mixer Input 4
+  ```
 
-- [ ] Pick one “figurative” clip and one “abstract” clip for contrast.
-- [ ] Define camera/orbit presets in VMass (e.g., calm / orbit / extreme).
-- [ ] MIDI ideas:
-  - [ ] Fader: crossfade clean vs VMass in VidMix
-  - [ ] Knob: rotation speed
-  - [ ] Knob: deformation amount
+Scenes (see `09_scene-system.md` and `scenes/*.yaml`) mostly control:
+
+- SC Video Mixer **input levels** (A/B/C/D),
+- a handful of **key parameters** in each chain.
 
 ---
 
-## Rig 3 – Texture / Mash Bus
+## Rig 1 – EP: *i hope the sky will still take us*
+
+Main rig for the EP and the “MN42 + SCapps” performance setup.
+
+### Intent
+
+- Audio is heavy, slow-burning, often saturated.
+- Visuals move between:
+  - soft, distant echoes (`SOFT_ASH`),
+  - seething, angel-swarm glitch (`ANGEL_SWARM`),
+  - almost documentary (`CLEAN_CAMERA`),
+  - full blackout / fail-safe (`BLACKOUT`).
+
+### Chain layout
 
 ```mermaid
-flowchart LR
+flowchart TB
+    src["Camera / Capture / DAW out"]
 
-  VidBank["Video Bank"]
-  AudioIn["Audio In 1–2"]
+    subgraph ChainA["Chain A – Tunnel / Echo"]
+        fb["Frame Buffer"]
+        mael["Maelstrom"]
+        ia["Interstream (A, optional)"]
+    end
 
-  InputAmp["InputAmp"]
+    subgraph ChainB["Chain B – Lines / Mass"]
+        rt["ReTrace"]
+        vm["VMass"]
+        ib["Interstream (B, optional)"]
+    end
 
-  Interstream["Interstream<br/>datamosh"]
-  FrameBuffer["FrameBuffer<br/>soften & trail the mosh"]
+    clean["Clean path"]
 
-  VidMix["VidMix"]
-  Projector["Projector"]
+    vmix["SC Video Mixer"]
+    out["Projector / Screens"]
 
-  VidBank --> InputAmp
-  InputAmp -->|"feed A"| Interstream
-  Interstream --> FrameBuffer
-  FrameBuffer --> VidMix
+    src --> fb --> mael --> ia --> vmix
+    src --> rt --> vm --> ib --> vmix
+    src --> clean --> vmix
 
-  VidBank -->|"clean feed"| VidMix
-
-  VidMix --> Projector
-
-  AudioIn --> Interstream
-  AudioIn --> FrameBuffer
+    vmix --> out
 ```
 
-### Notes
+- **Input 1** – Chain A output (FrameBuffer → Maelstrom → Interstream A).  
+- **Input 2** – Chain B output (ReTrace → VMass → Interstream B).  
+- **Input 3** – Clean path.  
+- **Input 4** – Black / text layer (if used).
 
-- [ ] Choose clips that look good both clean and broken.
-- [ ] Decide how aggressively Interstream should respond to audio (subtle vs brutal).
-- [ ] MIDI ideas:
-  - [ ] Fader: clean vs mosh crossfade in VidMix
-  - [ ] Knob: glitch intensity
-  - [ ] Button: “mosh burst” on demand
+### Scenes
+
+Defined in:
+
+- `scenes/ep-i-hope-scenes.yaml`
+- Documented narratively in `09_scene-system.md`.
+
+Core scenes:
+
+1. **`SOFT_ASH`**
+   - Mixer:
+     - Input1 ≈ 0.8, Input2 ≈ 0.2, Input3 = 0, Input4 = 0.
+   - Frame Buffer:
+     - Low feedback, soft key.
+   - Maelstrom:
+     - Medium-shallow depth, slow rotation.
+   - ReTrace + VMass:
+     - Sparse lines, moderate texture.
+   - Interstream:
+     - Minimal mosh (mostly off).
+   - Analysis:
+     - Weight ~0.5; visuals breathe with mix but don’t slam.
+
+2. **`ANGEL_SWARM`**
+   - Mixer:
+     - Input1 ≈ 0.1, Input2 ≈ 0.9 (Chain B dominant).
+   - Frame Buffer:
+     - High feedback, harder key.
+   - Maelstrom:
+     - Deeper tunnel, more spin.
+   - ReTrace + VMass:
+     - Dense lines, heavy grain/mass.
+   - Interstream:
+     - High mosh amount; tearing and bloom.
+   - Analysis:
+     - Weight ~0.8; frZone has strong influence.
+
+3. **`CLEAN_CAMERA`**
+   - Mixer:
+     - Input1 = 0, Input2 = 0, Input3 = 1, Input4 = 0.
+   - All other parameters:
+     - Neutral or ignored (depending on bridge implementation).
+   - Analysis:
+     - Weight low or 0; focus on “what is actually happening”.
+
+4. **`BLACKOUT`**
+   - Mixer:
+     - Input4 = 1 (black / safety), others = 0.
+   - `hard_override: true` in scene table:
+     - analysis + macros ignored.
+   - Use for:
+     - resets, tuning, emergency “off”.
+
+Scene triggers (example mapping):
+
+- Edirol on **Ch 10**:
+  - Note 60 → `SOFT_ASH`
+  - Note 61 → `ANGEL_SWARM`
+  - Note 62 → `CLEAN_CAMERA`
+  - Note 63 → `BLACKOUT`
+
+Exact note choices/mappings live in:
+
+- `scenes/ep-i-hope-scenes.yaml`
+- `08_midi-mapping-…` for the specific show.
+
+### Control roles
+
+- **Edirol (Ch 10)**:
+  - Faders (example):
+    - 1: `macro.vmix_morph` (A/B balance within current scene).
+    - 2: `macro.fb_feedback`.
+    - 3: `macro.mael_depth`.
+    - 4: `macro.mosh`.
+    - 5: `macro.retrace_density`.
+    - 6: `macro.texture_detail` (VMass).
+    - 7: global contrast.
+    - 8: spare / per-show special.
+  - Knobs:
+    - fine control for spin, jitter, blend between analysis vs manual.
+  - Buttons:
+    - mapped to scenes as above.
+
+- **frZone (Ch 15)**:
+  - `CC 20` low band → bias Frame Buffer feedback.
+  - `CC 22` mid band → bias Maelstrom depth.
+  - `CC 23` upper mids → bias ReTrace density.
+  - `CC 24` highs → bias Interstream mosh / VMass detail.
+
+All blended according to the rules in `09_scene-system.md`.
+
+---
+
+## Rig 2 – Basement noise night
+
+Simpler setup for tighter spaces or more chaotic shows.
+
+### Intent
+
+- Faster setup, less to go wrong.
+- Visuals still locked to sound, but with fewer moving parts.
+- Emphasis on bold gestures over fine nuance.
+
+### Chain layout
+
+```mermaid
+flowchart TB
+    src["Camera / Capture"]
+
+    subgraph ChainA["Chain A – Single-world rig"]
+        fb["Frame Buffer"]
+        mael["Maelstrom"]
+        intr["Interstream"]
+    end
+
+    vmix["SC Video Mixer"]
+    out["Projector / Screen"]
+
+    src --> fb --> mael --> intr --> vmix --> out
+```
+
+In this rig:
+
+- Only **one processed chain** (A) plus:
+  - **Input 1** – processed chain.
+  - **Input 2** – clean feed.
+  - **Input 3** – optional black / text.
+  - **Input 4** – unused or held in reserve.
+
+Scenes (if used) still exist but:
+
+- Shift depth and feedback.
+- Tame or unleash Interstream.
+
+You can reuse the same scene names but with:
+
+- smaller parameter spreads,
+- simpler mixer levels (e.g., just 0 or 1 on clean/processed).
+
+---
+
+## Rig 3 – Gallery / installation (template)
+
+Placeholder for a slower, more ambient, potentially autonomous rig.
+
+### Intent
+
+- Longer dwell times.
+- Less “showmanship”, more environment.
+- Possibly running without a human at Edirol the whole time.
+
+Derive from the EP rig by:
+
+- Increasing scene `ramp_ms` for all non-emergency scenes.
+- Allowing **frZone** to dominate:
+  - set `analysis.weight` high for all scenes.
+- Mapping Edirol to very small macro ranges or leaving it unused.
+
+Document the specific gallery rig when one is committed.
+
+---
+
+## Adding a new rig
+
+When you build a new performance configuration:
+
+1. **Name it**: `Rig X – something`.
+2. Add a **short intent** section:
+   - what it’s for,
+   - how it should feel.
+3. Draw a simple **chain diagram** (mermaid or ASCII).
+4. Declare:
+   - which chains (A/B/C/D) are used,
+   - how SC Video Mixer inputs are assigned.
+5. Reference:
+   - which **scene table file** it uses (e.g. `scenes/rig4-something.yaml`).
+   - any special **MIDI mapping** docs.
+
+Keep this file focused on **SCapps and chain shapes**; audio details live in `02_audio-mixer-fx.md`, and MIDI details in `03_midi-clock-video.md` + `08_midi-mapping-…`.
+
+---
+
+## Relationships to other docs
+
+- `01_system-overview.md`  
+  - The big three lanes (audio, control, video).
+
+- `02_audio-mixer-fx.md`  
+  - How the mixer feeds frZone and LineLight and where the camera feed originates.
+
+- `03_midi-clock-video.md`  
+  - Channel roles and the Edirol / frZone lanes.
+
+- `04_scapps-overview.md`  
+  - Per-app roles and parameters.
+
+- `09_scene-system.md` + `scenes/*.yaml`  
+  - How scenes are defined and animated over time.
+
+This file is where those pieces **meet** in the form of actual rigs.
