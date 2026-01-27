@@ -1,0 +1,7 @@
+{
+  "name": "live-rig-interop",
+  "private": true,
+  "dependencies": {
+    "ajv": "^6.12.6"
+  }
+}

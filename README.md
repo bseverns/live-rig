@@ -12,6 +12,12 @@ It’s not firmware. It’s the **field manual** for the whole ecosystem: audio,
 
 ---
 
+## QUICKSTART (start order)
+
+1. **Clock first** - REAPER runs transport and sends clock to DrumKid.  
+2. **Audio + analysis** - mixer -> Horizon / PA; frZone fed from a post-fader bus.  
+3. **Visuals + bridge** - start SCapps / Processing endpoints, then the bridge/router.
+
 ## Quick start (show-night sanity check)
 
 If you’re standing in a basement / club / warehouse right now, start here.
@@ -88,6 +94,12 @@ These are the files currently in the repo and their jobs:
 
 - `05_scapps-rigs.md`  
   “Whole-world” video setups: which SCapps are chained together for a given set or EP, and how Edirol’s controls are mapped for each rig.
+
+- `interop/`  
+  Interop contract + play rules: mappings schema, endpoint behavior, naming conventions, and bridge expectations.
+
+- `tools/rig-doctor.js`  
+  One-page status + validator runner for mappings and core env/port checks.
 
 - `06_frzone-linelight.md`  
   How frZone and LineLight listen to the audio bus, what CCs frZone emits, and how those CCs bias SCapps parameters.
@@ -205,3 +217,19 @@ For each new show / project:
    - update `03_midi-clock-video.md` / `04_scapps-overview.md` if the logic has shifted.
 
 The goal isn’t to keep this perfectly pristine; it’s to give future-you a **single page of clarity** before you start plugging things in and turning them up.
+
+---
+
+## Interop (contract + routing rules)
+
+The interop contract lives in `interop/interop.md` and is the source of truth for:
+
+- mappings schema (`interop/interop.schema.json`)
+- control lanes (macro vs analysis)
+- naming conventions
+- endpoint behavior
+
+Key invariant: **endpoints follow clock; they never generate it.**  
+If you’re wiring **Processing endpoints**, route CC/OSC through the bridge and follow the
+endpoint wiring model in `09_scene-system.md` (input parser -> scene manager -> router).
+If clock is required, forward it from REAPER/bridge into the same port.
