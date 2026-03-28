@@ -41,6 +41,7 @@ If you’re standing in a basement / club / warehouse right now, start here.
 4. **Control (Edirol + frZone)**  
    - Move each **Edirol** fader/knob on the **video-control channel** and watch the bridge / SCapps respond.  
    - Play audio and confirm **frZone** shows activity and is issuing CC on its analysis channel.
+   - If **Maschine MK1** is present, confirm only the intended safe/scene/event pads are armed; it should not own transport.
 
 5. **Safety**  
    - Verify you have a reliable **blackout / safe scene** you can trigger instantly.  
@@ -63,12 +64,13 @@ Three lanes, one rig:
   SQ-64 and AE rack handle voices.  
   Edirol sends visual macros.  
   frZone sends analysis CCs.
+  Maschine can optionally add a small scene/event deck.
 
 - **Video lane**  
   Capture / camera feed flows into a chain of **Signal Culture modular video apps** (“SCapps”).  
   These are **video endpoints**:
   - They receive video (capture / Syphon)  
-  - They receive control (MIDI/OSC) from Edirol and frZone  
+  - They receive control (MIDI/OSC) from Edirol, frZone, and any optional semantic deck routed through the bridge  
   - They do *not* own the global logic; they just react beautifully.
 
 This repo describes how those three lanes weave together for different shows and projects.
@@ -94,6 +96,9 @@ These are the files currently in the repo and their jobs:
 
 - `05_scapps-rigs.md`  
   “Whole-world” video setups: which SCapps are chained together for a given set or EP, and how Edirol’s controls are mapped for each rig.
+
+- `10_maschine-mk1-lane.md`
+  First-pass field-manual page for the optional Maschine MK1 scene/event deck: pad intent, stable IDs, safety logic, and interop guidance.
 
 - `interop/`  
   Interop contract + play rules: mappings schema, endpoint behavior, naming conventions, and bridge expectations.
@@ -176,6 +181,21 @@ SCapps (via the bridge) treat these as gentle bias inputs; Edirol’s macros rid
 
 Keeps the modular’s note lane clearly separated from the visual control lanes.
 
+### Optional Maschine MK1 scene/event lane
+
+- **Role**: dedicated 4x4 hardware deck for safe/show-state actions, named scenes, hybrid hits, and section cues  
+- **Preferred transport**: OSC-first semantic commands, with hybrid MIDI+OSC only for bounded event pads  
+- **Invariant**: not transport, not clock, not a replacement for Edirol, frZone, or `live-rig-control`
+
+Use stable IDs such as:
+
+- `masch.safe.blackout`
+- `masch.scene.intro`
+- `masch.event.noise_burst`
+- `masch.override.manual`
+
+Treat raw note numbers and any MIDI channel assignment as **TODO** until the hardware template is locked.
+
 ### Channel 9 – Reserved for Horizon (future)
 
 - Planned for any future Horizon MIDI:
@@ -226,6 +246,7 @@ The interop contract lives in `interop/interop.md` and is the source of truth fo
 
 - mappings schema (`interop/interop.schema.json`)
 - control lanes (macro vs analysis)
+- the optional Maschine semantic lane
 - naming conventions
 - endpoint behavior
 

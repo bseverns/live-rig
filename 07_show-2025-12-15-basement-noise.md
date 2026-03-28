@@ -37,6 +37,12 @@ The rig stays minimal and intentional. Every device must either:
 - deepen collapse, or
 - make shared breath in the room feel more present.
 
+Optional hardware node:
+
+- If Maschine MK1 comes to this show, it is only a **4x4 scene/event deck**.
+- Top row = rescue states, second row = world changes, third row = strikes, fourth row = form cues.
+- If the semantic map is not fully trusted at load-in, leave the deck out or arm only the top row.
+
 ---
 
 ## 2. Pre‑Show Ritual (5 minutes)

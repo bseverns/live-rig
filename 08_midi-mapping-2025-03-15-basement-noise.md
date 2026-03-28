@@ -149,6 +149,7 @@ Things to revisit after the show:
 - Did frZone CC 24 (high band → mosh) feel too aggressive layered with the Edirol PCM-30 glitch macro?  
 - Did any of the CCs feel redundant or unused? Consider trimming for next show.  
 - Would it be helpful to add one simple **“visual blackout”** Note or CC from Edirol PCM-30 for hard cuts to black?
+- If Maschine MK1 is added later, treat it as a **semantic scene/event overlay only** and capture its raw pad note/channel data separately once locked.
 
 ---
 

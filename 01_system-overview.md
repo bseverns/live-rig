@@ -50,6 +50,7 @@ flowchart TB
         SQ64["SQ-64"]
         AERackCtrl["AE Rack (Ch 16)"]
         Edirol["Edirol PCM-30<br/>(visual control)"]
+        Maschine["Maschine MK1<br/>(scene / event deck)"]
         frZone["frZone<br/>(audio analysis → CC)"]
         LineLight["LineLight<br/>(audio-reactive lamp)"]
 
@@ -77,10 +78,11 @@ flowchart TB
     Reaper -. CC / OSC .-> Bridge
     frZone -. CC (Ch 15) .-> Bridge
     Edirol -. CC/notes (Ch 10) .-> Bridge
+    Maschine -. semantic OSC / hybrid events .-> Bridge
 ```
 
 - **Audio lane**: devices make noise → mixer → Horizon → PA.  
-- **Control lane**: REAPER runs transport/clock, Edirol and frZone write control.  
+- **Control lane**: REAPER runs transport/clock, Edirol and frZone write control, and Maschine can optionally add a narrow scene/event deck.  
 - **Video lane**: Bridge + SCapps translate those controls into moving images.
 
 This is the shape that the rest of the repo’s files zoom into.
@@ -130,18 +132,25 @@ At the moment:
 - **Edirol PCM-30** is the **visual hands**:
   - Lives on the **video-control channel** (Ch 10 by default).
   - Faders/knobs/buttons send macro-level CC / notes.
+- **Maschine MK1** (optional) is the **scene/event deck**:
+  - 16 pads for discrete scene, state, event, and section gestures.
+  - Prefers **semantic OSC-first routing** via the bridge/router.
+  - Never owns transport and does not replace Edirol, frZone, or `live-rig-control`.
 - **frZone** listens to a post-fader audio bus:
   - Emits CCs on the **analysis channel** (Ch 15).
 - **LineLight** responds directly to the audio bus:
   - No MIDI, but it acts as an **on-stage indicator** of mix activity.
 - **SCapps** see none of this directly; they only see what the bridge forwards.
 
-### MIDI channel roles (control lane summary)
+### MIDI + control roles (control lane summary)
 
 - **Realtime (no channel)**: REAPER → DrumKid → (others).  
 - **Ch 10**: Edirol → Bridge → SCapps (visual macros).  
 - **Ch 15**: frZone → Bridge → SCapps (analysis CCs).  
 - **Ch 16**: SQ-64 → AE Rack (voices).
+- **Optional semantic scene/event lane**: Maschine MK1 → bridge/router.
+  - Prefer stable `masch.*` IDs and OSC-style scene/state commands.
+  - Treat raw note numbers and any MIDI channel use as an implementation detail until locked.
 
 More detail on who sends what and how REAPER is configured lives in:
 
@@ -160,6 +169,7 @@ The video lane is where all of this ends up as image.
   - Max, TouchDesigner, or REAPER routing + MIDI/OSC logic.
   - Responsible for:
     - Listening to Ch 10 (Edirol) and Ch 15 (frZone).
+    - Listening to optional semantic scene/state/event commands from Maschine.
     - Mapping those CCs/notes to SCapps parameters and presets.
 - A **SCapps chain**:
   - Frame Buffer
@@ -198,6 +208,11 @@ At a glance:
   - REAPER / bridge pick up those messages.
   - Bridge maps them to SCapps parameters and scene changes.
 
+- **Discrete gestures → Control → Video**
+  - Maschine pads fire semantic scene/state/event commands.
+  - Bridge/router turns those into scene recalls, safety states, or bounded hits.
+  - This lane stays narrow so it remains readable under pressure.
+
 - **Clock → Everything**
   - REAPER’s transport drives DrumKid.
   - DrumKid’s patterns and fills shape the audio lane.
@@ -230,6 +245,7 @@ Docs still live here, but you only care about `02_audio-mixer-fx.md`.
   - REAPER → DrumKid.
   - Edirol on Ch 10.
   - frZone on Ch 15 (if possible).
+  - Optional Maschine MK1 as a scene/event deck if the routing is trusted.
 - Video lane:
   - Camera / capture → single SCapp (e.g. Frame Buffer or Maelstrom) → projector.
 
@@ -263,6 +279,7 @@ These belong in:
   - Ch 15 as the analysis lane (frZone).
   - Ch 16 as AE rack voices.
   - Channel 9 mentally reserved for Horizon’s future MIDI.
+- If Maschine is present, it stays a **narrow semantic scene/event lane** rather than becoming transport, macro shaping, or analysis.
 
 If you change these, update this file first, then ripple those changes out to the rest of the repo.
 
@@ -276,5 +293,6 @@ If you change these, update this file first, then ripple those changes out to th
 - For **frZone/LineLight specifics**: see `06_frzone-linelight.md`.  
 - For **show-specific setups**: see `07_show-…` and `08_midi-mapping-…`.  
 - For **EP-specific rig snapshots**: see `ep-i-hope-the-sky-will-still-take-us/`.
+- For the **optional Maschine scene/event deck**: see `10_maschine-mk1-lane.md`.
 
 This file should stay short, tall, and legible. When the rig evolves, start here, then let the details catch up.

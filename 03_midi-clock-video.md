@@ -64,6 +64,7 @@ This is the “default grammar” the rest of the rig assumes.
 | SQ-64         | Main sequencer           | var | Tracks set per-project; AE on 16.               |
 | AE Rack       | Modular voices           | 16  | Receives note/gate patterns from SQ-64.         |
 | Edirol PCM-30 | Visual “mission control” | 10  | Faders/knobs/buttons → video macros.            |
+| Maschine MK1 | Optional scene/event deck | TODO | Semantic scene/state deck; hybrid hits when needed. |
 | frZone        | Audio analysis → CC      | 15  | Band-split CCs; “slow hands” for visuals.       |
 | Horizon       | Master FX                | —   | Front panel only (Ch 9 reserved for later).     |
 | Lo-Fi Sampler | Clocked texture          | —   | Clock in only; no MIDI CC/note yet.             |
@@ -71,6 +72,10 @@ This is the “default grammar” the rest of the rig assumes.
 | SCapps        | Video endpoints          | n/a | Receive MIDI/OSC from bridge, not directly.     |
 
 These values are echoed in the README and in `01_system-overview.md` so you don’t have to memorize them.
+
+`TODO` above is intentional.
+For Maschine, the stable contract is the **semantic scene/state/event ID**.
+Any raw note numbers, pad indices, or MIDI channel assignments stay provisional until the hardware template is captured.
 
 ---
 
@@ -165,6 +170,44 @@ No visuals or analysis run on this channel; that’s deliberate so the modular�
 
 ---
 
+## Optional Maschine MK1 scene/event deck
+
+Maschine is an **optional, event-oriented control lane**.
+
+Its job is narrow:
+
+- top row = safe / show-state,
+- second row = named scenes,
+- third row = hybrid audiovisual hits,
+- fourth row = section / utility cues.
+
+What it does **not** do:
+
+- own transport,
+- send global Start/Stop,
+- generate clock,
+- replace Edirol’s Ch 10 macro lane,
+- replace frZone’s Ch 15 analysis lane.
+
+Think of it as running **parallel** to Edirol and frZone, not in competition with them.
+
+Preferred transport model:
+
+- **OSC-first** for semantic scene/state commands.
+- **Hybrid MIDI+OSC** for one-shot hit pads when both the bridge and a target endpoint need a bounded event.
+
+Provisional naming examples:
+
+- `/vid/state/blackout`
+- `/vid/scene/intro`
+- `/rig/section/a`
+- `/rig/override/manual`
+
+These are examples only.
+**TODO:** lock final addresses and any raw MIDI details in a future mapping pass.
+
+---
+
 ## Bridge and SCapps
 
 The bridge (Max, TouchDesigner, REAPER script, etc.) is the **translator** between MIDI land and SCapps.
@@ -174,9 +217,11 @@ Responsibilities:
 - Listen to:
   - Ch 10 (Edirol macros and scene triggers).
   - Ch 15 (frZone analysis).
+  - Optional semantic scene/state/event messages from Maschine.
 - Apply:
   - Scaling, smoothing, and dead-zones as needed (so visuals don’t jitter).
   - Scene selection logic tied to Edirol buttons.
+  - Safety/state logic for Maschine when that lane is armed.
 - Forward:
   - Clean, meaningful control signals to SCapps:
     - via OSC,
@@ -206,11 +251,19 @@ Minimal REAPER track layout that fits this doc:
    - Output: **virtual MIDI port** (`IAC / loopMIDI`), Ch 10.
    - Purpose: route Edirol CC/notes to the bridge / SCapps.
 
-3. **Track: `frZone Monitor` (optional)**
+3. **Track: `Maschine Scene Deck` (optional)**
+   - Input: Maschine MK1.
+   - Record: off unless you explicitly want logging.
+   - Output:
+     - either the bridge input port,
+     - or a semantic router process if you are translating raw pad strikes into OSC.
+   - Purpose: keep Maschine’s scene/event path explicit and separate from Ch 10 / Ch 15 roles.
+
+4. **Track: `frZone Monitor` (optional)**
    - Input: the same interface input frZone sees (or its return).
    - For metering; no MIDI.
 
-4. **Track: `Bridge / SCapps`**
+5. **Track: `Bridge / SCapps`**
    - If the bridge lives in REAPER (JSFX, plugin, etc.), you can host it here.
    - Otherwise, this track can just serve as a meter / label that reminds you what is talking to what.
 

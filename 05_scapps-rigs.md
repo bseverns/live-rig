@@ -54,6 +54,12 @@ Scenes (see `09_scene-system.md` and `scenes/*.yaml`) mostly control:
 - SC Video Mixer **input levels** (A/B/C/D),
 - a handful of **key parameters** in each chain.
 
+An optional Maschine MK1 can sit beside these rigs as a **small scene/event overlay**:
+
+- not transport,
+- not macro shaping,
+- just a bounded deck for safe states, scene recalls, hits, and section cues.
+
 ---
 
 ## Rig 1 – EP: *i hope the sky will still take us*
@@ -170,6 +176,22 @@ Exact note choices/mappings live in:
 - `scenes/ep-i-hope-scenes.yaml`
 - `08_midi-mapping-…` for the specific show.
 
+### Optional Maschine MK1 overlay
+
+If Maschine is present in this rig, treat it as a **mirror/subset surface**:
+
+- Row 1 mirrors safety and show-state actions.
+- Row 2 mirrors named scene families such as `INTRO`, `CRASH`, `DRIFT`, and `HARSH`.
+- Row 3 fires bounded audiovisual hit events.
+- Row 4 carries section cues and a small number of utility actions.
+
+Keep the split clear:
+
+- **Edirol** remains the continuous macro surface.
+- **frZone** remains the analysis lane.
+- **`live-rig-control`** remains the canonical mapping-driven performer UI.
+- **Maschine** is the small, tactile fallback deck when a discrete strike is the right move.
+
 ### Control roles
 
 - **Edirol (Ch 10)**:
@@ -242,6 +264,12 @@ You can reuse the same scene names but with:
 
 - smaller parameter spreads,
 - simpler mixer levels (e.g., just 0 or 1 on clean/processed).
+
+If Maschine is present in this smaller rig, keep it even narrower:
+
+- top row safety actions,
+- one or two scene recalls,
+- section cues only if they are already muscle memory.
 
 ---
 

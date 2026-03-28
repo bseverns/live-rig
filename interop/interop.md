@@ -24,6 +24,32 @@ The interop contract assumes two primary control lanes:
 These are combined in the bridge using the endpoint wiring model
 (`09_scene-system.md`), then routed to endpoints via OSC/MIDI.
 
+An optional **Maschine semantic lane** may sit beside them:
+
+- dedicated to scene/state commands and bounded event triggers,
+- separate from Ch 10 macro shaping,
+- separate from Ch 15 analysis bias,
+- and never a source of transport or clock.
+
+## Optional Maschine semantic lane
+
+If a Maschine MK1 is present, document it as a **semantic deck**, not just a bag of MIDI notes.
+
+Rules:
+
+- Use stable mapping IDs such as:
+  - `masch.safe.blackout`
+  - `masch.scene.intro`
+  - `masch.event.noise_burst`
+  - `masch.section.a`
+- Prefer **OSC-first** routing for scene/state commands.
+- Allow **hybrid MIDI+OSC** only where a one-shot event genuinely benefits from both.
+- Keep raw note numbers, pad indices, and MIDI channel assignments marked as **TODO** until the hardware template is locked.
+- Maschine must still respect the transport invariant:
+  - no clock generation,
+  - no global Start/Stop ownership,
+  - no endpoint acting as a second transport boss.
+
 ## Naming conventions
 
 Keep identifiers and OSC addresses predictable so mappings can be shared across tools.
@@ -36,6 +62,7 @@ Keep identifiers and OSC addresses predictable so mappings can be shared across 
   - `nw_wrld.scene.intro`
   - `vid.scene.intro`
   - `macro.fb_feedback`
+  - `masch.scene.intro`
 
 ### OSC addresses
 
@@ -44,6 +71,8 @@ Keep identifiers and OSC addresses predictable so mappings can be shared across 
   - `/nw_wrld/feed/enable`
   - `/nw_wrld/scene/intro`
   - `/framebuffer/feedback`
+  - `/vid/state/blackout`
+  - `/rig/section/a`
 
 ### Groups (radio / exclusive)
 
@@ -56,7 +85,7 @@ Scene selection should be mutually exclusive:
 
 All endpoints follow the same bridge contract:
 
-1. **Inputs**: Ch 10 macros + Ch 15 analysis.
+1. **Inputs**: Ch 10 macros + Ch 15 analysis + optional semantic scene/event triggers.
 2. **Scene logic**: scene table -> ramp -> combiner.
 3. **Output router**: maps logical params to OSC/MIDI endpoints.
 

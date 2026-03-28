@@ -32,12 +32,35 @@ Across all SCapps in this rig:
   - Source lanes:
     - **Ch 10** – Edirol: macro gestures, scene triggers.
     - **Ch 15** – frZone: analysis bias from the audio mix.
+    - **Optional semantic lane** – Maschine MK1: scene/state commands and bounded event hits.
 
 Naming conventions in docs:
 
 - `scene_base.*` – parameters set by scene system (`09_scene-system.md` + `scenes/*.yaml`).
 - `analysis.*` – parameters biased by frZone (Ch 15).
 - `macro.*` – parameters ridden live from Edirol (Ch 10).
+
+Maschine, when present, is not another continuous modulation source.
+It is a **semantic trigger surface** that the bridge translates into scene/state changes or bounded hit events before SCapps see anything.
+
+---
+
+## Optional Maschine lane in SCapps context
+
+From the SCapps side, the Maschine lane should feel simple:
+
+- it may recall scenes,
+- it may assert safe/show states,
+- it may fire hybrid audiovisual hit events,
+- and it should do so without taking over transport or continuous macro control.
+
+Practical rule:
+
+- Edirol still shapes,
+- frZone still biases,
+- Maschine only **strikes named intents**.
+
+That keeps SCapps responsive without turning the bridge into a mystery box of anonymous pad notes.
 
 ---
 
