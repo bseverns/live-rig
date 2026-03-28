@@ -5,8 +5,9 @@ It exists so that UI mappings, bridge logic, and endpoint apps all agree on the 
 
 ## Transport ownership (clock invariant)
 
-- **REAPER owns transport.**
-- **DrumKid is the clock target** and can fan clock to other devices.
+- **One device owns clock at a time.**
+- **DrumKid may be the active clock controller** and can fan clock to other devices.
+- **REAPER may own transport in DAW-led sets**, but it is not assumed in every configuration.
 - **Endpoints follow clock; they never generate it.**
   - SCapps, Processing sketches, and any other endpoints only **consume** control data.
   - If an endpoint needs time, it should derive it from incoming CC/OSC or forwarded clock,
@@ -45,6 +46,7 @@ Rules:
 - Prefer **OSC-first** routing for scene/state commands.
 - Allow **hybrid MIDI+OSC** only where a one-shot event genuinely benefits from both.
 - Keep raw note numbers, pad indices, and MIDI channel assignments marked as **TODO** until the hardware template is locked.
+- Route Maschine directly to the computer MIDI bus that the bridge listens to; do not require REAPER to be in that path.
 - Maschine must still respect the transport invariant:
   - no clock generation,
   - no global Start/Stop ownership,
@@ -98,7 +100,7 @@ For **Processing endpoints**, treat them like SCapps:
 Routing note for Processing:
 
 - CC/notes arrive via the **bridge output router** (virtual MIDI port or OSC).
-- If clock is required, forward it **from REAPER/bridge** into the same port.
+- If clock is required, forward it from the **active clock boss / bridge** into the same port.
 
 See the model in `09_scene-system.md` for the router mapping examples.
 

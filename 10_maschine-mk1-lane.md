@@ -7,8 +7,8 @@ The point is to give the rig a **small, tactile, high-legibility scene/event dec
 
 Keep these invariants intact:
 
-- **REAPER remains transport owner.**
-- **DrumKid remains the clock target** and can fan clock onward.
+- **One device owns clock at a time.**
+- **DrumKid may be the active clock controller** in hardware-led use, or may follow another master in a DAW-led setup.
 - **Endpoints follow clock; they never generate it.**
 - **Maschine does not send or own global transport.**
 - **Maschine is for discrete gestures, not continuous shaping.**
@@ -53,7 +53,8 @@ What it is not for:
 
 | Node | Primary job | Why it stays distinct |
 |------|-------------|-----------------------|
-| REAPER | Transport and routing hub | Keeps one unambiguous transport boss. |
+| REAPER | DAW hub when used | Useful for routing and DAW-led sets, but not required to own transport in every configuration. |
+| DrumKid | Clock control / rhythmic core | Can be the active clock controller in hardware-led use without changing Maschine's narrow role. |
 | Edirol PCM-30 | Continuous macro shaping on Ch 10 | Best for faders/knobs and human-scale parameter riding. |
 | frZone | Analysis bias on Ch 15 | Listens to the mix and nudges visuals without human micromanagement. |
 | `live-rig-control` | Canonical mapping-driven performer UI | Best place for broader, legible, mapping-backed control. |
@@ -160,7 +161,7 @@ If you are overwhelmed:
 
 Likely near-term shape:
 
-- Maschine feeds a **bridge/router** that converts pad strikes into semantic IDs.
+- Maschine feeds the computer MIDI bus that the **bridge/router** listens to, then gets converted into semantic IDs.
 - Safe/state and scene pads stay **OSC-first**.
 - Event pads may use **hybrid MIDI+OSC** when a semantic trigger also needs a tightly-coupled endpoint hit.
 
@@ -179,7 +180,7 @@ Likely relationship to `live-rig-control`:
 Open TODOs:
 
 - **TODO:** lock raw MK1 note numbers / pad indices.
-- **TODO:** lock whether the bridge receives Maschine via direct MIDI, REAPER routing, or a dedicated router process.
+- **TODO:** lock the exact direct computer MIDI bus name the bridge listens on for Maschine.
 - **TODO:** lock final OSC address patterns for safe/state, scene, section, and override actions.
 - **TODO:** decide whether Row 3 hit pads fan out to endpoint-specific one-shots, a scene-event router, or both.
 - **TODO:** document LED feedback behavior if the deck becomes show-critical.

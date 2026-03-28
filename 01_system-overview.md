@@ -46,7 +46,7 @@ flowchart TB
 
     subgraph Control["Control lane"]
         Reaper["REAPER (DAW / hub)"]
-        DrumKidCtrl["DrumKid (clock target)"]
+        DrumKidCtrl["DrumKid (clock / rhythm core)"]
         SQ64["SQ-64"]
         AERackCtrl["AE Rack (Ch 16)"]
         Edirol["Edirol PCM-30<br/>(visual control)"]
@@ -54,7 +54,7 @@ flowchart TB
         frZone["frZone<br/>(audio analysis → CC)"]
         LineLight["LineLight<br/>(audio-reactive lamp)"]
 
-        Reaper -. clock / transport .-> DrumKidCtrl
+        Reaper -. optional clock / transport .-> DrumKidCtrl
         DrumKidCtrl -. optional clock .-> SQ64
         SQ64 --> AERackCtrl
 
@@ -82,7 +82,7 @@ flowchart TB
 ```
 
 - **Audio lane**: devices make noise → mixer → Horizon → PA.  
-- **Control lane**: REAPER runs transport/clock, Edirol and frZone write control, and Maschine can optionally add a narrow scene/event deck.  
+- **Control lane**: one device owns clock at a time, Edirol and frZone write control, and Maschine can optionally add a narrow scene/event deck.  
 - **Video lane**: Bridge + SCapps translate those controls into moving images.
 
 This is the shape that the rest of the repo’s files zoom into.
@@ -124,10 +124,11 @@ The control lane is where **time, structure, and modulation** live.
 At the moment:
 
 - **REAPER** is the *hub*:
-  - Sends MIDI clock + Start/Stop to DrumKid.
   - Hosts routing for MIDI and, if needed, some bridge functions.
-- **DrumKid** is the **clock target** and rhythmic heart.  
-  It can pass clock on to other devices.
+  - Can own transport in DAW-led sets.
+- **DrumKid** is the **rhythmic heart**.  
+  - It may be the active clock controller in hardware-led sets.
+  - It can pass clock on to other devices.
 - **SQ-64** sequences **AE Rack** on Channel 16.
 - **Edirol PCM-30** is the **visual hands**:
   - Lives on the **video-control channel** (Ch 10 by default).
@@ -144,7 +145,7 @@ At the moment:
 
 ### MIDI + control roles (control lane summary)
 
-- **Realtime (no channel)**: REAPER → DrumKid → (others).  
+- **Realtime (no channel)**: active clock boss → followers.  
 - **Ch 10**: Edirol → Bridge → SCapps (visual macros).  
 - **Ch 15**: frZone → Bridge → SCapps (analysis CCs).  
 - **Ch 16**: SQ-64 → AE Rack (voices).
@@ -214,7 +215,9 @@ At a glance:
   - This lane stays narrow so it remains readable under pressure.
 
 - **Clock → Everything**
-  - REAPER’s transport drives DrumKid.
+  - One device owns clock at a time.
+  - REAPER can drive DrumKid in DAW-led sets.
+  - DrumKid can drive downstream followers in hardware-led sets.
   - DrumKid’s patterns and fills shape the audio lane.
   - That audio drives frZone and LineLight.
   - frZone’s CCs bias the visuals.
@@ -234,6 +237,7 @@ If any of those cross-lane relationships change, this is the document to update.
 Control lane shrinks to:
 
 - REAPER → DrumKid (clock only).
+- or DrumKid as clock source when the setup is hardware-led.
 
 Video lane is absent.  
 Docs still live here, but you only care about `02_audio-mixer-fx.md`.
@@ -242,7 +246,7 @@ Docs still live here, but you only care about `02_audio-mixer-fx.md`.
 
 - Audio lane as above.
 - Control lane:
-  - REAPER → DrumKid.
+  - One clock boss only: REAPER or DrumKid.
   - Edirol on Ch 10.
   - frZone on Ch 15 (if possible).
   - Optional Maschine MK1 as a scene/event deck if the routing is trusted.

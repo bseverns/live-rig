@@ -14,7 +14,7 @@ It’s not firmware. It’s the **field manual** for the whole ecosystem: audio,
 
 ## QUICKSTART (start order)
 
-1. **Clock first** - REAPER runs transport and sends clock to DrumKid.  
+1. **Clock first** - decide who owns clock tonight, then keep it singular. DrumKid often fills this role; REAPER can do it in DAW-led sets.  
 2. **Audio + analysis** - mixer -> Horizon / PA; frZone fed from a post-fader bus.  
 3. **Visuals + bridge** - start SCapps / Processing endpoints, then the bridge/router.
 
@@ -22,11 +22,13 @@ It’s not firmware. It’s the **field manual** for the whole ecosystem: audio,
 
 If you’re standing in a basement / club / warehouse right now, start here.
 
-1. **Clock (REAPER → DrumKid)**  
-   - In REAPER:  
+1. **Clock (one boss only)**  
+   - If **REAPER** owns clock tonight:
      - Enable the DrumKid MIDI output in *Preferences → Audio → MIDI Devices*.  
      - Right-click it → **Enable output** + **Send clock/SPP**.  
-   - Use DrumKid to fan clock to SQ-64 or other devices if needed.
+   - If **DrumKid** owns clock tonight:
+     - Keep REAPER out of transport ownership.
+     - Use DrumKid to fan clock to SQ-64 or other devices if needed.
 
 2. **Audio (mixer → Horizon → PA)**  
    - Patch sources and devices according to `02_audio-mixer-fx.md`.  
@@ -60,7 +62,9 @@ Three lanes, one rig:
   frZone and LineLight tap a post-fader bus here to “listen” to the mix.
 
 - **Control lane**  
-  REAPER sends clock to DrumKid.  
+  One device owns clock at a time.  
+  DrumKid often serves as the active clock controller.  
+  REAPER can take that role in DAW-led sets.  
   SQ-64 and AE rack handle voices.  
   Edirol sends visual macros.  
   frZone sends analysis CCs.
@@ -88,7 +92,7 @@ These are the files currently in the repo and their jobs:
   Mixer channel layout, FX loop, how Horizon sits on the master bus, and how frZone / LineLight tap the audio.
 
 - `03_midi-clock-video.md`  
-  Clock topology and MIDI routing, including which device runs clock (REAPER → DrumKid), and how Edirol / frZone feed the video lane.
+  Clock topology and MIDI routing, including how DrumKid- or REAPER-led clock setups coexist with the video-control lanes.
 
 - `04_scapps-overview.md`  
   Overview of the SCapps in use (Frame Buffer, Maelstrom, SC Video Mixer, etc.):  
@@ -129,14 +133,14 @@ This is the **default** mental model for channels. Per-show files can override, 
 
 ### System realtime (no channel)
 
-- **REAPER → DrumKid**: clock, start, stop  
+- **Active clock boss → followers**: clock, start, stop  
 - DrumKid may forward clock to SQ-64 and other devices.
 
 ### Device → channel summary
 
 | Device         | Role                             | MIDI Ch | How it’s used now                                            |
 |----------------|----------------------------------|:-------:|---------------------------------------------------------------|
-| DrumKid        | Clock target + drums             |   —     | Listens to realtime clock; drives drum audio; can fan clock. |
+| DrumKid        | Clock controller/follower + drums|   —     | May own clock or follow another master; drives drum audio; can fan clock. |
 | SQ-64          | Main sequencer                   | varies  | Sends notes/gates; AE rack on its track set to Ch 16.        |
 | AE Rack        | Modular voices                   |   16    | Receives note/gate patterns from SQ-64.                      |
 | Edirol PCM-30  | Visual “mission control”         |   10    | Faders/knobs/buttons send CC/notes to bridge → SCapps.       |
@@ -145,7 +149,7 @@ This is the **default** mental model for channels. Per-show files can override, 
 | Lo-Fi Sampler  | Clocked audio texture            |   —     | Audio + clock in; no CC/note I/O yet.                        |
 | LineLight      | Audio-reactive lamp              |   —     | Follows an audio bus; no MIDI.                               |
 | SCapps         | Video processing chain (endpoint)|   n/a   | Receive video + CC/OSC from Edirol (Ch 10) & frZone (Ch 15). |
-| REAPER (DAW)   | Hub / router                     |   n/a   | Sends clock to DrumKid, routes audio and MIDI.               |
+| REAPER (DAW)   | Hub / router                     |   n/a   | Routes audio/MIDI and may own clock in DAW-led sets.         |
 
 ### Channel 10 – Visual macros (Edirol)
 
@@ -212,7 +216,7 @@ Keeping one channel mentally reserved now avoids future routing chaos.
 You don’t need a full how-to here, just a few anchors:
 
 - **MIDI Devices**  
-  - Enable DrumKid as an output and turn on **Send clock/SPP**.  
+  - If REAPER owns clock tonight, enable DrumKid as an output and turn on **Send clock/SPP**.  
   - Enable a virtual port (IAC / loopMIDI) for sending Edirol/analysis CCs into the bridge → SCapps.
 
 - **Audio buses**  

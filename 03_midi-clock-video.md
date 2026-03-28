@@ -5,7 +5,7 @@ This document pins down:
 - Who is the **clock boss**.
 - Which device lives on which **MIDI channel**.
 - How control reaches the **video lane** (via the bridge and SCapps).
-- What REAPER needs to be doing so the whole thing behaves.
+- What the computer-side routing needs to be doing so the whole thing behaves.
 
 It’s the “how timing and control move” counterpart to `02_audio-mixer-fx.md`.
 
@@ -13,22 +13,22 @@ It’s the “how timing and control move” counterpart to `02_audio-mixer-fx.m
 
 ## Clock topology
 
-**Current assumption:** REAPER is the transport brain.
+**Current assumption:** one active clock boss at a time.
 
-- **REAPER**:
-  - Runs the timeline.
-  - Sends **MIDI clock + Start/Stop** to DrumKid.
 - **DrumKid**:
-  - Receives clock.
+  - May be the active clock controller in hardware-led use.
   - Plays its patterns/fills.
   - Can pass clock to other devices if you configure it that way.
+- **REAPER**:
+  - May run the timeline in DAW-led sets.
+  - Can send **MIDI clock + Start/Stop** to DrumKid when that configuration is desired.
 - **SQ-64**:
   - Can be a clock follower (from DrumKid) or directly from REAPER,
   - But the **permanent assumption** is: *one* master at a time.
 
-### REAPER configuration (clock)
+### Computer / REAPER configuration (clock)
 
-In REAPER:
+If REAPER is the current clock source:
 
 1. `Preferences → Audio → MIDI Devices`
    - Enable output to `DrumKid` (or whatever the interface labels that port).
@@ -45,6 +45,12 @@ Start/Stop:
 - DrumKid starts/stops with the DAW.
 - Any other gear that needs transport messages should get them *indirectly* (via DrumKid or secondary routing), unless a show doc explicitly states otherwise.
 
+If DrumKid is the current clock source:
+
+- Leave REAPER out of clock ownership.
+- Let DrumKid drive downstream followers directly.
+- Keep the bridge / SCapps side as clock followers or control followers only.
+
 ---
 
 ## MIDI channel layout (canonical)
@@ -53,14 +59,14 @@ This is the “default grammar” the rest of the rig assumes.
 
 **Realtime (no channel)**
 
-- REAPER → DrumKid: **Clock / Start / Stop**
-- DrumKid → optional followers: clock only.
+- Active clock boss → followers: **Clock / Start / Stop** as configured.
+- DrumKid → optional followers: clock only, when DrumKid is the active controller or fan-out node.
 
 **Channel summary**
 
 | Device        | Role                     | Ch  | Notes                                           |
 |---------------|--------------------------|:---:|-------------------------------------------------|
-| DrumKid       | Clock target + drums     | —   | Listens to realtime clock only.                 |
+| DrumKid       | Clock controller/follower + drums | —   | May own clock or follow another master, depending on the rig. |
 | SQ-64         | Main sequencer           | var | Tracks set per-project; AE on 16.               |
 | AE Rack       | Modular voices           | 16  | Receives note/gate patterns from SQ-64.         |
 | Edirol PCM-30 | Visual “mission control” | 10  | Faders/knobs/buttons → video macros.            |
@@ -252,12 +258,10 @@ Minimal REAPER track layout that fits this doc:
    - Purpose: route Edirol CC/notes to the bridge / SCapps.
 
 3. **Track: `Maschine Scene Deck` (optional)**
-   - Input: Maschine MK1.
+   - Input: Maschine MK1 on the computer MIDI bus.
    - Record: off unless you explicitly want logging.
-   - Output:
-     - either the bridge input port,
-     - or a semantic router process if you are translating raw pad strikes into OSC.
-   - Purpose: keep Maschine’s scene/event path explicit and separate from Ch 10 / Ch 15 roles.
+   - Output: bridge input listener on the same computer-side MIDI path, or the bridge's semantic translator if pad strikes are converted to OSC.
+   - Purpose: keep Maschine’s scene/event path explicit, direct, and separate from Ch 10 / Ch 15 roles.
 
 4. **Track: `frZone Monitor` (optional)**
    - Input: the same interface input frZone sees (or its return).
