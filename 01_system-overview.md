@@ -277,7 +277,8 @@ These belong in:
 **Things that should almost never change:**
 
 - The **three-lane structure**.
-- The idea that **SCapps are endpoints**, not the hub.
+- The idea that **SCapps, MSVP, and nw_wrld are endpoints**, not the hub.
+- The idea that **MSVP and nw_wrld are peer endpoints** behind a shared contract rather than master/subordinate repos.
 - The MIDI channel roles:
   - Ch 10 as the video-control bus (Edirol).
   - Ch 15 as the analysis lane (frZone).
@@ -298,5 +299,6 @@ If you change these, update this file first, then ripple those changes out to th
 - For **show-specific setups**: see `07_show-…` and `08_midi-mapping-…`.  
 - For **EP-specific rig snapshots**: see `ep-i-hope-the-sky-will-still-take-us/`.
 - For the **optional Maschine scene/event deck**: see `10_maschine-mk1-lane.md`.
+- For **repo roles, failover tiers, and runtime snapshots**: see `11_repo-roles-failover.md`.
 
 This file should stay short, tall, and legible. When the rig evolves, start here, then let the details catch up.

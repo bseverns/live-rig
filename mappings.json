@@ -65,6 +65,44 @@
       }
     },
     {
+      "id": "vid_scene_clean_camera",
+      "label": "Clean Camera",
+      "interaction": "toggle",
+      "toggle": true,
+      "group": "video.scene",
+      "midi": {
+        "type": "note",
+        "channel": 10,
+        "note": 64,
+        "onValue": 100,
+        "offValue": 0
+      },
+      "osc": {
+        "address": "/video/scene/clean_camera",
+        "onArgs": [1],
+        "offArgs": [0]
+      }
+    },
+    {
+      "id": "vid_state_blackout",
+      "label": "Blackout",
+      "interaction": "toggle",
+      "toggle": true,
+      "midi": {
+        "type": "note",
+        "channel": 10,
+        "note": 63,
+        "onValue": 100,
+        "offValue": 0
+      },
+      "osc": {
+        "address": "/rig/state/blackout",
+        "onArgs": [1],
+        "offArgs": [0]
+      },
+      "description": "Shared blackout state. Bridge and endpoints should treat this as the fastest safe visual kill."
+    },
+    {
       "id": "nw_feed_enable",
       "label": "nw_wrld On",
       "interaction": "toggle",

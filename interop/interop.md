@@ -3,6 +3,25 @@
 This folder is the shared contract for **mappings**, **routing**, and **endpoint behavior** across the rig.
 It exists so that UI mappings, bridge logic, and endpoint apps all agree on the same rules.
 
+## Authority artifacts
+
+The authority-side files in this folder now have separate jobs:
+
+- `interop.schema.json`
+  - schema for transport-level mapping files such as `mappings.json`
+- `rig.contract.json`
+  - authority contract for repo roles, survivability tiers, semantic IDs, and failover doctrine
+- `rig.contract.schema.json`
+  - schema for that authority contract
+- `exports/live-rig.default.json`
+  - exported runtime snapshot for sibling repos to mirror or import
+
+Rule of thumb:
+
+- `mappings.json` answers **how do we send it**
+- `rig.contract.json` answers **what does it mean**
+- `exports/live-rig.default.json` answers **what should a runtime consumer ingest**
+
 ## Transport ownership (clock invariant)
 
 - **One device owns clock at a time.**
@@ -60,21 +79,23 @@ Keep identifiers and OSC addresses predictable so mappings can be shared across 
 
 - **Lowercase, dot-delimited**: `namespace.category.action`
 - Examples:
-  - `nw_wrld.feed.enable`
-  - `nw_wrld.scene.intro`
-  - `vid.scene.intro`
+  - `scene.intro`
+  - `state.blackout`
+  - `event.noise_burst`
   - `macro.fb_feedback`
-  - `masch.scene.intro`
+  - `analysis.low_band`
+
+For legacy or endpoint-specific transport bindings, keep the transport ID stable and map it back to the shared semantic ID in the exported snapshot.
 
 ### OSC addresses
 
 - **Slash-delimited, app-first**: `/app/feature/action`
 - Examples:
-  - `/nw_wrld/feed/enable`
-  - `/nw_wrld/scene/intro`
+  - `/video/scene/intro`
+  - `/rig/state/blackout`
   - `/framebuffer/feedback`
-  - `/vid/state/blackout`
-  - `/rig/section/a`
+  - `/analysis/low_band`
+  - `/rig/event/noise_burst`
 
 ### Groups (radio / exclusive)
 
@@ -103,6 +124,34 @@ Routing note for Processing:
 - If clock is required, forward it from the **active clock boss / bridge** into the same port.
 
 See the model in `09_scene-system.md` for the router mapping examples.
+
+## Neutral degradation rules
+
+The authority contract assumes the rig degrades in this order:
+
+1. analysis can disappear first
+2. the secondary endpoint can disappear next
+3. the preferred UI can disappear as long as shared semantic IDs remain reachable
+
+That means:
+
+- if `frZone` goes away, continue from scene base + manual macros only
+- if `MSVP` or `nw_wrld` goes away, switch to the peer endpoint or utility visual path
+- if `live-rig-control` goes away, direct MIDI or OSC still targets the same scene and state vocabulary
+
+See `11_repo-roles-failover.md` for the operator-facing failover matrix.
+
+## Exported snapshot rule
+
+Runtime repos should consume a committed snapshot generated from this repo instead of hand-copying mappings.
+
+Authority-side commands:
+
+```bash
+node tools/validate-rig-contract.js interop/rig.contract.json --mappings mappings.json
+node tools/export-rig-profile.js
+node tools/validate-rig-profile.js interop/exports/live-rig.default.json
+```
 
 ## Rig doctor env + ports
 

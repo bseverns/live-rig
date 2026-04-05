@@ -1,0 +1,265 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://live-rig.local/interop/rig.contract.schema.json",
+  "title": "Live Rig Authority Contract",
+  "type": "object",
+  "required": [
+    "contractVersion",
+    "authority",
+    "survivabilityTiers",
+    "controlLanes",
+    "endpointRules",
+    "semanticCatalog",
+    "repoRegistry",
+    "bindingRefs",
+    "healthContract",
+    "exportRule"
+  ],
+  "properties": {
+    "contractVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "authority": {
+      "type": "object",
+      "required": ["repo", "runtimeDependency", "summary"],
+      "properties": {
+        "repo": { "type": "string" },
+        "runtimeDependency": { "type": "boolean" },
+        "summary": { "type": "string" }
+      }
+    },
+    "survivabilityTiers": {
+      "type": "object",
+      "required": ["A", "B", "C"],
+      "properties": {
+        "A": { "$ref": "#/$defs/tier" },
+        "B": { "$ref": "#/$defs/tier" },
+        "C": { "$ref": "#/$defs/tier" }
+      }
+    },
+    "controlLanes": {
+      "type": "object",
+      "required": ["macro", "analysis", "semantic"],
+      "properties": {
+        "macro": { "$ref": "#/$defs/lane" },
+        "analysis": { "$ref": "#/$defs/lane" },
+        "semantic": { "$ref": "#/$defs/lane" }
+      }
+    },
+    "endpointRules": {
+      "type": "object",
+      "required": ["invariants", "degradation"],
+      "properties": {
+        "invariants": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "degradation": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      }
+    },
+    "semanticCatalog": {
+      "type": "object",
+      "required": ["scenes", "states", "events", "macros", "analysis"],
+      "properties": {
+        "scenes": { "$ref": "#/$defs/semanticList" },
+        "states": { "$ref": "#/$defs/semanticList" },
+        "events": { "$ref": "#/$defs/semanticList" },
+        "macros": { "$ref": "#/$defs/semanticList" },
+        "analysis": { "$ref": "#/$defs/semanticList" }
+      }
+    },
+    "repoRegistry": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/repo" },
+      "minItems": 1
+    },
+    "bindingRefs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/bindingRef" }
+    },
+    "healthContract": {
+      "type": "object",
+      "required": ["statuses", "requiredFields", "optionalFields"],
+      "properties": {
+        "statuses": {
+          "type": "array",
+          "items": { "enum": ["alive", "degraded", "unavailable"] },
+          "minItems": 3
+        },
+        "requiredFields": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "optionalFields": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "notes": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "exportRule": {
+      "type": "object",
+      "required": [
+        "snapshotPath",
+        "runtimeIndependence",
+        "consumptionPattern",
+        "command",
+        "sourceArtifacts"
+      ],
+      "properties": {
+        "snapshotPath": { "type": "string" },
+        "runtimeIndependence": { "type": "boolean" },
+        "consumptionPattern": { "type": "string" },
+        "command": { "type": "string" },
+        "sourceArtifacts": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      }
+    }
+  },
+  "$defs": {
+    "tier": {
+      "type": "object",
+      "required": ["id", "label", "minimumOutcome", "requiredCapabilities"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "enum": ["A", "B", "C"]
+        },
+        "label": { "type": "string" },
+        "minimumOutcome": { "type": "string" },
+        "requiredCapabilities": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      }
+    },
+    "lane": {
+      "type": "object",
+      "required": ["id", "purpose", "primarySources", "primaryConsumers", "requiredFor"],
+      "properties": {
+        "id": { "type": "string" },
+        "purpose": { "type": "string" },
+        "primarySources": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "primaryConsumers": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "midiChannels": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 16
+          }
+        },
+        "requiredFor": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["A", "B", "C"]
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "semanticList": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/semanticItem" }
+    },
+    "semanticItem": {
+      "type": "object",
+      "required": ["id", "label", "description"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(scene|state|event|macro|analysis)\\.[a-z0-9_.]+$"
+        },
+        "label": { "type": "string" },
+        "description": { "type": "string" },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^(scene|state|event|macro|analysis)\\.[a-z0-9_.]+$"
+          }
+        }
+      }
+    },
+    "repo": {
+      "type": "object",
+      "required": ["id", "role", "summary", "consumes", "produces", "requiredFor", "fallbacks"],
+      "properties": {
+        "id": { "type": "string" },
+        "role": {
+          "type": "string",
+          "enum": ["authority", "controller", "analysis", "endpoint", "workspace", "lab"]
+        },
+        "summary": { "type": "string" },
+        "consumes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "produces": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "requiredFor": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "fallbacks": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/fallback" }
+        }
+      }
+    },
+    "fallback": {
+      "type": "object",
+      "required": ["when", "target", "outcome"],
+      "properties": {
+        "when": { "type": "string" },
+        "target": { "type": "string" },
+        "outcome": { "type": "string" }
+      }
+    },
+    "bindingRef": {
+      "type": "object",
+      "required": ["semanticId", "mappingRef", "transport"],
+      "properties": {
+        "semanticId": {
+          "type": "string",
+          "pattern": "^(scene|state|event|macro|analysis)\\.[a-z0-9_.]+$"
+        },
+        "mappingRef": { "type": "string" },
+        "transport": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["midi", "osc"]
+          },
+          "minItems": 1
+        },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,6 +1,12 @@
 {
   "name": "live-rig-interop",
   "private": true,
+  "scripts": {
+    "validate:mappings": "node tools/validate-mappings.js mappings.json",
+    "validate:rig-contract": "node tools/validate-rig-contract.js interop/rig.contract.json --mappings mappings.json",
+    "validate:rig-profile": "node tools/validate-rig-profile.js interop/exports/live-rig.default.json",
+    "export:rig-profile": "node tools/export-rig-profile.js"
+  },
   "dependencies": {
     "ajv": "^6.12.6"
   }

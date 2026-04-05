@@ -104,8 +104,11 @@ These are the files currently in the repo and their jobs:
 - `10_maschine-mk1-lane.md`
   First-pass field-manual page for the optional Maschine MK1 scene/event deck: pad intent, stable IDs, safety logic, and interop guidance.
 
+- `11_repo-roles-failover.md`
+  Authority-side registry for repo roles, survivability tiers, failover paths, and show-night failure cards.
+
 - `interop/`  
-  Interop contract + play rules: mappings schema, endpoint behavior, naming conventions, and bridge expectations.
+  Interop contract + play rules: mappings schema, authority contract, exported runtime snapshot, endpoint behavior, naming conventions, and bridge expectations.
 
 - `tools/rig-doctor.js`  
   One-page status + validator runner for mappings and core env/port checks.
@@ -249,6 +252,9 @@ The goal isn’t to keep this perfectly pristine; it’s to give future-you a **
 The interop contract lives in `interop/interop.md` and is the source of truth for:
 
 - mappings schema (`interop/interop.schema.json`)
+- authority contract (`interop/rig.contract.json`)
+- authority contract schema (`interop/rig.contract.schema.json`)
+- exported runtime snapshot (`interop/exports/live-rig.default.json`)
 - control lanes (macro vs analysis)
 - the optional Maschine semantic lane
 - naming conventions
@@ -258,3 +264,11 @@ Key invariant: **endpoints follow clock; they never generate it.**
 If you’re wiring **Processing endpoints**, route CC/OSC through the bridge and follow the
 endpoint wiring model in `09_scene-system.md` (input parser -> scene manager -> router).
 If clock is required, forward it from REAPER/bridge into the same port.
+
+Authority-side maintenance commands:
+
+```bash
+npm run validate:rig-contract
+npm run export:rig-profile
+npm run validate:rig-profile
+```
