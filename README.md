@@ -10,6 +10,12 @@ This repo exists so that **future-you** can walk into a venue, open one page, an
 
 It’s not firmware. It’s the **field manual** for the whole ecosystem: audio, MIDI, analysis, and video endpoints.
 
+If you need the **actual current studio picture** rather than the stable architecture, start with:
+
+- `12_current-studio-rig.md`
+- `13_hardware-registry.md`
+- `14_external-sources.md`
+
 ---
 
 ## QUICKSTART (start order)
@@ -107,11 +113,26 @@ These are the files currently in the repo and their jobs:
 - `11_repo-roles-failover.md`
   Authority-side registry for repo roles, survivability tiers, failover paths, and show-night failure cards.
 
+- `12_current-studio-rig.md`
+  Snapshot of what is actually in the studio now: core, dormant, planned, and under-documented nodes.
+
+- `13_hardware-registry.md`
+  Flat registry of hardware nodes, their current roles, their sources of truth, and the next documentation move for each.
+
+- `14_external-sources.md`
+  Provenance map for manuals, local repos, vendored code, and other off-page sources this rig still depends on.
+
+- `RigMap.drawio.png`
+  Current hand-built studio diagram: the fastest way to see which nodes are actually active right now.
+
 - `interop/`  
   Interop contract + play rules: mappings schema, authority contract, exported runtime snapshot, endpoint behavior, naming conventions, and bridge expectations.
 
 - `tools/rig-doctor.js`  
   One-page status + validator runner for mappings and core env/port checks.
+
+- `vendor/greyBox/`
+  Vendored snapshot of the current `greyBox` / `Growser` sketch family so the source is available from this repo alone.
 
 - `06_frzone-linelight.md`  
   How frZone and LineLight listen to the audio bus, what CCs frZone emits, and how those CCs bias SCapps parameters.

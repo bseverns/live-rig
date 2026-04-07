@@ -10,6 +10,12 @@ It doesn’t care about exact CC numbers or knob labels yet. It cares about:
 
 Think of this as the **topographic map** for everything else in this repo.
 
+If you need the **literal current studio truth** rather than the stable topology, also read:
+
+- `12_current-studio-rig.md`
+- `13_hardware-registry.md`
+- `14_external-sources.md`
+
 ---
 
 ## Three lanes

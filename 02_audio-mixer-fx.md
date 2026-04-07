@@ -39,6 +39,11 @@ Use this as the “normal” mapping when you have the whole rig on the table.
 
 You can freeze this as a printed block on the show sheet: when you plug in, you’re just filling this table.
 
+Current studio note:
+
+- The Electribe Sampler (`E2S`) may function either as a direct sound source or as a processor on another audio line.
+- Keep that distinction explicit in `12_current-studio-rig.md` and any show-specific patch sheet rather than silently assuming it is only a source.
+
 ---
 
 ## Bus structure
