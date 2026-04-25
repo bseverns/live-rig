@@ -1,0 +1,99 @@
+profile_id: profile.full_studio
+label: Full Studio Rig
+version: 1.0.0
+notes: Larger studio sprawl with the full authority layer and the same safety anchors.
+scene_file: scenes/minimal-scenes.yaml
+validate_scene_file: true
+required_devices:
+  -
+    id: controller.edirol_pcm_30
+    label: Edirol PCM-30 or equivalent
+    role: controller
+  -
+    id: device.bridge_host
+    label: Bridge host
+    role: routing and semantic dispatch
+  -
+    id: device.msvp
+    label: MSVP primary visual endpoint
+    role: visual_endpoint
+  -
+    id: device.nw_wrld
+    label: nw_wrld visual endpoint
+    role: visual_endpoint
+  -
+    id: audio.output.pa
+    label: Audio output path
+    role: audio_output
+optional_devices:
+  -
+    id: analysis.frzone
+    label: frZone
+    role: analysis
+  -
+    id: controller.maschine_mk1
+    label: Maschine MK1
+    role: semantic_deck
+  -
+    id: controller.reaper
+    label: REAPER
+    role: clock_master_or_router
+  -
+    id: controller.drumkid
+    label: DrumKid
+    role: clock_fanout_or_sequencer
+  -
+    id: device.secondary_capture
+    label: Secondary capture or camera feed
+    role: input_source
+controllers:
+  -
+    id: controller.edirol_pcm_30
+    label: Edirol PCM-30 or equivalent
+    role: primary macro controller
+    notes: Human macro lane and live scene access.
+  -
+    id: controller.maschine_mk1
+    label: Maschine MK1
+    role: semantic deck
+    notes: Optional scene/state deck when the room supports it.
+visual_endpoints:
+  -
+    id: device.msvp
+    label: MSVP primary visual endpoint
+    role: primary visual endpoint
+    notes: Preferred endpoint when available.
+  -
+    id: device.nw_wrld
+    label: nw_wrld visual endpoint
+    role: secondary visual endpoint
+    notes: Project-driven endpoint that remains separate from the authority layer.
+audio_patch_reference:
+  id: patch.audio.full_studio_main
+  label: Full studio main bus to PA
+  source: mixer master bus
+  destination: PA, interface, or record path
+  notes: Full studio expects the room and the capture path to stay independently auditable.
+clock_doctrine:
+  boss: One active clock boss only
+  followers:
+    - controller.reaper
+    - controller.drumkid
+    - visual_endpoints
+  invariants:
+    - One transport boss only.
+    - Endpoints never originate global time.
+    - Shared semantic IDs survive if the preferred UI falls away.
+  notes: Studio sprawl should still collapse to the same authority rules on show night.
+safety_states:
+  - state.blackout
+  - scene.clean_camera
+doctor:
+  checks:
+    - npm run validate:scenes
+    - npm run validate:profiles
+  readiness:
+    - Scene file validates before the room is considered green.
+    - Required devices can fail over to the named optional devices when present.
+    - Clean camera and blackout remain the last known safe states.
+  notes: Full studio profile describes the larger rig while preserving the same recovery doctrine.

@@ -1,0 +1,887 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://live-rig.local/schemas/rig-profile.schema.json",
+  "title": "Live Rig Runtime Profile Export",
+  "type": "object",
+  "required": [
+    "export_version",
+    "source",
+    "profile",
+    "scenes",
+    "states",
+    "macros",
+    "controller_bindings",
+    "safety_states",
+    "required_devices",
+    "optional_devices",
+    "visual_endpoints",
+    "audio_patch_reference",
+    "clock_doctrine",
+    "validation_summary"
+  ],
+  "properties": {
+    "export_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "profile": {
+      "$ref": "#/$defs/profile"
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/semanticScene"
+      }
+    },
+    "states": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/semanticScene"
+      }
+    },
+    "macros": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/semanticItem"
+      }
+    },
+    "controller_bindings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/controllerBinding"
+      }
+    },
+    "safety_states": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string",
+        "pattern": "^(scene|state)\\.[a-z0-9_.]+$"
+      }
+    },
+    "required_devices": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/device"
+      }
+    },
+    "optional_devices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/device"
+      }
+    },
+    "visual_endpoints": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/device"
+      }
+    },
+    "audio_patch_reference": {
+      "$ref": "#/$defs/audioPatchReference"
+    },
+    "clock_doctrine": {
+      "$ref": "#/$defs/clockDoctrine"
+    },
+    "validation_summary": {
+      "$ref": "#/$defs/validationSummary"
+    },
+    "experimental": {
+      "type": "object",
+      "description": "Reserved for temporary preview fields that are not yet part of the stable consumer contract."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": [
+        "profile_path",
+        "scene_path",
+        "controller_paths",
+        "contract_path",
+        "generated_by",
+        "build_fingerprint"
+      ],
+      "properties": {
+        "profile_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scene_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "controller_paths": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "contract_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "generated_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "build_fingerprint": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "profile": {
+      "type": "object",
+      "required": [
+        "profile_id",
+        "label",
+        "version",
+        "scene_file",
+        "required_devices",
+        "optional_devices",
+        "controllers",
+        "visual_endpoints",
+        "audio_patch_reference",
+        "clock_doctrine",
+        "safety_states",
+        "doctor"
+      ],
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "pattern": "^profile\\.[a-z0-9_.-]+$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "scene_file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "validate_scene_file": {
+          "type": "boolean"
+        },
+        "required_devices": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/device"
+          }
+        },
+        "optional_devices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/device"
+          }
+        },
+        "controllers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/device"
+          }
+        },
+        "visual_endpoints": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/device"
+          }
+        },
+        "audio_patch_reference": {
+          "$ref": "#/$defs/audioPatchReference"
+        },
+        "clock_doctrine": {
+          "$ref": "#/$defs/clockDoctrine"
+        },
+        "safety_states": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string",
+            "pattern": "^(scene|state)\\.[a-z0-9_.]+$"
+          }
+        },
+        "doctor": {
+          "$ref": "#/$defs/doctor"
+        }
+      },
+      "additionalProperties": false
+    },
+    "device": {
+      "type": "object",
+      "required": [
+        "id",
+        "label"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "audioPatchReference": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "source",
+        "destination"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "destination": {
+          "type": "string",
+          "minLength": 1
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "clockDoctrine": {
+      "type": "object",
+      "required": [
+        "boss",
+        "invariants"
+      ],
+      "properties": {
+        "boss": {
+          "type": "string",
+          "minLength": 1
+        },
+        "followers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "invariants": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "doctor": {
+      "type": "object",
+      "required": [
+        "checks",
+        "readiness"
+      ],
+      "properties": {
+        "checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "readiness": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "semanticItem": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(scene|state|event|macro|analysis)\\.[a-z0-9_.]+$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "semanticScene": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "ramp_ms",
+        "hard_override",
+        "params",
+        "triggers"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(scene|state)\\.[a-z0-9_.]+$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ramp_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "hard_override": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "params": {
+          "type": "object"
+        },
+        "analysis": {
+          "$ref": "#/$defs/analysis"
+        },
+        "triggers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/trigger"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "analysis": {
+      "type": "object",
+      "properties": {
+        "influence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "weights": {
+          "$ref": "#/$defs/analysisWeights"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "influence"
+          ]
+        },
+        {
+          "required": [
+            "weights"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "analysisWeights": {
+      "type": "object",
+      "properties": {
+        "low_band": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "mid_band": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "upper_mid_band": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "high_band": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "additionalProperties": false,
+      "minProperties": 1
+    },
+    "trigger": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/midiNoteTrigger"
+        },
+        {
+          "$ref": "#/$defs/midiCcTrigger"
+        },
+        {
+          "$ref": "#/$defs/oscTrigger"
+        }
+      ]
+    },
+    "midiNoteTrigger": {
+      "type": "object",
+      "required": [
+        "type",
+        "channel",
+        "note"
+      ],
+      "properties": {
+        "type": {
+          "const": "midi_note"
+        },
+        "channel": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16
+        },
+        "note": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        },
+        "velocity": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        },
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        }
+      },
+      "additionalProperties": false
+    },
+    "midiCcTrigger": {
+      "type": "object",
+      "required": [
+        "type",
+        "channel",
+        "cc"
+      ],
+      "properties": {
+        "type": {
+          "const": "midi_cc"
+        },
+        "channel": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16
+        },
+        "cc": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        },
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        }
+      },
+      "additionalProperties": false
+    },
+    "oscTrigger": {
+      "type": "object",
+      "required": [
+        "type",
+        "address"
+      ],
+      "properties": {
+        "type": {
+          "const": "osc"
+        },
+        "address": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "controllerBinding": {
+      "type": "object",
+      "required": [
+        "controller_name",
+        "version",
+        "role",
+        "source_path",
+        "controls"
+      ],
+      "properties": {
+        "controller_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "midi_channel": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16
+        },
+        "notes": {
+          "type": "string"
+        },
+        "source_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "controls": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/control"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "control": {
+      "type": "object",
+      "required": [
+        "id",
+        "physical_label",
+        "semantic_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "physical_label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "semantic_id": {
+          "type": "string",
+          "pattern": "^(scene|state|event|macro|analysis)\\.[a-z0-9_.]+$"
+        },
+        "safety": {
+          "type": "boolean"
+        },
+        "allow_duplicate": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "midi": {
+          "$ref": "#/$defs/midi"
+        },
+        "osc": {
+          "$ref": "#/$defs/osc"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "midi"
+          ]
+        },
+        {
+          "required": [
+            "osc"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "midi": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "note",
+            "cc"
+          ]
+        },
+        "channel": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16
+        },
+        "note": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        },
+        "cc": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        },
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        },
+        "velocity": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "type": {
+              "const": "note"
+            }
+          },
+          "required": [
+            "note"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "cc"
+            }
+          },
+          "required": [
+            "cc"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "osc": {
+      "type": "object",
+      "required": [
+        "address"
+      ],
+      "properties": {
+        "address": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "validationSummary": {
+      "type": "object",
+      "required": [
+        "status",
+        "validators",
+        "counts"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "pass",
+            "fail"
+          ]
+        },
+        "validators": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/validationCheck"
+          }
+        },
+        "counts": {
+          "$ref": "#/$defs/validationCounts"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "validationCheck": {
+      "type": "object",
+      "required": [
+        "name",
+        "status"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "pass",
+            "fail"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "validationCounts": {
+      "type": "object",
+      "required": [
+        "scenes",
+        "states",
+        "macros",
+        "controller_bindings",
+        "required_devices",
+        "optional_devices",
+        "visual_endpoints",
+        "safety_states"
+      ],
+      "properties": {
+        "scenes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "states": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "macros": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "controller_bindings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "required_devices": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "optional_devices": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "visual_endpoints": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "safety_states": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

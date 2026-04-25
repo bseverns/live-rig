@@ -1,0 +1,68 @@
+profile_id: profile.minimal
+label: Minimal Playable Rig
+version: 1.0.0
+notes: Smallest viable live-rig envelope for a show that still needs a safe way home.
+scene_file: scenes/minimal-scenes.yaml
+validate_scene_file: true
+required_devices:
+  -
+    id: controller.edirol_pcm_30
+    label: Edirol PCM-30 or equivalent
+    role: controller
+  -
+    id: device.visual_placeholder
+    label: One visual endpoint or placeholder endpoint
+    role: visual_endpoint
+  -
+    id: audio.output.pa
+    label: Audio output path
+    role: audio_output
+optional_devices:
+  -
+    id: analysis.frzone
+    label: frZone
+    role: analysis
+  -
+    id: controller.maschine_mk1
+    label: Maschine MK1
+    role: semantic_deck
+controllers:
+  -
+    id: controller.edirol_pcm_30
+    label: Edirol PCM-30 or equivalent
+    role: primary macro controller
+    notes: Drives scene recall and manual overrides.
+visual_endpoints:
+  -
+    id: device.visual_placeholder
+    label: One visual endpoint or placeholder endpoint
+    role: primary visual endpoint
+    notes: Accepts semantic scene IDs and can be a minimal stand-in for the room.
+audio_patch_reference:
+  id: patch.audio.main_to_pa
+  label: Main bus to PA
+  source: main mix bus
+  destination: PA or interface
+  notes: The room must stay audible even if optional analysis or secondary visuals disappear.
+clock_doctrine:
+  boss: One active clock boss only
+  followers:
+    - controller
+    - visual_endpoints
+  invariants:
+    - Endpoints follow clock.
+    - No endpoint owns transport or Start/Stop.
+    - Manual overrides must remain available without analysis.
+  notes: Minimal show night should still be navigable from a single controller path.
+safety_states:
+  - state.blackout
+  - scene.clean_camera
+doctor:
+  checks:
+    - npm run validate:scenes
+    - npm run validate:profiles
+  readiness:
+    - Scene file resolves and validates.
+    - Blackout and clean camera are reachable.
+    - A human can recover the room without needing optional devices.
+  notes: Minimal profile is the fallback profile for cramped rooms, partial failure, or reduced loadouts.

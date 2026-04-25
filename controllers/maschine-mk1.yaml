@@ -1,0 +1,47 @@
+controller_name: Maschine MK1
+version: 1.0.0
+role: dormant_safe_subset
+notes: Conservative semantic subset only. This deck stays dormant unless a show doc explicitly arms it. Row doctrine is intentionally narrow: top row safety, second row core scenes, lower rows unarmed until the hardware template is locked.
+# Row doctrine:
+# - Row 1: safety and recovery
+# - Row 2: baseline scene recall
+# - Rows 3-4: intentionally left dormant in this file
+controls:
+  -
+    id: pad.row1.col1
+    physical_label: Pad row 1 col 1
+    semantic_id: state.blackout
+    safety: true
+    osc:
+      address: /rig/state/blackout
+      args:
+        - 1
+    notes: Safe kill pad in the conservative subset.
+  -
+    id: pad.row1.col2
+    physical_label: Pad row 1 col 2
+    semantic_id: scene.clean_camera
+    safety: true
+    osc:
+      address: /video/scene/clean_camera
+      args:
+        - 1
+    notes: Clean-camera recovery pad.
+  -
+    id: pad.row2.col1
+    physical_label: Pad row 2 col 1
+    semantic_id: scene.intro
+    osc:
+      address: /video/scene/intro
+      args:
+        - 1
+    notes: Narrow, readable scene recall only.
+  -
+    id: pad.row2.col2
+    physical_label: Pad row 2 col 2
+    semantic_id: scene.soft
+    osc:
+      address: /video/scene/soft
+      args:
+        - 1
+    notes: Soft fallback scene in the safe subset.

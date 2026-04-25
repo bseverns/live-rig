@@ -14,7 +14,9 @@ The authority-side files in this folder now have separate jobs:
 - `rig.contract.schema.json`
   - schema for that authority contract
 - `exports/live-rig.default.json`
-  - exported runtime snapshot for sibling repos to mirror or import
+  - exported runtime profile for sibling repos to mirror or import
+- `docs/INTEROP_EXPORTS.md`
+  - consumer rules for the exported runtime profile
 
 Rule of thumb:
 
@@ -41,8 +43,8 @@ The interop contract assumes two primary control lanes:
 - **Macro lane (Ch 10)**: human-driven, big/fine moves from Edirol.
 - **Analysis lane (Ch 15)**: audio-reactive bias from frZone.
 
-These are combined in the bridge using the endpoint wiring model
-(`09_scene-system.md`), then routed to endpoints via OSC/MIDI.
+These are combined in the bridge using the scene system notes in
+`docs/SCENES.md`, then routed to endpoints via OSC/MIDI.
 
 An optional **Maschine semantic lane** may sit beside them:
 
@@ -85,7 +87,7 @@ Keep identifiers and OSC addresses predictable so mappings can be shared across 
   - `macro.fb_feedback`
   - `analysis.low_band`
 
-For legacy or endpoint-specific transport bindings, keep the transport ID stable and map it back to the shared semantic ID in the exported snapshot.
+For legacy or endpoint-specific transport bindings, keep the transport ID stable and map it back to the shared semantic ID in the exported runtime profile.
 
 ### OSC addresses
 
@@ -123,7 +125,7 @@ Routing note for Processing:
 - CC/notes arrive via the **bridge output router** (virtual MIDI port or OSC).
 - If clock is required, forward it from the **active clock boss / bridge** into the same port.
 
-See the model in `09_scene-system.md` for the router mapping examples.
+See `docs/SCENES.md` for the scene table and validation rules.
 
 ## Neutral degradation rules
 
@@ -141,26 +143,30 @@ That means:
 
 See `11_repo-roles-failover.md` for the operator-facing failover matrix.
 
-## Exported snapshot rule
+## Exported runtime profile rule
 
-Runtime repos should consume a committed snapshot generated from this repo instead of hand-copying mappings.
+Runtime repos should consume the committed runtime profile generated from this repo instead of hand-copying mappings.
 
 Authority-side commands:
 
 ```bash
 node tools/validate-rig-contract.js interop/rig.contract.json --mappings mappings.json
-node tools/export-rig-profile.js
-node tools/validate-rig-profile.js interop/exports/live-rig.default.json
+npm run export:rig-profile
+npm run validate:rig-profile
 ```
 
 ## Rig doctor env + ports
 
-`tools/rig-doctor.js` expects these environment variables (or CLI flags):
+`tools/rig-doctor.js` is a profile-aware preflight command.
 
-- `RIG_MAPPINGS` - path to the current `mappings.json`.
-- `RIG_OSC_OUT_HOST` - hostname/IP to send OSC to endpoints.
-- `RIG_OSC_OUT_PORT` - port for OSC output.
-- `RIG_OSC_IN_PORT` - port for OSC input/state queries.
-- `RIG_MIDI_CONTROL_PORT` - name of the virtual MIDI port feeding the bridge.
+Recommended defaults live in [`.env.example`](../.env.example):
 
-These are just **interop defaults**; show docs can override with explicit notes.
+- `RIG_PROFILE` - selected profile file, usually `profiles/minimal.yaml`
+- `RIG_OSC_OUT_HOST` - OSC output host
+- `RIG_OSC_OUT_PORT` - OSC output port
+- `RIG_OSC_IN_PORT` - OSC input port
+- `RIG_MIDI_CONTROL_PORT` - optional MIDI control port name
+- `RIG_SHOW` - show identifier or label
+- `RIG_LOG_DIR` - log directory
+
+Use `docs/PREFLIGHT.md` for the operator-facing preflight flow.

@@ -1,0 +1,160 @@
+rig_name: live-rig
+profile_name: minimal-scenes
+version: 1.0.0
+notes: Minimal machine-readable scene authority layer for live-rig.
+scenes:
+  -
+    id: scene.intro
+    label: Intro
+    ramp_ms: 640
+    hard_override: false
+    notes: Opening scene with room to settle.
+    params:
+      look: clean_intro
+      intensity: 0.30
+      camera: clean
+      macro_bias: 0.20
+    analysis:
+      influence: 0.25
+      weights:
+        low_band: 0.10
+        mid_band: 0.20
+        upper_mid_band: 0.15
+        high_band: 0.05
+    triggers:
+      -
+        type: midi_note
+        channel: 10
+        note: 60
+      -
+        type: osc
+        address: /video/scene/intro
+  -
+    id: scene.crash
+    label: Crash
+    ramp_ms: 280
+    hard_override: false
+    notes: Harsh scene for peaks and damage.
+    params:
+      look: crash
+      intensity: 0.85
+      camera: processed
+      macro_bias: 0.75
+    analysis:
+      influence: 0.40
+      weights:
+        low_band: 0.35
+        mid_band: 0.45
+        upper_mid_band: 0.55
+        high_band: 0.30
+    triggers:
+      -
+        type: midi_note
+        channel: 10
+        note: 61
+      -
+        type: osc
+        address: /video/scene/crash
+  -
+    id: scene.soft
+    label: Soft
+    ramp_ms: 500
+    hard_override: false
+    notes: Low-intensity fallback that keeps movement readable.
+    params:
+      look: soft
+      intensity: 0.45
+      camera: clean
+      macro_bias: 0.35
+    analysis:
+      influence: 0.35
+      weights:
+        low_band: 0.15
+        mid_band: 0.25
+        upper_mid_band: 0.20
+        high_band: 0.10
+    triggers:
+      -
+        type: midi_note
+        channel: 10
+        note: 62
+      -
+        type: osc
+        address: /video/scene/soft
+  -
+    id: scene.clean_camera
+    label: Clean Camera
+    ramp_ms: 300
+    hard_override: false
+    notes: Documentary-safe view with minimal treatment.
+    params:
+      look: clean_camera
+      intensity: 0.10
+      camera: clean
+      macro_bias: 0.05
+    analysis:
+      influence: 0.15
+      weights:
+        low_band: 0.05
+        mid_band: 0.05
+        upper_mid_band: 0.05
+        high_band: 0.05
+    triggers:
+      -
+        type: midi_note
+        channel: 10
+        note: 64
+      -
+        type: osc
+        address: /video/scene/clean_camera
+  -
+    id: state.blackout
+    label: Blackout
+    ramp_ms: 0
+    hard_override: true
+    notes: Fastest safe visual kill and reset state.
+    params:
+      look: blackout
+      visibility: 0
+      camera: none
+      macro_bias: 0
+    analysis:
+      influence: 0
+      weights:
+        low_band: 0
+        mid_band: 0
+        upper_mid_band: 0
+        high_band: 0
+    triggers:
+      -
+        type: midi_note
+        channel: 10
+        note: 63
+      -
+        type: osc
+        address: /rig/state/blackout
+  -
+    id: state.manual_override
+    label: Manual Override
+    ramp_ms: 0
+    hard_override: true
+    notes: Human control takes priority over automation and weights.
+    params:
+      look: manual_override
+      authority: human
+      camera: direct
+    analysis:
+      influence: 0
+      weights:
+        low_band: 0
+        mid_band: 0
+        upper_mid_band: 0
+        high_band: 0
+    triggers:
+      -
+        type: midi_cc
+        channel: 10
+        cc: 64
+      -
+        type: osc
+        address: /rig/state/manual_override

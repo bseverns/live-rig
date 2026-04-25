@@ -1,0 +1,71 @@
+controller_name: live-rig-control
+version: 1.0.0
+role: semantic_web_surface
+notes: Browser-facing semantic control surface. This is not a physical MIDI controller. It expresses semantic IDs directly over OSC so the UI can stay meaning-first.
+controls:
+  -
+    id: ui.state_blackout
+    physical_label: Web button: Blackout
+    semantic_id: state.blackout
+    safety: true
+    osc:
+      address: /rig/state/blackout
+      args:
+        - 1
+    notes: Hard kill remains reachable in the browser UI.
+  -
+    id: ui.scene_clean_camera
+    physical_label: Web button: Clean Camera
+    semantic_id: scene.clean_camera
+    safety: true
+    osc:
+      address: /video/scene/clean_camera
+      args:
+        - 1
+    notes: Documentary-safe recovery state.
+  -
+    id: ui.scene_intro
+    physical_label: Web button: Intro
+    semantic_id: scene.intro
+    osc:
+      address: /video/scene/intro
+      args:
+        - 1
+    notes: Semantic scene recall.
+  -
+    id: ui.scene_crash
+    physical_label: Web button: Crash
+    semantic_id: scene.crash
+    osc:
+      address: /video/scene/crash
+      args:
+        - 1
+    notes: Semantic scene recall.
+  -
+    id: ui.scene_soft
+    physical_label: Web button: Soft
+    semantic_id: scene.soft
+    osc:
+      address: /video/scene/soft
+      args:
+        - 1
+    notes: Semantic scene recall.
+  -
+    id: ui.state_manual_override
+    physical_label: Web button: Manual Override
+    semantic_id: state.manual_override
+    safety: true
+    osc:
+      address: /rig/state/manual_override
+      args:
+        - 1
+    notes: Human priority mode.
+  -
+    id: ui.macro_analysis_blend
+    physical_label: Web slider: Analysis Blend
+    semantic_id: macro.analysis_blend
+    osc:
+      address: /macro/analysis_blend
+      args:
+        - 0.5
+    notes: Semantic macro control for analysis/manual balance.

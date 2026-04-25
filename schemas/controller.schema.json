@@ -1,0 +1,199 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://live-rig.local/schemas/controller.schema.json",
+  "title": "Live Rig Controller Map",
+  "type": "object",
+  "required": [
+    "controller_name",
+    "version",
+    "role",
+    "controls"
+  ],
+  "properties": {
+    "controller_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "midi_channel": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 16
+    },
+    "notes": {
+      "type": "string"
+    },
+    "controls": {
+      "oneOf": [
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/control"
+          }
+        },
+        {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/control"
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "control": {
+      "type": "object",
+      "required": [
+        "id",
+        "physical_label",
+        "semantic_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "physical_label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "semantic_id": {
+          "type": "string",
+          "pattern": "^(scene|state|event|macro|analysis)\\.[a-z0-9_.]+$"
+        },
+        "safety": {
+          "type": "boolean"
+        },
+        "allow_duplicate": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "midi": {
+          "$ref": "#/$defs/midi"
+        },
+        "osc": {
+          "$ref": "#/$defs/osc"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "midi"
+          ]
+        },
+        {
+          "required": [
+            "osc"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "midi": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "note",
+            "cc"
+          ]
+        },
+        "channel": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16
+        },
+        "note": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        },
+        "cc": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        },
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        },
+        "velocity": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127
+        }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "type": {
+              "const": "note"
+            }
+          },
+          "required": [
+            "note"
+          ]
+        },
+        {
+          "properties": {
+            "type": {
+              "const": "cc"
+            }
+          },
+          "required": [
+            "cc"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "osc": {
+      "type": "object",
+      "required": [
+        "address"
+      ],
+      "properties": {
+        "address": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,72 @@
+controller_name: Edirol PCM-30
+version: 1.0.0
+role: physical_macro_surface
+midi_channel: 10
+notes: Human macro surface for the video lane. Raw MIDI is transport; the semantic IDs below are the meaning.
+controls:
+  -
+    id: button.scene_intro
+    physical_label: Button 1
+    semantic_id: scene.intro
+    midi:
+      type: note
+      note: 60
+      velocity: 127
+    notes: Primary intro scene recall.
+  -
+    id: button.scene_crash
+    physical_label: Button 2
+    semantic_id: scene.crash
+    midi:
+      type: note
+      note: 61
+      velocity: 127
+    notes: Harsh scene recall.
+  -
+    id: button.scene_soft
+    physical_label: Button 3
+    semantic_id: scene.soft
+    midi:
+      type: note
+      note: 62
+      velocity: 127
+    notes: Low-intensity scene recall.
+  -
+    id: button.state_blackout
+    physical_label: Button 4
+    semantic_id: state.blackout
+    safety: true
+    midi:
+      type: note
+      note: 63
+      velocity: 127
+    notes: Fastest safe visual kill. Keep this reachable.
+  -
+    id: button.scene_clean_camera
+    physical_label: Button 5
+    semantic_id: scene.clean_camera
+    safety: true
+    midi:
+      type: note
+      note: 64
+      velocity: 127
+    notes: Documentary-safe recovery view.
+  -
+    id: button.state_manual_override
+    physical_label: Button 6
+    semantic_id: state.manual_override
+    safety: true
+    midi:
+      type: note
+      note: 65
+      velocity: 127
+    notes: Hands-on priority mode.
+  -
+    id: knob.macro_fb_feedback
+    physical_label: Knob 1
+    semantic_id: macro.fb_feedback
+    midi:
+      type: cc
+      cc: 21
+      value: 64
+    notes: Macro CC for frame-buffer feedback.

@@ -4,8 +4,23 @@
   "scripts": {
     "validate:mappings": "node tools/validate-mappings.js mappings.json",
     "validate:rig-contract": "node tools/validate-rig-contract.js interop/rig.contract.json --mappings mappings.json",
-    "validate:rig-profile": "node tools/validate-rig-profile.js interop/exports/live-rig.default.json",
-    "export:rig-profile": "node tools/export-rig-profile.js"
+    "validate:rig-profile": "node tools/validate-rig-profile.js interop/exports/live-rig.default.json --schema schemas/rig-profile.schema.json",
+    "export:rig-profile": "node tools/export-rig-profile.js --profile profiles/minimal.yaml --out interop/exports/live-rig.default.json --pretty",
+    "export:rig-profile:minimal": "node tools/export-rig-profile.js --profile profiles/minimal.yaml --out interop/exports/live-rig.default.json --pretty",
+    "validate:scenes": "node tools/validate-scenes.js",
+    "validate:scenes:minimal": "node tools/validate-scenes.js scenes/minimal-scenes.yaml",
+    "validate:profiles": "node tools/validate-profiles.js",
+    "validate:profile:minimal": "node tools/validate-profiles.js profiles/minimal.yaml",
+    "validate:profile:full": "node tools/validate-profiles.js profiles/full-studio.yaml",
+    "doctor": "node tools/rig-doctor.js",
+    "doctor:minimal": "node tools/rig-doctor.js --profile profiles/minimal.yaml",
+    "doctor:full": "node tools/rig-doctor.js --profile profiles/full-studio.yaml",
+    "doctor:json": "node tools/rig-doctor.js --json",
+    "validate:controllers": "node tools/validate-controllers.js",
+    "validate:control-surfaces": "node tools/validate-controllers.js",
+    "check:sheets": "node tools/check-sheets.js",
+    "bridge:simulate:intro": "node bridge/src/index.js --simulate scene.intro",
+    "bridge:simulate:blackout": "node bridge/src/index.js --simulate state.blackout"
   },
   "dependencies": {
     "ajv": "^6.12.6"

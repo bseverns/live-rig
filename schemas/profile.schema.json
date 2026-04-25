@@ -1,0 +1,203 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://live-rig.local/schemas/profile.schema.json",
+  "title": "Live Rig Mission Profile",
+  "type": "object",
+  "required": [
+    "profile_id",
+    "label",
+    "version",
+    "scene_file",
+    "required_devices",
+    "optional_devices",
+    "controllers",
+    "visual_endpoints",
+    "audio_patch_reference",
+    "clock_doctrine",
+    "safety_states",
+    "doctor"
+  ],
+  "properties": {
+    "profile_id": {
+      "type": "string",
+      "pattern": "^profile\\.[a-z0-9_.-]+$"
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "scene_file": {
+      "type": "string",
+      "minLength": 1
+    },
+    "validate_scene_file": {
+      "type": "boolean"
+    },
+    "required_devices": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/device"
+      }
+    },
+    "optional_devices": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/device"
+      }
+    },
+    "controllers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/device"
+      }
+    },
+    "visual_endpoints": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/device"
+      }
+    },
+    "audio_patch_reference": {
+      "$ref": "#/$defs/audioPatchReference"
+    },
+    "clock_doctrine": {
+      "$ref": "#/$defs/clockDoctrine"
+    },
+    "safety_states": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string",
+        "pattern": "^(scene|state)\\.[a-z0-9_.]+$"
+      }
+    },
+    "doctor": {
+      "$ref": "#/$defs/doctor"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "device": {
+      "type": "object",
+      "required": [
+        "id",
+        "label"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "audioPatchReference": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "source",
+        "destination"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "destination": {
+          "type": "string",
+          "minLength": 1
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "clockDoctrine": {
+      "type": "object",
+      "required": [
+        "boss",
+        "invariants"
+      ],
+      "properties": {
+        "boss": {
+          "type": "string",
+          "minLength": 1
+        },
+        "followers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "invariants": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "doctor": {
+      "type": "object",
+      "required": [
+        "checks",
+        "readiness"
+      ],
+      "properties": {
+        "checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "readiness": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

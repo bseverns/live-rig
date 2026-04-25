@@ -91,6 +91,7 @@ Channel 10 is the **human hand** into the video rig.
 
 - **Source**: Edirol PCM-30 (faders, knobs, buttons).
 - **Destination**: REAPER / bridge → SCapps (via MIDI or OSC).
+- The semantic controller maps for this surface live in [`controllers/edirol-pcm30.yaml`](controllers/edirol-pcm30.yaml) and are documented in `docs/CONTROLLERS.md`.
 
 Typical conceptual mapping:
 
@@ -196,6 +197,8 @@ What it does **not** do:
 - replace frZone’s Ch 15 analysis lane.
 
 Think of it as running **parallel** to Edirol and frZone, not in competition with them.
+
+If Maschine is present, keep the controller map conservative and match the dormant safe-subset described in [`controllers/maschine-mk1.yaml`](controllers/maschine-mk1.yaml).
 
 Preferred transport model:
 

@@ -15,6 +15,7 @@ If you need the **actual current studio picture** rather than the stable archite
 - `12_current-studio-rig.md`
 - `13_hardware-registry.md`
 - `14_external-sources.md`
+- `docs/SCENES.md`
 
 ---
 
@@ -122,14 +123,23 @@ These are the files currently in the repo and their jobs:
 - `14_external-sources.md`
   Provenance map for manuals, local repos, vendored code, and other off-page sources this rig still depends on.
 
+- `docs/PROFILES.md`
+  Mission profiles for show readiness: required devices, optional devices, controllers, endpoints, and clock doctrine.
+
+- `docs/CONTROLLERS.md`
+  Semantic controller maps for the physical surfaces and the web control surface.
+
 - `RigMap.drawio.png`
   Current hand-built studio diagram: the fastest way to see which nodes are actually active right now.
 
 - `interop/`  
-  Interop contract + play rules: mappings schema, authority contract, exported runtime snapshot, endpoint behavior, naming conventions, and bridge expectations.
+  Interop contract + play rules: mappings schema, authority contract, exported runtime profile, endpoint behavior, naming conventions, bridge expectations, and consumer notes in `docs/INTEROP_EXPORTS.md`.
 
 - `tools/rig-doctor.js`  
-  One-page status + validator runner for mappings and core env/port checks.
+  Profile-aware preflight command for show readiness, environment checks, and scene validation.
+
+- `docs/PREFLIGHT.md`
+  Show-night preflight guide with 5-minute and 20-minute checklists.
 
 - `vendor/greyBox/`
   Vendored snapshot of the current `greyBox` / `Growser` sketch family so the source is available from this repo alone.
@@ -275,7 +285,8 @@ The interop contract lives in `interop/interop.md` and is the source of truth fo
 - mappings schema (`interop/interop.schema.json`)
 - authority contract (`interop/rig.contract.json`)
 - authority contract schema (`interop/rig.contract.schema.json`)
-- exported runtime snapshot (`interop/exports/live-rig.default.json`)
+- exported runtime profile (`interop/exports/live-rig.default.json`)
+- export contract notes (`docs/INTEROP_EXPORTS.md`)
 - control lanes (macro vs analysis)
 - the optional Maschine semantic lane
 - naming conventions
@@ -283,13 +294,17 @@ The interop contract lives in `interop/interop.md` and is the source of truth fo
 
 Key invariant: **endpoints follow clock; they never generate it.**  
 If you’re wiring **Processing endpoints**, route CC/OSC through the bridge and follow the
-endpoint wiring model in `09_scene-system.md` (input parser -> scene manager -> router).
+scene system notes in `docs/SCENES.md` (semantic scene IDs -> triggers -> router).
 If clock is required, forward it from REAPER/bridge into the same port.
 
 Authority-side maintenance commands:
 
 ```bash
 npm run validate:rig-contract
+npm run validate:scenes
+npm run validate:profiles
+npm run validate:controllers
+npm run doctor
 npm run export:rig-profile
 npm run validate:rig-profile
 ```
