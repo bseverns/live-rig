@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 const spawnSync = require("child_process").spawnSync;
 const { readStructuredFile } = require("./structured-file");
@@ -26,11 +27,22 @@ const profileSetting = cli.profile || resolveProfileSetting(dotenv);
 const resolvedProfilePath = path.resolve(rootDir, profileSetting);
 
 const report = {
+  timestamp: new Date().toISOString(),
   readiness: "NOT READY",
   profile: {
     path: relativeFromRoot(resolvedProfilePath)
   },
   env: {},
+  files: {},
+  system: {},
+  git: {},
+  devices: {
+    required: [],
+    optional: []
+  },
+  controllers: [],
+  safety: {},
+  export: {},
   checks: [],
   warnings: [],
   errors: []
@@ -59,11 +71,14 @@ function main() {
   report.profile.label = profileData.label;
   report.profile.version = profileData.version;
   report.profile.scene_file = profileData.scene_file;
+  report.devices.required = Array.isArray(profileData.required_devices) ? profileData.required_devices : [];
+  report.devices.optional = Array.isArray(profileData.optional_devices) ? profileData.optional_devices : [];
 
   checkEnv();
   checkSceneFile(profileData);
   checkProfileValidation(profileFile);
   checkOptionalItems(profileData);
+  collectRuntimeContext(profileData);
 
   classifyReadiness();
   finish();
@@ -200,6 +215,31 @@ function checkOptionalItems(profileData) {
   }
 }
 
+function collectRuntimeContext(profileData) {
+  report.system = {
+    platform: process.platform,
+    release: os.release(),
+    arch: process.arch,
+    node: process.version,
+    npm: getCommandOutput("npm", ["--version"]) || "(unknown)"
+  };
+
+  report.git = {
+    commit: getCommandOutput("git", ["rev-parse", "--short", "HEAD"]) || "(unknown)",
+    dirty: gitIsDirty()
+  };
+
+  report.files = {
+    dotenv_exists: fs.existsSync(path.join(rootDir, ".env")),
+    dotenv_example_exists: fs.existsSync(path.join(rootDir, ".env.example")),
+    logs_exists: fs.existsSync(path.join(rootDir, report.env.RIG_LOG_DIR && report.env.RIG_LOG_DIR.value ? report.env.RIG_LOG_DIR.value : defaults.RIG_LOG_DIR))
+  };
+
+  report.controllers = summarizeControllers(profileData);
+  report.safety = summarizeSafety(profileData, report.controllers);
+  report.export = checkExportFreshness(profileData);
+}
+
 function classifyReadiness() {
   if (report.errors.length) {
     report.readiness = "NOT READY";
@@ -221,8 +261,14 @@ function finish() {
   report.args = {
     profile: cli.profile || null,
     json: cli.json,
-    strict: cli.strict
+    strict: cli.strict,
+    capture: cli.capture,
+    helper: cli.helper
   };
+
+  if (cli.capture) {
+    report.capture_path = writeCapture(report);
+  }
 
   if (cli.json) {
     process.stdout.write(JSON.stringify(report, null, 2) + "\n");
@@ -230,6 +276,13 @@ function finish() {
   }
 
   printSummary(report);
+  if (cli.capture && report.capture_path) {
+    console.log("");
+    console.log(`Capture: ${report.capture_path}`);
+  }
+  if (cli.helper) {
+    printHelperPrompt(report);
+  }
   process.exit(report.ok ? 0 : 1);
 }
 
@@ -270,6 +323,216 @@ function printSummary(data) {
     console.log("- Required checks passed, but optional items need attention.");
   } else {
     console.log("- Required checks failed. Do not trust this rig state for show use.");
+  }
+}
+
+function printHelperPrompt(data) {
+  console.log("");
+  console.log("Helper packet:");
+  console.log(`- Attach ${data.capture_path || "doctor JSON from npm run doctor:json"}.`);
+  console.log(`- Profile: ${data.profile.path}`);
+  console.log(`- Scene file: ${data.profile.scene_path || data.profile.scene_file || "(unknown)"}`);
+  console.log("- State whether state.blackout and scene.clean_camera fired by hand.");
+  console.log("- Add photos of mixer, controller, endpoint/runtime, and any clock/MIDI routing.");
+  console.log("- Write the smallest change since the last known-good state.");
+  console.log("- Use HELP_REQUEST.md or .github/ISSUE_TEMPLATE/troubleshooting.md.");
+}
+
+function summarizeControllers(profileData) {
+  const controllerDir = path.join(rootDir, "controllers");
+  if (!fs.existsSync(controllerDir)) {
+    report.checks.push({ name: "controllers.dir", status: "warn" });
+    report.warnings.push("Controller directory is missing.");
+    return [];
+  }
+
+  const controllerPaths = fs
+    .readdirSync(controllerDir)
+    .filter((file) => file.endsWith(".yaml") || file.endsWith(".yml"))
+    .map((file) => path.join(controllerDir, file))
+    .sort();
+
+  const summaries = [];
+  for (const controllerPath of controllerPaths) {
+    try {
+      const data = readStructuredFile(controllerPath, "controller file");
+      const controls = Array.isArray(data.controls) ? data.controls : [];
+      summaries.push({
+        source_path: relativeFromRoot(controllerPath),
+        controller_name: data.controller_name,
+        role: data.role,
+        midi_channel: data.midi_channel,
+        controls: controls.length,
+        semantic_ids: controls.map((control) => control && control.semantic_id).filter(Boolean),
+        safety_controls: controls
+          .filter((control) => control && control.safety)
+          .map((control) => ({
+            id: control.id,
+            physical_label: control.physical_label,
+            semantic_id: control.semantic_id
+          }))
+      });
+    } catch (error) {
+      report.warnings.push(error.message);
+    }
+  }
+
+  report.checks.push({ name: "controllers.summary", status: summaries.length ? "pass" : "warn" });
+  if (!summaries.length) {
+    report.warnings.push("No controller maps were summarized.");
+  }
+
+  return summaries;
+}
+
+function summarizeSafety(profileData, controllers) {
+  const safetyStates = Array.isArray(profileData.safety_states) ? profileData.safety_states : [];
+  const controllerSafety = [];
+  for (const controller of controllers) {
+    for (const control of controller.safety_controls || []) {
+      controllerSafety.push({
+        controller_name: controller.controller_name,
+        source_path: controller.source_path,
+        physical_label: control.physical_label,
+        semantic_id: control.semantic_id
+      });
+    }
+  }
+
+  const mappedSafety = safetyStates.map((semanticId) => ({
+    semantic_id: semanticId,
+    controller_mapped: controllerSafety.some((control) => control.semantic_id === semanticId)
+  }));
+
+  const missingMappings = mappedSafety.filter((item) => !item.controller_mapped);
+  if (missingMappings.length) {
+    report.warnings.push(`Safety states without controller mappings: ${missingMappings.map((item) => item.semantic_id).join(", ")}.`);
+    report.checks.push({ name: "safety.controller_mappings", status: "warn" });
+  } else {
+    report.checks.push({ name: "safety.controller_mappings", status: "pass" });
+  }
+
+  return {
+    profile_safety_states: safetyStates,
+    controller_safety_controls: controllerSafety,
+    mapped_safety: mappedSafety
+  };
+}
+
+function checkExportFreshness(profileData) {
+  const exportPath = path.join(rootDir, "interop", "exports", "live-rig.default.json");
+  const result = {
+    path: relativeFromRoot(exportPath),
+    exists: fs.existsSync(exportPath),
+    status: "unknown"
+  };
+
+  if (!result.exists) {
+    report.warnings.push("Runtime profile export is missing. Run: npm run export:rig-profile");
+    report.checks.push({ name: "export.exists", status: "warn" });
+    result.status = "missing";
+    return result;
+  }
+
+  report.checks.push({ name: "export.exists", status: "pass" });
+
+  let currentExport;
+  try {
+    currentExport = JSON.parse(fs.readFileSync(exportPath, "utf8"));
+    result.current_fingerprint = currentExport.source && currentExport.source.build_fingerprint;
+  } catch (error) {
+    report.warnings.push(`Runtime profile export could not be parsed: ${error.message}`);
+    report.checks.push({ name: "export.parse", status: "warn" });
+    result.status = "unreadable";
+    return result;
+  }
+
+  report.checks.push({ name: "export.parse", status: "pass" });
+
+  const tempPath = path.join(os.tmpdir(), `live-rig-doctor-export-${process.pid}.json`);
+  const exportResult = spawnSync(process.execPath, [
+    path.join(rootDir, "tools", "export-rig-profile.js"),
+    "--profile",
+    resolvedProfilePath,
+    "--out",
+    tempPath,
+    "--pretty"
+  ], { encoding: "utf8" });
+
+  if (exportResult.status !== 0) {
+    result.status = "could_not_regenerate";
+    result.regeneration_output = collectOutput(exportResult);
+    report.warnings.push("Could not regenerate runtime profile export for freshness check.");
+    report.checks.push({ name: "export.freshness", status: "warn" });
+    safeUnlink(tempPath);
+    return result;
+  }
+
+  try {
+    const expectedExport = JSON.parse(fs.readFileSync(tempPath, "utf8"));
+    result.expected_fingerprint = expectedExport.source && expectedExport.source.build_fingerprint;
+    result.stale = result.current_fingerprint !== result.expected_fingerprint;
+  } catch (error) {
+    result.status = "could_not_compare";
+    report.warnings.push(`Could not compare regenerated export: ${error.message}`);
+    report.checks.push({ name: "export.freshness", status: "warn" });
+    safeUnlink(tempPath);
+    return result;
+  }
+
+  safeUnlink(tempPath);
+
+  if (result.stale) {
+    result.status = "stale";
+    report.warnings.push("interop/exports/live-rig.default.json may be stale. Run: npm run export:rig-profile && npm run validate:rig-profile");
+    report.checks.push({ name: "export.freshness", status: "warn" });
+  } else {
+    result.status = "fresh";
+    report.checks.push({ name: "export.freshness", status: "pass" });
+  }
+
+  result.source_paths = [
+    report.profile.path,
+    profileData.scene_file,
+    "controllers/",
+    "interop/rig.contract.json"
+  ];
+  return result;
+}
+
+function writeCapture(data) {
+  const logDirSetting = data.env.RIG_LOG_DIR && data.env.RIG_LOG_DIR.value ? data.env.RIG_LOG_DIR.value : defaults.RIG_LOG_DIR;
+  const logDir = path.resolve(rootDir, logDirSetting);
+  fs.mkdirSync(logDir, { recursive: true });
+  const stamp = data.timestamp.replace(/[-:]/g, "").replace(/\.\d+Z$/, "Z");
+  const capturePath = path.join(logDir, `doctor-${stamp}.json`);
+  fs.writeFileSync(capturePath, JSON.stringify(data, null, 2) + "\n", "utf8");
+  return relativeFromRoot(capturePath);
+}
+
+function getCommandOutput(command, args) {
+  const result = spawnSync(command, args, {
+    cwd: rootDir,
+    encoding: "utf8"
+  });
+  if (result.status !== 0) {
+    return "";
+  }
+  return (result.stdout || "").trim();
+}
+
+function gitIsDirty() {
+  const output = getCommandOutput("git", ["status", "--porcelain"]);
+  return output ? true : false;
+}
+
+function safeUnlink(targetPath) {
+  try {
+    if (fs.existsSync(targetPath)) {
+      fs.unlinkSync(targetPath);
+    }
+  } catch (error) {
+    report.warnings.push(`Could not remove temporary file ${targetPath}: ${error.message}`);
   }
 }
 
@@ -382,6 +645,8 @@ function parseArgs(argv) {
   let profile;
   let strict = false;
   let json = false;
+  let capture = false;
+  let helper = false;
   let help = false;
   let positionalConsumed = false;
 
@@ -400,6 +665,15 @@ function parseArgs(argv) {
       json = true;
       continue;
     }
+    if (arg === "--capture") {
+      capture = true;
+      continue;
+    }
+    if (arg === "--helper") {
+      helper = true;
+      capture = true;
+      continue;
+    }
     if (arg === "--help" || arg === "-h") {
       help = true;
       continue;
@@ -410,17 +684,24 @@ function parseArgs(argv) {
     }
   }
 
-  return { profile, strict, json, help };
+  return { profile, strict, json, capture, helper, help };
 }
 
 function printHelp() {
-  console.log("Usage: node tools/rig-doctor.js [--profile path/to/profile.yaml] [--strict] [--json]");
+  console.log("Usage: node tools/rig-doctor.js [--profile path/to/profile.yaml] [--strict] [--json] [--capture] [--helper]");
   console.log("");
   console.log("Preflight checks:");
   console.log("- loads the selected profile");
   console.log("- verifies the referenced scene file exists");
   console.log("- runs profile and scene validation");
   console.log("- checks required environment variables and reports warnings for optional items");
+  console.log("- summarizes devices, controllers, safety mappings, export freshness, git, and runtime versions");
+  console.log("");
+  console.log("Modes:");
+  console.log("- --json writes the full report to stdout");
+  console.log("- --strict treats warnings as failures");
+  console.log("- --capture writes logs/doctor-YYYYMMDDTHHMMSSZ.json");
+  console.log("- --helper writes a capture and prints the helper-packet checklist");
   console.log("");
   console.log("Environment defaults:");
   console.log("- RIG_PROFILE=profiles/minimal.yaml");

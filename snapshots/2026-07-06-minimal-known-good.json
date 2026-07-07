@@ -1,0 +1,29 @@
+{
+  "snapshot_date": "2026-07-06",
+  "name": "minimal-known-good",
+  "status": "documented-placeholder",
+  "profile": "profiles/minimal.yaml",
+  "scene_file": "scenes/minimal-scenes.yaml",
+  "runtime_export": "interop/exports/live-rig.default.json",
+  "required_devices": [
+    "controller.edirol_pcm_30",
+    "device.visual_placeholder",
+    "audio.output.pa"
+  ],
+  "optional_devices": [
+    "analysis.frzone",
+    "controller.maschine_mk1"
+  ],
+  "clock_boss": "unknown",
+  "visual_endpoint": "unknown",
+  "safety": {
+    "state.blackout": "unknown",
+    "scene.clean_camera": "unknown",
+    "audio_only_survival": "unknown"
+  },
+  "frzone_influence": "unknown",
+  "notes": [
+    "Replace unknown fields after the next physical test.",
+    "This snapshot records the documented minimal contract, not a fresh hardware verification."
+  ]
+}

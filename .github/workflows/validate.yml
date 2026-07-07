@@ -1,0 +1,49 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Validate scenes
+        run: npm run validate:scenes
+
+      - name: Validate profiles
+        run: npm run validate:profiles
+
+      - name: Validate controllers
+        run: npm run validate:controllers
+
+      - name: Validate rig contract
+        run: npm run validate:rig-contract
+
+      - name: Export rig profile
+        run: npm run export:rig-profile
+
+      - name: Validate rig profile
+        run: npm run validate:rig-profile
+
+      - name: Check sheets
+        run: npm run check:sheets
+
+      - name: Simulate blackout
+        run: npm run bridge:simulate:blackout
+
+      - name: Simulate intro
+        run: npm run bridge:simulate:intro

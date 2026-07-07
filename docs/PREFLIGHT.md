@@ -3,6 +3,7 @@
 `rig-doctor` is the first practical show-readiness check for live-rig.
 It does not touch hardware yet.
 It reads the selected profile, confirms the scene file exists, runs validation, and reports whether the rig is ready to trust.
+For failures that need symptom-first recovery, use [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
 
 ## Readiness levels
 
@@ -31,6 +32,11 @@ npm run doctor
 3. Confirm the scene file resolves.
 4. Check the readiness level.
 5. If the result is `DEGRADED`, note the warnings but keep going only if the missing items are truly optional.
+6. If another person needs to help, run:
+
+```bash
+npm run doctor:helper
+```
 
 ## 20-minute preflight
 
@@ -76,7 +82,11 @@ Examples:
 ```bash
 node tools/rig-doctor.js --profile profiles/minimal.yaml
 node tools/rig-doctor.js --json
+node tools/rig-doctor.js --strict
+node tools/rig-doctor.js --capture
+node tools/rig-doctor.js --helper
 node tools/rig-doctor.js --help
 ```
 
 For automation, `--json` emits parseable JSON with readiness, warnings, and errors.
+For collaboration, `--capture` writes `logs/doctor-*.json`, and `npm run collect:debug` creates a fuller `logs/live-rig-debug-*` packet.

@@ -17,6 +17,13 @@ If you need the **actual current studio picture** rather than the stable archite
 - `14_external-sources.md`
 - `docs/SCENES.md`
 
+If something is failing right now, start with:
+
+- `docs/TROUBLESHOOTING.md`
+- `HELP_REQUEST.md`
+- `npm run doctor:helper`
+- `npm run collect:debug`
+
 ---
 
 ## QUICKSTART (start order)
@@ -123,6 +130,12 @@ These are the files currently in the repo and their jobs:
 - `14_external-sources.md`
   Provenance map for manuals, local repos, vendored code, and other off-page sources this rig still depends on.
 
+- `docs/TROUBLESHOOTING.md`
+  Symptom-first recovery guide for audio, visuals, controller, clock, frZone, safety states, export drift, and hardware-source confusion.
+
+- `HELP_REQUEST.md`
+  Copy/paste intake sheet for getting help without losing time to vague state gathering.
+
 - `docs/PROFILES.md`
   Mission profiles for show readiness: required devices, optional devices, controllers, endpoints, and clock doctrine.
 
@@ -136,13 +149,22 @@ These are the files currently in the repo and their jobs:
   Interop contract + play rules: mappings schema, authority contract, exported runtime profile, endpoint behavior, naming conventions, bridge expectations, and consumer notes in `docs/INTEROP_EXPORTS.md`.
 
 - `tools/rig-doctor.js`  
-  Profile-aware preflight command for show readiness, environment checks, and scene validation.
+  Profile-aware preflight command for show readiness, environment checks, runtime context, safety mapping summaries, export freshness, and capture JSON.
+
+- `tools/collect-debug.js`
+  Builds a timestamped `logs/live-rig-debug-*` packet with doctor JSON, selected profile, scene file, controller maps, interop export, package metadata, and git state.
 
 - `docs/PREFLIGHT.md`
   Show-night preflight guide with 5-minute and 20-minute checklists.
 
 - `vendor/greyBox/`
   Vendored snapshot of the current `greyBox` / `Growser` sketch family so the source is available from this repo alone.
+
+- `hardware/`
+  Practical per-node pages for tricky devices, including role, audio I/O, MIDI/clock behavior, failure modes, source references, and how to remove the node safely.
+
+- `snapshots/`
+  Last-known-good or documented-placeholder snapshots of profile, devices, clock, endpoint, safety anchors, and things not to change before the next test.
 
 - `06_frzone-linelight.md`  
   How frZone and LineLight listen to the audio bus, what CCs frZone emits, and how those CCs bias SCapps parameters.

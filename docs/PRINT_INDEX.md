@@ -10,7 +10,9 @@ Print these before show time:
 Optional:
 
 - [`docs/PREFLIGHT.md`](PREFLIGHT.md) for the longer room check
+- [`docs/TROUBLESHOOTING.md`](TROUBLESHOOTING.md) for symptom-first recovery
 - [`docs/CONTROLLERS.md`](CONTROLLERS.md) if you need the semantic controller doctrine on the desk
+- [`../HELP_REQUEST.md`](../HELP_REQUEST.md) if another person may need to help
 
 What the performer should carry:
 
@@ -18,6 +20,7 @@ What the performer should carry:
 - one controller map
 - one audio patch sheet
 - one failover card
+- one troubleshooting sheet if the room or hardware state is uncertain
 
 Print them as plain Markdown or render them to a one-page handout.
 The important part is that blackout and clean camera are visible without digging through the repo.
