@@ -32,16 +32,16 @@ As of this pass, the working studio picture looks like this:
 
 | Node | Status | Current role | Where the truth lives |
 |------|--------|--------------|------------------------|
-| DrumKid | `core/live` | Rhythmic core and possible clock leader depending on set. | `01`, `03`, `07`, `08` |
-| SQ-64 | `core/live` | Main sequencer, especially for AE rack voices. | `README`, `01`, `03` |
-| AE rack | `core/live` | Modular voice lane fed by SQ-64. | `README`, `01`, `03`, `07` |
-| Electribe Sampler (`E2S`) | `core/live` | Sample voice plus fundamental audio processor for another audio line. | `notes/scratch-questions.md`, `notes/manuals/electribe_sampler_MIDIimp.txt` |
-| greyBox / Growser family | `core/live` | Current studio sound object / custom hardware family; names and source now vendored here. | `vendor/greyBox/`, `13_hardware-registry.md` |
-| Edirol PCM-30 | `core/live` | Main continuous visual control surface. | `README`, `01`, `03`, `08` |
-| frZone | `core/live` | Audio analysis lane feeding the visual side. | `README`, `01`, `03`, `06` |
-| SCapps chain / bridge runtime | `core/live` | Visual endpoint layer and associated bridge logic. | `01`, `04`, `05`, `09`, `11` |
-| Maschine MK1 | `present/dormant` | Good conceptual lane, currently neglected in the actual setup. | `10_maschine-mk1-lane.md` |
-| Akai S900 | `present/dormant` | In the room / in scope, but not yet properly integrated into repo docs. | `notes/manuals/S900ownersmanual_text.pdf` |
+| DrumKid | `core/live` | Rhythmic core and possible clock leader depending on set. | `01`, `03`, `07`, `08`, `equipment/AUDIO/drumkid.md` |
+| SQ-64 | `core/live` | Main sequencer, especially for AE rack voices. | `README`, `01`, `03`, `equipment/CONTROL/sq64.md` |
+| AE rack | `core/live` | Modular voice lane fed by SQ-64. | `README`, `01`, `03`, `07`, `equipment/MODULAR_SYNTH/ae-rack.md` |
+| Electribe Sampler (`E2S`) | `core/live` | Sample voice plus fundamental audio processor for another audio line. | `notes/scratch-questions.md`, `notes/manuals/electribe_sampler_MIDIimp.txt`, `equipment/AUDIO/electribe-e2s.md` |
+| greyBox / Growser family | `core/live` | Current studio sound object / custom hardware family; names and source now vendored here. | `vendor/greyBox/`, `13_hardware-registry.md`, `equipment/CUSTOM/greybox.md` |
+| Edirol PCM-30 | `core/live` | Main continuous visual control surface. | `README`, `01`, `03`, `08`, `equipment/CONTROL/edirol-pcm30.md` |
+| frZone | `core/live` | Audio analysis lane feeding the visual side. | `README`, `01`, `03`, `06`, `equipment/CUSTOM/frzone.md` |
+| SCapps chain / bridge runtime | `core/live` | Visual endpoint layer and associated bridge logic. | `01`, `04`, `05`, `09`, `11`, `equipment/VIDEO/scapps.md`, `equipment/COMPUTE/bridge-host.md` |
+| Maschine MK1 | `present/dormant` | Good conceptual lane, currently neglected in the actual setup. | `10_maschine-mk1-lane.md`, `equipment/CONTROL/maschine-mk1.md` |
+| Akai S900 | `present/dormant` | In the room / in scope, but not yet properly integrated into repo docs. | `notes/manuals/S900ownersmanual_text.pdf`, `equipment/AUDIO/s900.md` |
 | x0xb0x | `planned` | Future node; not yet real in the studio. | `notes/xOxbOx/x0xb0x_BOM.md` |
 
 ---
@@ -99,7 +99,7 @@ The root diagram is more concrete than the older prose docs. It currently shows 
 - `DISPLAY`
 
 Treat those names as **current inventory and runtime clues**.
-If a box or runtime is on the table often enough to matter, it should be named explicitly in this file and either added to `13_hardware-registry.md` or captured as a runtime dependency there.
+If a box or runtime is on the table often enough to matter, it should be named explicitly in this file, added to `13_hardware-registry.md` if it affects the current rig, and given or linked to an equipment passport in `equipment/`.
 
 ---
 

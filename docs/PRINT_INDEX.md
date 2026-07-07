@@ -12,6 +12,7 @@ Optional:
 - [`docs/PREFLIGHT.md`](PREFLIGHT.md) for the longer room check
 - [`docs/TROUBLESHOOTING.md`](TROUBLESHOOTING.md) for symptom-first recovery
 - [`docs/CONTROLLERS.md`](CONTROLLERS.md) if you need the semantic controller doctrine on the desk
+- [`../equipment/MUSTER_MATRIX.md`](../equipment/MUSTER_MATRIX.md) if you may need to call dormant equipment into service
 - [`../HELP_REQUEST.md`](../HELP_REQUEST.md) if another person may need to help
 
 What the performer should carry:

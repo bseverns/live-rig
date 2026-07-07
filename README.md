@@ -10,6 +10,12 @@ This repo exists so that **future-you** can walk into a venue, open one page, an
 
 It’s not firmware. It’s the **field manual** for the whole ecosystem: audio, MIDI, analysis, and video endpoints.
 
+If you need the **library/catalogue view** of boxes, runtimes, manuals, and muster steps, start with:
+
+- `equipment/INDEX.md`
+- `equipment/MUSTER_MATRIX.md`
+- `equipment/MANUALS.md`
+
 If you need the **actual current studio picture** rather than the stable architecture, start with:
 
 - `12_current-studio-rig.md`
@@ -125,10 +131,13 @@ These are the files currently in the repo and their jobs:
   Snapshot of what is actually in the studio now: core, dormant, planned, and under-documented nodes.
 
 - `13_hardware-registry.md`
-  Flat registry of hardware nodes, their current roles, their sources of truth, and the next documentation move for each.
+  Flat current-rig registry of hardware nodes, their current roles, their sources of truth, and the next documentation move for each.
 
 - `14_external-sources.md`
   Provenance map for manuals, local repos, vendored code, and other off-page sources this rig still depends on.
+
+- `equipment/`
+  Field-library atlas for anything that can be remembered, taught, loaned, patched, revived, or called into service. This is the broader equipment truth, separate from the current show-ready rig truth.
 
 - `docs/TROUBLESHOOTING.md`
   Symptom-first recovery guide for audio, visuals, controller, clock, frZone, safety states, export drift, and hardware-source confusion.
@@ -161,7 +170,7 @@ These are the files currently in the repo and their jobs:
   Vendored snapshot of the current `greyBox` / `Growser` sketch family so the source is available from this repo alone.
 
 - `hardware/`
-  Practical per-node pages for tricky devices, including role, audio I/O, MIDI/clock behavior, failure modes, source references, and how to remove the node safely.
+  Backwards-compatible pointers to moved equipment passports. Use `equipment/` for new per-node pages.
 
 - `snapshots/`
   Last-known-good or documented-placeholder snapshots of profile, devices, clock, endpoint, safety anchors, and things not to change before the next test.

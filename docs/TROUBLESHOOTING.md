@@ -214,7 +214,7 @@ Evidence to capture:
 
 Likely causes:
 
-- Hardware registry row exists but dedicated node page does not.
+- Hardware registry row exists but dedicated equipment passport does not.
 - Real patch differs from current-state docs.
 - Show notes captured a one-night routing but it was not promoted to stable docs.
 
@@ -222,7 +222,8 @@ Check:
 
 - [13_hardware-registry.md](../13_hardware-registry.md)
 - [12_current-studio-rig.md](../12_current-studio-rig.md)
-- Any matching `hardware/*.md` page.
+- [equipment/INDEX.md](../equipment/INDEX.md)
+- Any matching `equipment/**/*.md` passport.
 - Show-specific docs and sheets.
 
 Evidence to capture:

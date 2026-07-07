@@ -5,6 +5,8 @@ This file tracks where rig knowledge lives **outside the main prose docs**.
 The goal is not to eliminate outside sources.
 The goal is to make their locations explicit so the rig stays usable when only this repo is available.
 
+For the equipment-library view that maps manuals and sources to boxes, use `equipment/MANUALS.md`.
+
 Current diagram artifact:
 
 - `RigMap.drawio.png`
