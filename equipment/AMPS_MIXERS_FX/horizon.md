@@ -20,6 +20,13 @@ Current docs use mixer -> Horizon -> PA/interface as a reference audio path.
 - Audio output: PA/interface or downstream mix path.
 - MIDI: no current required role; channel 9 is only a mental reserve in README.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Confirm whether it is insert, send/return, or main-bus processor.
@@ -44,6 +51,12 @@ Current docs use mixer -> Horizon -> PA/interface as a reference audio path.
 - `README.md`
 - `02_audio-mixer-fx.md`
 - `sheets/minimal-audio-patch.md`
+
+- Photo slots:
+  - `equipment/photos/horizon-front.jpg`
+  - `equipment/photos/horizon-back.jpg`
+  - `equipment/photos/horizon-power.jpg`
+  - `equipment/photos/horizon-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

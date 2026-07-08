@@ -19,6 +19,14 @@ The SCapps chain is part of the visual lane. It should react to semantic control
 - Video input: capture/camera/Syphon-like sources depending on runtime.
 - Control: MIDI/OSC through bridge or direct routing.
 - Display output: final display/projector path.
+- Host/app order: unknown until physical verification.
+
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: documented chain role; unknown for current app order and endpoint.
+- Still unknown: app order, host machine, current project/preset, capture source, bridge output host/port, display path.
 
 ## How to muster it
 
@@ -46,6 +54,12 @@ The SCapps chain is part of the visual lane. It should react to semantic control
 - `05_scapps-rigs.md`
 - `09_scene-system.md`
 - `docs/TROUBLESHOOTING.md`
+- Photo slots:
+  - `equipment/photos/scapps-front.jpg`
+  - `equipment/photos/scapps-back.jpg`
+  - `equipment/photos/scapps-power.jpg`
+  - `equipment/photos/scapps-current-patch-2026-07-08.jpg`
+- Known-good card: `cards/scapps-known-good.md`
 
 ## Open questions
 

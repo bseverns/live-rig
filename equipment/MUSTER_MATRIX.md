@@ -53,3 +53,65 @@ Status meanings:
 4. Confirm audio/video/control reaches one known destination.
 5. Confirm removal path before relying on the box.
 6. If show-facing, confirm `state.blackout`, `scene.clean_camera`, and audio-only survival are still intact.
+
+## Work queue
+
+Use this matrix as the task board for the next bench pass.
+
+### Unknown: quick verification session
+
+Every `unknown` row gets one short session that captures power, I/O, clock/control behavior, and safe removal. Prioritize rows that are both `core/live` and `unknown`:
+
+- [ ] Microgranny
+- [ ] Kaossilator
+- [ ] FreqFM
+- [ ] Kastle family
+- [ ] Volca Modular
+- [ ] MSVP
+- [ ] nw_wrld / wrld_on
+- [ ] Found-sound cluster
+- [ ] Microphone
+- [ ] DFX12
+- [ ] FM212R
+- [ ] circuitBend
+- [ ] FXloop
+- [ ] Other amp
+
+### Musterable: known-good card
+
+Every `musterable` row gets one compact known-good card when its configuration is stable enough to repeat.
+
+Spine cards now live in `cards/`:
+
+- [x] `cards/edirol-known-good.md`
+- [x] `cards/drumkid-known-good.md`
+- [x] `cards/sq64-known-good.md`
+- [x] `cards/e2s-known-good.md`
+- [x] `cards/greybox-known-good.md`
+- [x] `cards/frzone-known-good.md`
+- [x] `cards/scapps-known-good.md`
+- [x] `cards/bridge-host-known-good.md`
+
+Remaining `musterable` card backlog:
+
+- [ ] AE Rack
+- [ ] FieldKitFX
+- [ ] Horizon
+- [ ] Mac mini, if it is doing more than bridge-host duty.
+- [ ] REAPER host
+- [ ] live-rig-control
+
+### Dormant: before promoting
+
+Before a `dormant` row becomes active, capture:
+
+- [ ] Power supply and polarity.
+- [ ] Audio/video/control I/O.
+- [ ] MIDI/clock behavior.
+- [ ] Mixer channel or endpoint path.
+- [ ] Safe bypass/removal path.
+- [ ] Passport verification section updated from observed facts.
+
+### Next physical test
+
+Use `sheets/next-physical-test.md` as the bench checklist for the spine pass.

@@ -20,6 +20,13 @@ Appears in the current diagram. Clock/sync behavior and audio path need capture.
 - Sync/clock: unknown.
 - Patch state: unknown.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Confirm power.
@@ -42,6 +49,12 @@ Appears in the current diagram. Clock/sync behavior and audio path need capture.
 ## Evidence
 
 - `RigMap.drawio.png`
+
+- Photo slots:
+  - `equipment/photos/volca-modular-front.jpg`
+  - `equipment/photos/volca-modular-back.jpg`
+  - `equipment/photos/volca-modular-power.jpg`
+  - `equipment/photos/volca-modular-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

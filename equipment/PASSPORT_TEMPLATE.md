@@ -22,6 +22,13 @@ Say whether this is trusted tonight, dormant, planned, reference-only, or merely
 - USB/network/OSC:
 - Power/media/storage:
 
+## Verification
+
+- Last physically verified:
+- Verified by:
+- Confidence: observed / manual / memory / unknown
+- Still unknown:
+
 ## How to muster it
 
 1. Name the intended role.

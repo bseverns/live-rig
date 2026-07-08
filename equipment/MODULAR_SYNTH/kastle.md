@@ -20,6 +20,13 @@ Named in the current diagram, but exact unit roles and audio/control behavior ar
 - Patch/modulation I/O: unknown.
 - MIDI/clock: likely minimal or none unless documented.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Identify which Kastle unit is being used.
@@ -43,6 +50,12 @@ Named in the current diagram, but exact unit roles and audio/control behavior ar
 
 - `RigMap.drawio.png`
 - `notes/manuals/kastle-master.zip`
+
+- Photo slots:
+  - `equipment/photos/kastle-front.jpg`
+  - `equipment/photos/kastle-back.jpg`
+  - `equipment/photos/kastle-power.jpg`
+  - `equipment/photos/kastle-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

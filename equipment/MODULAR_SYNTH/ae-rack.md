@@ -20,6 +20,13 @@ Current docs describe AE rack voices around SQ-64 sequencing, with channel 16 as
 - Control input: SQ-64 note/gate/CV/MIDI path, exact details need capture.
 - Clock: follows the sequencer/control lane.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Confirm SQ-64 track/channel/voice assignment.
@@ -45,6 +52,12 @@ Current docs describe AE rack voices around SQ-64 sequencing, with channel 16 as
 - `01_system-overview.md`
 - `03_midi-clock-video.md`
 - `07_show-2025-12-15-basement-noise.md`
+
+- Photo slots:
+  - `equipment/photos/ae-rack-front.jpg`
+  - `equipment/photos/ae-rack-back.jpg`
+  - `equipment/photos/ae-rack-power.jpg`
+  - `equipment/photos/ae-rack-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

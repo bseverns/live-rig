@@ -20,6 +20,13 @@ Named but not identified. It may be monitor, room sound, recording coloration, o
 - Audio output: speaker/amp stage.
 - MIDI/clock: none expected.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Identify the physical amp.
@@ -42,6 +49,12 @@ Named but not identified. It may be monitor, room sound, recording coloration, o
 ## Evidence
 
 - `RigMap.drawio.png`
+
+- Photo slots:
+  - `equipment/photos/other-amp-front.jpg`
+  - `equipment/photos/other-amp-back.jpg`
+  - `equipment/photos/other-amp-power.jpg`
+  - `equipment/photos/other-amp-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

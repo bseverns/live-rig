@@ -20,6 +20,13 @@ Named in the current diagram. It may feed main audio, FX, analysis, tape, or som
 - Audio output: mixer channel or processor path unknown.
 - MIDI/clock: none expected.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Confirm mic, cable, and input type.
@@ -42,6 +49,12 @@ Named in the current diagram. It may feed main audio, FX, analysis, tape, or som
 ## Evidence
 
 - `RigMap.drawio.png`
+
+- Photo slots:
+  - `equipment/photos/microphone-front.jpg`
+  - `equipment/photos/microphone-back.jpg`
+  - `equipment/photos/microphone-power.jpg`
+  - `equipment/photos/microphone-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

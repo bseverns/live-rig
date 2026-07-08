@@ -20,6 +20,14 @@ It is an active studio object and may be fundamental to an audio line, but it sh
 - Audio output: unknown until current patch is photographed.
 - MIDI/clock: treat as a MIDI-clock follower unless a show doc explicitly names it as boss.
 - Storage/media: active pattern/bank unknown.
+- Power: unknown until photographed.
+
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: manual/memory for general role; unknown for current patch.
+- Still unknown: power supply, current input/output path, mixer channel, MIDI port name, clock settings, active pattern/bank, MIDI filtering.
 
 ## How to muster it
 
@@ -48,6 +56,12 @@ It is an active studio object and may be fundamental to an audio line, but it sh
 - `notes/manuals/electribe_sampler.pdf`
 - `notes/manuals/electribe_sampler_PG.pdf`
 - `notes/manuals/electribe_sampler_MIDIimp.txt`
+- Photo slots:
+  - `equipment/photos/e2s-front.jpg`
+  - `equipment/photos/e2s-back.jpg`
+  - `equipment/photos/e2s-power.jpg`
+  - `equipment/photos/e2s-current-patch-2026-07-08.jpg`
+- Known-good card: `cards/e2s-known-good.md`
 
 ## Open questions
 

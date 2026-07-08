@@ -20,6 +20,13 @@ The exact naming, patch path, and control behavior need to be locked.
 - MIDI/control: unknown.
 - Power: unknown.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Confirm exact device identity/name.
@@ -43,6 +50,12 @@ The exact naming, patch path, and control behavior need to be locked.
 
 - `RigMap.drawio.png`
 - `notes/manuals/MeeBleeps-Freaq-FM-Synth-master.zip`
+
+- Photo slots:
+  - `equipment/photos/freaq-fm-front.jpg`
+  - `equipment/photos/freaq-fm-back.jpg`
+  - `equipment/photos/freaq-fm-power.jpg`
+  - `equipment/photos/freaq-fm-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

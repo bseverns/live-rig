@@ -20,6 +20,13 @@ Appears in the current studio diagram and failover docs, but naming and current 
 - Control: likely bridge-driven scene/state messages.
 - Host: unknown.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Start the runtime on the intended host.
@@ -43,6 +50,12 @@ Appears in the current studio diagram and failover docs, but naming and current 
 
 - `RigMap.drawio.png`
 - `11_repo-roles-failover.md`
+
+- Photo slots:
+  - `equipment/photos/nw-wrld-front.jpg`
+  - `equipment/photos/nw-wrld-back.jpg`
+  - `equipment/photos/nw-wrld-power.jpg`
+  - `equipment/photos/nw-wrld-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

@@ -19,6 +19,13 @@ The camera/capture path feeding visual endpoints and the `scene.clean_camera` re
 - Video output: endpoint input.
 - Control: scene selection should expose clean view.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Connect and identify the camera/capture device.
@@ -43,6 +50,12 @@ The camera/capture path feeding visual endpoints and the `scene.clean_camera` re
 - `09_scene-system.md`
 - `docs/SCENES.md`
 - `scenes/minimal-scenes.yaml`
+
+- Photo slots:
+  - `equipment/photos/cameras-capture-front.jpg`
+  - `equipment/photos/cameras-capture-back.jpg`
+  - `equipment/photos/cameras-capture-power.jpg`
+  - `equipment/photos/cameras-capture-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

@@ -20,6 +20,13 @@ Named in `RigMap.drawio.png`, but individual roles are not stable enough to spli
 - MIDI/clock: none expected.
 - Power/media: tapes, radio tuning, batteries/power supplies unknown.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Identify which source is actually being used.
@@ -43,6 +50,12 @@ Named in `RigMap.drawio.png`, but individual roles are not stable enough to spli
 
 - `RigMap.drawio.png`
 - Show notes when captured.
+
+- Photo slots:
+  - `equipment/photos/found-sound-cluster-front.jpg`
+  - `equipment/photos/found-sound-cluster-back.jpg`
+  - `equipment/photos/found-sound-cluster-power.jpg`
+  - `equipment/photos/found-sound-cluster-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

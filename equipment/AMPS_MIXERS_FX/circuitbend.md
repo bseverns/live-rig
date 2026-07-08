@@ -20,6 +20,13 @@ Treat as an under-specified processing node until the actual device or chain is 
 - Audio output: unknown.
 - MIDI/clock: unknown, likely none.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Identify whether this is a specific device, chain, or category label.
@@ -42,6 +49,12 @@ Treat as an under-specified processing node until the actual device or chain is 
 ## Evidence
 
 - `RigMap.drawio.png`
+
+- Photo slots:
+  - `equipment/photos/circuitbend-front.jpg`
+  - `equipment/photos/circuitbend-back.jpg`
+  - `equipment/photos/circuitbend-power.jpg`
+  - `equipment/photos/circuitbend-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

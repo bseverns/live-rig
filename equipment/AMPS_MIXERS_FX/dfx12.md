@@ -20,6 +20,13 @@ Named in the diagram near amplification/processing. Do not assume its role until
 - Audio output: unknown.
 - MIDI/clock: not expected unless proven.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Confirm exact device identity.
@@ -42,6 +49,12 @@ Named in the diagram near amplification/processing. Do not assume its role until
 
 - `RigMap.drawio.png`
 - `notes/manuals/dfx_series.pdf`
+
+- Photo slots:
+  - `equipment/photos/dfx12-front.jpg`
+  - `equipment/photos/dfx12-back.jpg`
+  - `equipment/photos/dfx12-power.jpg`
+  - `equipment/photos/dfx12-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

@@ -20,6 +20,13 @@ It appears in the current diagram, but exact insert/return behavior is not yet c
 - Audio output: unknown.
 - MIDI/clock: not captured; treat as audio processing until proven otherwise.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Decide whether it is insert, send/return, or parallel.
@@ -44,6 +51,12 @@ It appears in the current diagram, but exact insert/return behavior is not yet c
 
 - `RigMap.drawio.png`
 - `notes/manuals/FieldKitFX-master.zip`
+
+- Photo slots:
+  - `equipment/photos/fieldkitfx-front.jpg`
+  - `equipment/photos/fieldkitfx-back.jpg`
+  - `equipment/photos/fieldkitfx-power.jpg`
+  - `equipment/photos/fieldkitfx-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

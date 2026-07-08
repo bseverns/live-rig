@@ -20,6 +20,14 @@ It is part of the real studio picture and vendored source now lives in this repo
 - Audio output: unknown.
 - MIDI/clock: not documented; treat as audio source unless a sketch proves otherwise.
 - Power/firmware: active sketch unknown.
+- Mixer channel: unknown until physical verification.
+
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: source/provenance observed in repo; current physical wiring unknown.
+- Still unknown: active sketch, power supply, wiring, output path, mixer channel, MIDI/clock role.
 
 ## How to muster it
 
@@ -49,6 +57,12 @@ It is part of the real studio picture and vendored source now lives in this repo
 - `vendor/greyBox/greyBox_GrowserSwitch/greyBox_GrowserSwitch.ino`
 - `vendor/greyBox/greyBox_Growser_delay/greyBox_Growser_delay.ino`
 - `vendor/greyBox/greyBox_instructableEx/greyBox_instructableEx.ino`
+- Photo slots:
+  - `equipment/photos/greybox-front.jpg`
+  - `equipment/photos/greybox-back.jpg`
+  - `equipment/photos/greybox-power.jpg`
+  - `equipment/photos/greybox-current-patch-2026-07-08.jpg`
+- Known-good card: `cards/greybox-known-good.md`
 
 ## Open questions
 

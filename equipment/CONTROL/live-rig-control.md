@@ -20,6 +20,13 @@ Named in the current diagram and represented by `controllers/live-rig-control.ya
 - Output: semantic scene/state/macro controls.
 - Network/MIDI/OSC: current path unknown.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Confirm the app/repo location and launch path.
@@ -44,6 +51,12 @@ Named in the current diagram and represented by `controllers/live-rig-control.ya
 - `controllers/live-rig-control.yaml`
 - `RigMap.drawio.png`
 - `13_hardware-registry.md`
+
+- Photo slots:
+  - `equipment/photos/live-rig-control-front.jpg`
+  - `equipment/photos/live-rig-control-back.jpg`
+  - `equipment/photos/live-rig-control-power.jpg`
+  - `equipment/photos/live-rig-control-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

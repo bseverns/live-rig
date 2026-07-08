@@ -20,6 +20,13 @@ Named as part of the failover relationship, but current endpoint role and inputs
 - Control: likely semantic scene/state messages or endpoint-specific bridge path.
 - Host: unknown.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Confirm host/runtime.
@@ -43,6 +50,12 @@ Named as part of the failover relationship, but current endpoint role and inputs
 
 - `11_repo-roles-failover.md`
 - `RigMap.drawio.png`
+
+- Photo slots:
+  - `equipment/photos/msvp-front.jpg`
+  - `equipment/photos/msvp-back.jpg`
+  - `equipment/photos/msvp-power.jpg`
+  - `equipment/photos/msvp-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

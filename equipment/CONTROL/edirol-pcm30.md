@@ -19,6 +19,25 @@ Mapped in `controllers/edirol-pcm30.yaml`, currently using channel 10 for visual
 - MIDI: channel 10 by convention.
 - Audio/video: none directly.
 - USB/MIDI interface: current port must be confirmed in the room.
+- Power: USB or adapter path must be confirmed in the room.
+
+## Current safety mapping
+
+- Current port name: unknown until physical verification.
+- Current template/program number: unknown until physical verification.
+- Documented Button 4 MIDI mapping: channel 10, note 63, semantic `state.blackout`.
+- Actual Button 4 MIDI note/channel: unknown until hand-tested.
+- Documented Button 5 MIDI mapping: channel 10, note 64, semantic `scene.clean_camera`.
+- Actual Button 5 MIDI note/channel: unknown until hand-tested.
+- Controller template/settings photo: not yet captured.
+- Date hand-tested: unknown.
+
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: documented mapping for channel/note values; unknown for current physical port and template.
+- Still unknown: current port name, current template/program number, actual Button 4 output, actual Button 5 output, power path.
 
 ## How to muster it
 
@@ -45,6 +64,12 @@ Mapped in `controllers/edirol-pcm30.yaml`, currently using channel 10 for visual
 - `docs/CONTROLLERS.md`
 - `notes/manuals/pcr30QS.pdf`
 - `notes/manuals/pcr30_full.pdf`
+- Photo slots:
+  - `equipment/photos/edirol-pcm30-front.jpg`
+  - `equipment/photos/edirol-pcm30-back.jpg`
+  - `equipment/photos/edirol-pcm30-power.jpg`
+  - `equipment/photos/edirol-pcm30-current-patch-2026-07-08.jpg`
+- Known-good card: `cards/edirol-known-good.md`
 
 ## Open questions
 

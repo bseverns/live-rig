@@ -20,6 +20,14 @@ Named in `RigMap.drawio.png`, but exact hosted processes need capture per setup.
 - Audio: possible interface or REAPER host.
 - Video: possible endpoint host or display output.
 - Network/OSC: bridge and endpoint traffic.
+- Power: unknown until photographed.
+
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: diagram/name observed; current hosted runtimes unknown.
+- Still unknown: hosted runtimes, audio interface, MIDI interface names, display output, bridge responsibility.
 
 ## How to muster it
 
@@ -45,6 +53,11 @@ Named in `RigMap.drawio.png`, but exact hosted processes need capture per setup.
 - `RigMap.drawio.png`
 - `12_current-studio-rig.md`
 - `docs/PREFLIGHT.md`
+- Photo slots:
+  - `equipment/photos/macmini-front.jpg`
+  - `equipment/photos/macmini-back.jpg`
+  - `equipment/photos/macmini-power.jpg`
+  - `equipment/photos/macmini-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

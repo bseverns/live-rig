@@ -20,6 +20,13 @@ It appears in the current studio inventory, but whether it is clocked, free-runn
 - MIDI/clock: unknown.
 - Power/media: confirm power supply or battery state before use.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Confirm power.
@@ -43,6 +50,12 @@ It appears in the current studio inventory, but whether it is clocked, free-runn
 
 - `RigMap.drawio.png`
 - `notes/manuals/kaossilator_dynamic_phrase_synthesizer.pdf`
+
+- Photo slots:
+  - `equipment/photos/kaossilator-front.jpg`
+  - `equipment/photos/kaossilator-back.jpg`
+  - `equipment/photos/kaossilator-power.jpg`
+  - `equipment/photos/kaossilator-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

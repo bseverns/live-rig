@@ -20,6 +20,13 @@ Named in the current diagram, but its routing and trigger behavior are not yet c
 - MIDI/clock: unknown.
 - Media/storage: unknown sample state.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Confirm power and sample/media state.
@@ -44,6 +51,12 @@ Named in the current diagram, but its routing and trigger behavior are not yet c
 - `RigMap.drawio.png`
 - `12_current-studio-rig.md`
 - Show notes when captured.
+
+- Photo slots:
+  - `equipment/photos/microgranny-front.jpg`
+  - `equipment/photos/microgranny-back.jpg`
+  - `equipment/photos/microgranny-power.jpg`
+  - `equipment/photos/microgranny-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

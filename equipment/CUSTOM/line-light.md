@@ -20,6 +20,13 @@ Lives near the frZone/audio-analysis lane but should not be required for audio o
 - MIDI/OSC: none expected.
 - Output: light behavior.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Patch the intended post-fader audio feed.
@@ -42,6 +49,12 @@ Lives near the frZone/audio-analysis lane but should not be required for audio o
 ## Evidence
 
 - `06_frzone-linelight.md`
+
+- Photo slots:
+  - `equipment/photos/line-light-front.jpg`
+  - `equipment/photos/line-light-back.jpg`
+  - `equipment/photos/line-light-power.jpg`
+  - `equipment/photos/line-light-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

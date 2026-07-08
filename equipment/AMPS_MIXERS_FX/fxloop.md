@@ -20,6 +20,13 @@ Named in the current diagram. Its position relative to mixer, E2S, and amps need
 - Audio output: unknown return/destination.
 - MIDI/clock: not expected unless a device in the loop uses it.
 
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: unknown until physical verification.
+- Still unknown: see Open questions and muster notes.
+
 ## How to muster it
 
 1. Identify send/source and return/destination.
@@ -42,6 +49,12 @@ Named in the current diagram. Its position relative to mixer, E2S, and amps need
 ## Evidence
 
 - `RigMap.drawio.png`
+
+- Photo slots:
+  - `equipment/photos/fxloop-front.jpg`
+  - `equipment/photos/fxloop-back.jpg`
+  - `equipment/photos/fxloop-power.jpg`
+  - `equipment/photos/fxloop-current-patch-2026-07-08.jpg`
 
 ## Open questions
 

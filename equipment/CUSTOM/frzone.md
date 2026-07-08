@@ -19,6 +19,15 @@ Important enrichment for visuals, but the rig should survive with manual scene c
 - Audio input: post-fader bus from mixer.
 - Control output: analysis CCs, conventionally channel 15.
 - Visual influence: scene `analysis` weights and endpoint behavior.
+- Power/runtime host: unknown until physical verification.
+- Port name/protocol: unknown until physical verification.
+
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: documented routing convention; unknown for current runtime and ports.
+- Still unknown: current audio feed, input device, output protocol/path, port name, runtime host/project.
 
 ## How to muster it
 
@@ -44,6 +53,12 @@ Important enrichment for visuals, but the rig should survive with manual scene c
 - `06_frzone-linelight.md`
 - `scenes/minimal-scenes.yaml`
 - `docs/TROUBLESHOOTING.md`
+- Photo slots:
+  - `equipment/photos/frzone-front.jpg`
+  - `equipment/photos/frzone-back.jpg`
+  - `equipment/photos/frzone-power.jpg`
+  - `equipment/photos/frzone-current-patch-2026-07-08.jpg`
+- Known-good card: `cards/frzone-known-good.md`
 
 ## Open questions
 

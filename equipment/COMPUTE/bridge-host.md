@@ -19,6 +19,14 @@ The bridge consumes exported rig profile data and should preserve semantic IDs a
 - Input: MIDI/control surfaces, possibly OSC.
 - Output: OSC/MIDI/control messages to visual endpoints.
 - Files: profiles, scenes, controller maps, interop export.
+- Host/ports: current machine and port names unknown until physical verification.
+
+## Verification
+
+- Last physically verified: unknown.
+- Verified by: unknown.
+- Confidence: repo contract observed; current host/runtime unknown.
+- Still unknown: current host machine, launch workflow, MIDI input port, OSC/MIDI output host/port, selected live profile/export.
 
 ## How to muster it
 
@@ -46,6 +54,12 @@ The bridge consumes exported rig profile data and should preserve semantic IDs a
 - `bridge/src/index.js`
 - `tools/rig-doctor.js`
 - `interop/exports/live-rig.default.json`
+- Photo slots:
+  - `equipment/photos/bridge-host-front.jpg`
+  - `equipment/photos/bridge-host-back.jpg`
+  - `equipment/photos/bridge-host-power.jpg`
+  - `equipment/photos/bridge-host-current-patch-2026-07-08.jpg`
+- Known-good card: `cards/bridge-host-known-good.md`
 
 ## Open questions
 
