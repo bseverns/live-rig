@@ -63,6 +63,11 @@ At minimum:
 - `../arduinoSketches/`
   - still appears to be the broader home for custom hardware sketches
   - `greyBox` originated there
+- `../kastle/` — original Kastle / 1.5 firmware variants and schematic
+- `../kastle2/` — Kastle 2 / StackBrain firmware, MIDI mapping, artifacts,
+  and schematic
+- `../FieldKitFX/` — Field Kit FX firmware/source reference
+- `../drumkid/` — DrumKid source, manuals, kit instructions, and PCB material
 
 If other local repos become operationally necessary for this rig, add them here with:
 
@@ -82,6 +87,10 @@ Examples:
 - `notes/manuals/FieldKitFX-master.zip`
 - `notes/manuals/kastle-master.zip`
 - `notes/manuals/MeeBleeps-Freaq-FM-Synth-master.zip`
+
+The corresponding editable local repositories, their entry files, and their
+last-indexed revisions are kept in `notes/manuals/LOCAL_REPOSITORIES.md`.
+The portable bundles are snapshots, not automatic mirrors of those repos.
 
 These are useful references, but they are not automatically part of the active rig contract.
 Promote them into the main docs only when they become part of the real setup.

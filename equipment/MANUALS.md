@@ -19,8 +19,12 @@ This page is the source shelf for equipment facts. Use equipment pages for opera
 | `notes/manuals/pcr30_full.pdf` | [Edirol PCM-30](CONTROL/edirol-pcm30.md) | Full manual. |
 | `notes/manuals/kaossilator_dynamic_phrase_synthesizer.pdf` | [Kaossilator](AUDIO/kaossilator.md) | Manual/reference. |
 | `notes/manuals/kastle-master.zip` | [Kastle family](MODULAR_SYNTH/kastle.md) | Reference bundle. |
+| `../kastle/` | [Kastle family](MODULAR_SYNTH/kastle.md) | Editable local source for the original Kastle/1.5 firmware variants and schematic; indexed in [`notes/manuals/LOCAL_REPOSITORIES.md`](../notes/manuals/LOCAL_REPOSITORIES.md). |
+| `../kastle2/` | [Kastle family](MODULAR_SYNTH/kastle.md) | Editable local source for Kastle 2 / StackBrain: hardware I/O, MIDI mappings, app list, artifact, and schematic. No portable snapshot is yet stored here. |
 | `notes/manuals/MeeBleeps-Freaq-FM-Synth-master.zip` | [FreqFM](MODULAR_SYNTH/freaq-fm.md) | Reference bundle. |
 | `notes/manuals/FieldKitFX-master.zip` | [FieldKitFX](AMPS_MIXERS_FX/fieldkitfx.md) | Reference bundle. |
+| `../FieldKitFX/` | [FieldKitFX](AMPS_MIXERS_FX/fieldkitfx.md) | Editable firmware/source reference; use it for implementation details, not as a front-panel manual. |
+| `../drumkid/` | [DrumKid](AUDIO/drumkid.md) | Editable current source; includes the V1.2 manual and kit instructions. |
 | `notes/manuals/dfx_series.pdf` | [DFX12](AMPS_MIXERS_FX/dfx12.md) | DFX-series reference. |
 
 ## Vendored source
@@ -42,3 +46,6 @@ This page is the source shelf for equipment facts. Use equipment pages for opera
 ## Source rule
 
 Use manuals for factual device behavior, equipment pages for operational memory, rig docs for show trust, and snapshots for what actually worked.
+
+For the exact local source paths, revisions, entry files, and snapshot policy,
+see [`notes/manuals/LOCAL_REPOSITORIES.md`](../notes/manuals/LOCAL_REPOSITORIES.md).

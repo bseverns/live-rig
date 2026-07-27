@@ -4,11 +4,32 @@
 
 - Category: small synth / modulation object.
 - Status: `core/live` in the current diagram.
-- Aliases: Kastle 1.5 / Drum, Kastle2 - stackBrain.
+- Aliases: original Kastle / Kastle 1.5 / Drum; Kastle 2 / StackBrain.
 
 ## What it is
 
-Small synth/drum/modulation objects used as audio sources or patch helpers.
+Two distinct generations of small synth/drum/modulation objects used as audio
+sources or patch helpers. Do not transfer a control or patch assumption from
+one generation to the other without checking the active unit.
+
+### Original Kastle / 1.5 family
+
+- Local source: `../kastle/`; portable snapshot:
+  `notes/manuals/kastle-master.zip`.
+- The source identifies `kastleSynthe_VCO` and `kastleSynth_LFO` as the
+  original synth firmware and includes additional work-in-progress firmware
+  variants and a schematic.
+
+### Kastle 2 / StackBrain
+
+- Local source: `../kastle2/`; source index:
+  `notes/manuals/LOCAL_REPOSITORIES.md`.
+- Has stereo audio input and headphone output, sync in/out, USB-C power and
+  MIDI, and a patch header. Its installed app determines much of its behavior.
+- Base MIDI behavior documented in the local source: it follows USB MIDI clock
+  when present (unless configured to ignore it), outputs USB MIDI clock while
+  running from internal or jack/patchbay clock, and reserves CC 7, 9, 22–25
+  for base controls. App controls are firmware-specific.
 
 ## Current rig relationship
 
@@ -16,9 +37,11 @@ Named in the current diagram, but exact unit roles and audio/control behavior ar
 
 ## I/O
 
-- Audio output: unknown.
-- Patch/modulation I/O: unknown.
-- MIDI/clock: likely minimal or none unless documented.
+- Original Kastle / 1.5: verify exact firmware and panel/patch role before
+  assuming audio, modulation, or clock behavior.
+- Kastle 2: stereo audio input, stereo headphone output, sync in/out, USB MIDI
+  I/O, and patch-header I/O are documented by the local source. Confirm the
+  active app and physical cabling before using any of them in the rig.
 
 ## Verification
 
@@ -50,6 +73,10 @@ Named in the current diagram, but exact unit roles and audio/control behavior ar
 
 - `RigMap.drawio.png`
 - `notes/manuals/kastle-master.zip`
+- `notes/manuals/LOCAL_REPOSITORIES.md`
+- `../kastle/readMe.rtf`
+- `../kastle2/README.md`
+- `../kastle2/MIDI_MAPPINGS.md`
 
 - Photo slots:
   - `equipment/photos/kastle-front.jpg`
@@ -59,6 +86,7 @@ Named in the current diagram, but exact unit roles and audio/control behavior ar
 
 ## Open questions
 
-- Which unit is active.
+- Confirm whether the active `Kastle2 - stackBrain` diagram label means the
+  StackBrain app/artifact is actually installed.
 - Audio versus modulation role.
 - Output path.

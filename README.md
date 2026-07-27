@@ -46,6 +46,8 @@ If you’re standing in a basement / club / warehouse right now, start here.
    - If **REAPER** owns clock tonight:
      - Enable the DrumKid MIDI output in *Preferences → Audio → MIDI Devices*.  
      - Right-click it → **Enable output** + **Send clock/SPP**.  
+     - Keep Edirol/frZone tracks off that output: current DrumKid firmware
+       accepts CC 16–31 on every MIDI channel.
    - If **DrumKid** owns clock tonight:
      - Keep REAPER out of transport ownership.
      - Use DrumKid to fan clock to SQ-64 or other devices if needed.

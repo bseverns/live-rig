@@ -6,7 +6,7 @@
 | Device        | MIDI Channel | Notes                                                |
 |---------------|-------------:|------------------------------------------------------|
 | AE Rack       | 16           | Receives note/gate patterns on Ch 16 from sequencer |
-| DrumKid       | —            | Follows MIDI clock/start/stop only (no CC control)  |
+| DrumKid       | —            | Receives clock/transport on its dedicated path; do not route visual or analysis CCs to it. |
 | Edirol PCM-30 | 10           | Faders/knobs send CC macros for visuals             |
 
 ## 1. Global CC Map
@@ -98,11 +98,23 @@ Assumptions:
 | Button 2  | 10 | 61   | Clean/soft scene select    | TD/Max maps Note 61 → clean VidMix scene  |
 | Button 3  | 10 | 62   | Blackout                   | Sets global brightness macro to 0         |
 
-### 3.2 DrumKid (for sync)
+### 3.2 DrumKid (sync and control isolation)
 
-- DrumKid receives **MIDI clock + start/stop** from DAW.  
-- Important: clock/start/stop are **system realtime messages**, not channelized, so they **do not conflict** with Ch 10 CCs from Edirol PCM-30.  
-- DrumKid’s current firmware does **not** listen for arbitrary CCs, so Edirol PCM-30 macros are safe.
+This 2025 mapping originally assumed DrumKid had no CC input. That is
+superseded by the current local firmware baseline: V1.2 source at `be1cdce`.
+
+- DrumKid receives **MIDI clock + start/continue/stop** from DAW when REAPER
+  is the boss. These are system-realtime messages, not channelized.
+- It also receives **CC 16–31 on any MIDI channel**. Do not route Edirol Ch 10
+  or frZone Ch 15 to DrumKid: Edirol CC 21–28 and frZone CC 20/22/23/24 are all
+  within DrumKid's control range and will change its parameters.
+- Note-ons on any channel set the drone root; program changes select a beat.
+  Keep visual notes/program changes off the DrumKid output too.
+- DrumKid's default note output is Ch 10. Keep that return separate from the
+  visual bridge unless those notes are deliberately filtered.
+
+Safe routing for this show: REAPER's dedicated DrumKid output sends transport
+only; Edirol and frZone remain on the virtual bridge output.
 
 ### 3.3 Horizon
 
@@ -139,6 +151,8 @@ Treat the SCApps side as receiving a small number of CCs and frZone streams via 
 > Differences from your future “global” map, specific to this basement noise night:
 
 - DrumKid is tempo master; Mac is **not** sending MIDI clock to other gear.  
+- Edirol and frZone MIDI are isolated from DrumKid; its input is not a merge
+  point for the visual-control lanes.
 - No MIDI on Horizon yet; scenes changed by hand.  
 - DiceLoop not present, so its usual CC lanes are free.  
 - VMass and SSSScan not in use; any global CCs for them are ignored tonight.  

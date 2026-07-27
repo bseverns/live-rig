@@ -51,6 +51,25 @@ If DrumKid is the current clock source:
 - Let DrumKid drive downstream followers directly.
 - Keep the bridge / SCapps side as clock followers or control followers only.
 
+### DrumKid-safe routing (current V1.2 firmware baseline)
+
+Use a dedicated physical/DAW output for DrumKid. Send it only the transport
+messages the session calls for; do not use it as a general-purpose MIDI merge.
+
+- DrumKid accepts MIDI CC **16–31 on any channel**. Edirol's Ch 10 CC 21–28
+  and frZone's Ch 15 CC 20/22/23/24 would therefore change DrumKid parameters
+  if they reached its input.
+- MIDI note-ons on any channel set the DrumKid drone root, and program changes
+  select a beat. Keep visual notes and program changes off the DrumKid path.
+- DrumKid's default MIDI note output is on Ch 10. Do not return that output to
+  the visual bridge unless its notes are explicitly filtered or wanted.
+- In a REAPER-led set, use the output's **Send clock/SPP** setting for DrumKid
+  transport rather than routing the Edirol or frZone control tracks to it.
+
+This reflects `../drumkid/arduino/1.2/drumkid/drumkid.ino` at source revision
+`be1cdce`. Confirm the physical unit is flashed with this baseline before
+depending on CC or program-change behavior.
+
 ---
 
 ## MIDI channel layout (canonical)

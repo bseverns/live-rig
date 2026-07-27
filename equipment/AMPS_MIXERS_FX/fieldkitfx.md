@@ -8,7 +8,9 @@
 
 ## What it is
 
-External FX / processing node.
+External FX / processing node. The local firmware source identifies its core
+effects as looper, bit crusher, sample-rate reduction, frequency shifter, and
+CV matrix.
 
 ## Current rig relationship
 
@@ -19,6 +21,8 @@ It appears in the current diagram, but exact insert/return behavior is not yet c
 - Audio input: unknown.
 - Audio output: unknown.
 - MIDI/clock: not captured; treat as audio processing until proven otherwise.
+- Firmware reference: `../FieldKitFX/` is the editable source; its README
+  documents a deliberate firmware-flash path, not day-to-day operation.
 
 ## Verification
 
@@ -51,6 +55,8 @@ It appears in the current diagram, but exact insert/return behavior is not yet c
 
 - `RigMap.drawio.png`
 - `notes/manuals/FieldKitFX-master.zip`
+- `notes/manuals/LOCAL_REPOSITORIES.md`
+- `../FieldKitFX/README.md`
 
 - Photo slots:
   - `equipment/photos/fieldkitfx-front.jpg`
@@ -62,3 +68,4 @@ It appears in the current diagram, but exact insert/return behavior is not yet c
 
 - Current patch position.
 - Power and gain settings.
+- Installed firmware/version if firmware behavior becomes operationally relevant.

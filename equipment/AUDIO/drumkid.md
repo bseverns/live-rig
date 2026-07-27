@@ -17,7 +17,14 @@ Current docs treat DrumKid as central to rhythm and clock decisions, but the clo
 ## I/O
 
 - Audio: drum audio source.
-- MIDI/clock: may own or follow clock; can fan clock in some setups.
+- MIDI/clock: may own or follow clock; can fan clock in some setups. Current
+  V1.2 source baseline receives clock/start/continue/stop and outputs clock,
+  start, and stop while playing.
+- MIDI input: CC 16–31 on any channel control its parameters; note-ons on any
+  channel set the drone root; program changes select a beat. These controls
+  must be isolated from visual/analysis MIDI lanes.
+- MIDI output: the five drum voices default to Ch 10 (notes 36, 37, 38, 42,
+  and 43); note and channel assignments are saved in the unit and can differ.
 - Storage/media: see bundled reference material.
 - Power: unknown until photographed.
 - Mixer channel: unknown until physical verification.
@@ -46,11 +53,16 @@ Current docs treat DrumKid as central to rhythm and clock decisions, but the clo
 
 - Two devices own clock.
 - REAPER and DrumKid both send transport.
+- Edirol or frZone CC reaches DrumKid and changes its sound: it accepts CC
+  16–31 regardless of MIDI channel.
+- DrumKid's default Ch 10 note output reaches the visual bridge unexpectedly.
 - Drum audio is assumed present but muted or unpatched.
 
 ## Evidence
 
 - `notes/manuals/drumkid-master/`
+- `notes/manuals/LOCAL_REPOSITORIES.md`
+- `../drumkid/docs/v6/manual.md` (V1.2 reference manual)
 - `01_system-overview.md`
 - `03_midi-clock-video.md`
 - `07_show-2025-12-15-basement-noise.md`
@@ -65,3 +77,6 @@ Current docs treat DrumKid as central to rhythm and clock decisions, but the clo
 ## Open questions
 
 - Which clock role is current for the next known-good snapshot?
+- Confirm the physical unit is flashed with the V1.2 / `be1cdce` baseline. The
+  prior 2025 mapping's “no CC control” statement has been superseded in the
+  documentation, but hardware should still be verified before show use.
