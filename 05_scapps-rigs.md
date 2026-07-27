@@ -62,7 +62,7 @@ An optional Maschine MK1 can sit beside these rigs as a **small scene/event over
 
 ---
 
-## Rig 1 – EP: *i hope the sky will still take us*
+## Rig 1 – EP: *i hope the sky still takes us*
 
 Main rig for the EP and the “MN42 + SCapps” performance setup.
 

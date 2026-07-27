@@ -71,7 +71,7 @@ The **traffic cop** for video worlds. It decides which chain (or clean feed) is 
 
 Typical usage in this rig:
 
-- **Input 1** – Chain A: `Camera → Frame Buffer → Maelstrom → (optional Interstream)`.
+- **Input 1** – Chain A: `Camera → Interstream → Maelstrom`.
 - **Input 2** – Chain B: `Camera → ReTrace → VMass → (optional Interstream)`.
 - **Input 3** – Clean camera / clean source.
 - **Input 4** – Black / utility / text overlays.
