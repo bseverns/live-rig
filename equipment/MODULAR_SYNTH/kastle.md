@@ -84,6 +84,15 @@ Named in the current diagram, but exact unit roles and audio/control behavior ar
   - `equipment/photos/kastle-power.jpg`
   - `equipment/photos/kastle-current-patch-2026-07-08.jpg`
 
+## Manual reference
+
+- Original Kastle sources: `notes/manuals/kastle-master.zip` contains
+  schematics and firmware variants; see the fork at
+  <https://github.com/bseverns/kastle> for the editable source history.
+- Kastle 2 only: <https://github.com/bseverns/kastle2> documents USB-C/3×AA
+  power, USB MIDI, sync I/O, stereo audio I/O, and 0–5 V patch I/O. These are
+  not specifications for the original Kastle 1.5 / Drum.
+
 ## Open questions
 
 - Confirm whether the active `Kastle2 - stackBrain` diagram label means the

@@ -63,6 +63,17 @@ It is an active studio object and may be fundamental to an audio line, but it sh
   - `equipment/photos/e2s-current-patch-2026-07-08.jpg`
 - Known-good card: `cards/e2s-known-good.md`
 
+## Manual reference
+
+- Sources: `notes/manuals/electribe_sampler.pdf`,
+  `notes/manuals/electribe_sampler_PG.pdf`, and
+  `notes/manuals/electribe_sampler_MIDIimp.txt`.
+- Clock mode supports Internal, Auto, External USB, External MIDI, and
+  External Sync. In Auto, detected inputs take priority USB → MIDI → Sync.
+- Global MIDI channel is 1–16; receive filtering is Off, Short, or
+  Short+Program. Record both settings in the show sheet before connecting a
+  shared MIDI lane.
+
 ## Open questions
 
 - Current input/output path.

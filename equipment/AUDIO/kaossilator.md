@@ -57,6 +57,12 @@ It appears in the current studio inventory, but whether it is clocked, free-runn
   - `equipment/photos/kaossilator-power.jpg`
   - `equipment/photos/kaossilator-current-patch-2026-07-08.jpg`
 
+## Manual reference
+
+- Source: `notes/manuals/kaossilator_dynamic_phrase_synthesizer.pdf`.
+- Power is either four AA batteries or the optional 4.5 V AC adapter. Confirm
+  which is installed before relying on it outside the studio.
+
 ## Open questions
 
 - Clock behavior.

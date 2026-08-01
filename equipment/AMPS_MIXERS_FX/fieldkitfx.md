@@ -64,6 +64,13 @@ It appears in the current diagram, but exact insert/return behavior is not yet c
   - `equipment/photos/fieldkitfx-power.jpg`
   - `equipment/photos/fieldkitfx-current-patch-2026-07-08.jpg`
 
+## Manual reference
+
+- Source archive: `notes/manuals/FieldKitFX-master.zip`; editable fork:
+  <https://github.com/bseverns/FieldKitFX>.
+- This is firmware/source material, not an operator manual. Preserve a dry
+  bypass path and verify the actual front-panel mode before show use.
+
 ## Open questions
 
 - Current patch position.

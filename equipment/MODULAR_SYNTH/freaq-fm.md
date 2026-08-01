@@ -57,6 +57,13 @@ The exact naming, patch path, and control behavior need to be locked.
   - `equipment/photos/freaq-fm-power.jpg`
   - `equipment/photos/freaq-fm-current-patch-2026-07-08.jpg`
 
+## Manual reference
+
+- Source: `notes/manuals/MeeBleeps-Freaq-FM-Synth-master.zip`.
+- The bundle contains firmware source, a Fritzing schematic, faceplate, and
+  enclosure artifacts rather than a front-panel operator manual. Treat exact
+  controls and power wiring as physical-verification work.
+
 ## Open questions
 
 - Exact name/model.

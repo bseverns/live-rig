@@ -19,13 +19,20 @@ This page is the source shelf for equipment facts. Use equipment pages for opera
 | `notes/manuals/pcr30_full.pdf` | [Edirol PCM-30](CONTROL/edirol-pcm30.md) | Full manual. |
 | `notes/manuals/kaossilator_dynamic_phrase_synthesizer.pdf` | [Kaossilator](AUDIO/kaossilator.md) | Manual/reference. |
 | `notes/manuals/kastle-master.zip` | [Kastle family](MODULAR_SYNTH/kastle.md) | Reference bundle. |
-| `../kastle/` | [Kastle family](MODULAR_SYNTH/kastle.md) | Editable local source for the original Kastle/1.5 firmware variants and schematic; indexed in [`notes/manuals/LOCAL_REPOSITORIES.md`](../notes/manuals/LOCAL_REPOSITORIES.md). |
+| [bseverns/kastle](https://github.com/bseverns/kastle) | [Kastle family](MODULAR_SYNTH/kastle.md) | Forked source for original Kastle/1.5 firmware variants and schematic. |
 | `../kastle2/` | [Kastle family](MODULAR_SYNTH/kastle.md) | Editable local source for Kastle 2 / StackBrain: hardware I/O, MIDI mappings, app list, artifact, and schematic. No portable snapshot is yet stored here. |
 | `notes/manuals/MeeBleeps-Freaq-FM-Synth-master.zip` | [FreqFM](MODULAR_SYNTH/freaq-fm.md) | Reference bundle. |
 | `notes/manuals/FieldKitFX-master.zip` | [FieldKitFX](AMPS_MIXERS_FX/fieldkitfx.md) | Reference bundle. |
-| `../FieldKitFX/` | [FieldKitFX](AMPS_MIXERS_FX/fieldkitfx.md) | Editable firmware/source reference; use it for implementation details, not as a front-panel manual. |
-| `../drumkid/` | [DrumKid](AUDIO/drumkid.md) | Editable current source; includes the V1.2 manual and kit instructions. |
+| [bseverns/FieldKitFX](https://github.com/bseverns/FieldKitFX) | [FieldKitFX](AMPS_MIXERS_FX/fieldkitfx.md) | Forked firmware/source reference; use it for implementation details, not as a front-panel manual. |
+| [bseverns/drumkid](https://github.com/bseverns/drumkid) | [DrumKid](AUDIO/drumkid.md) | Forked current source; includes the V1.2 manual and kit instructions. |
 | `notes/manuals/dfx_series.pdf` | [DFX12](AMPS_MIXERS_FX/dfx12.md) | DFX-series reference. |
+
+## Forked source repositories
+
+| Source | Equipment pages | Notes |
+|--------|-----------------|-------|
+| [bseverns/microGranny2](https://github.com/bseverns/microGranny2) | [Microgranny](AUDIO/microgranny.md) | Custom-firmware goals; not a stock-device manual. |
+| [bseverns/kastle2](https://github.com/bseverns/kastle2) | [Kastle family](MODULAR_SYNTH/kastle.md) | Public source, schematics, app list, and MIDI mappings for Kastle 2 / StackBrain. |
 
 ## Vendored source
 

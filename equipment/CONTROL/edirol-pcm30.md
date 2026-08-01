@@ -71,6 +71,15 @@ Mapped in `controllers/edirol-pcm30.yaml`, currently using channel 10 for visual
   - `equipment/photos/edirol-pcm30-current-patch-2026-07-08.jpg`
 - Known-good card: `cards/edirol-known-good.md`
 
+## Manual reference
+
+- Sources: `notes/manuals/pcr30QS.pdf` and `notes/manuals/pcr30_full.pdf`.
+- The PCR-30 is USB bus-powered and has 16 internal memory locations for
+  controller setups.
+- Its Panic operation sends All Sound Off, All Notes Off, and Reset All
+  Controllers on every MIDI channel. Use that rather than power-cycling a
+  shared MIDI chain for stuck notes.
+
 ## Open questions
 
 - Current hardware template settings.

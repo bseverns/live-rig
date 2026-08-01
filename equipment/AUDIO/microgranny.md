@@ -58,6 +58,11 @@ Named in the current diagram, but its routing and trigger behavior are not yet c
   - `equipment/photos/microgranny-power.jpg`
   - `equipment/photos/microgranny-current-patch-2026-07-08.jpg`
 
+## Source reference
+
+- Firmware source: <https://github.com/bseverns/microGranny2>. It records
+  custom-firmware goals, not verified stock-device behavior.
+
 ## Open questions
 
 - Audio path.

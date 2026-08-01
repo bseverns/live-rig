@@ -56,6 +56,14 @@ Named in the diagram near amplification/processing. Do not assume its role until
   - `equipment/photos/dfx12-power.jpg`
   - `equipment/photos/dfx12-current-patch-2026-07-08.jpg`
 
+## Manual reference
+
+- Source: `notes/manuals/dfx_series.pdf`.
+- The reference identifies the DFX•12 as a 12-channel compact integrated live
+  sound mixer: it has two more mono channels and two stereo line channels than
+  the DFX•6, with mono-channel inserts, auxiliary sends/returns, and main,
+  tape, and headphone outputs.
+
 ## Open questions
 
 - Exact model/identity.
