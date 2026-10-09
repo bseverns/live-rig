@@ -2,6 +2,12 @@
 
 Put bench photos here and link them from the matching equipment passport.
 
+Context photos may document a dated rehearsal or group-practice configuration without claiming a fixed rig, ownership, routing, or show readiness. Name those with the group/context and date, and link them from a setup record in `equipment/SETUPS/`.
+
+Current context photos:
+
+- `heat-practice-table-2026-10-05.jpg` — [H.E.A.T. practice table — 2026-10-05](../SETUPS/heat-practice-table-2026-10-05.md)
+
 Use this naming pattern:
 
 - `<slug>-front.jpg`

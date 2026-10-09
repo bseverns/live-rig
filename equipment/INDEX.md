@@ -26,6 +26,10 @@ Each equipment page should answer:
 
 ## Categories
 
+### Contextual setups
+
+- [H.E.A.T. practice table — 2026-10-05](SETUPS/heat-practice-table-2026-10-05.md) — a dated, role-focused practice configuration for keys / synth / noise work; not a solo rig or stage plot.
+
 ### Audio sources and processors
 
 - [DrumKid](AUDIO/drumkid.md)
